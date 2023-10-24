@@ -1,5 +1,10 @@
 import { css } from "@emotion/react";
 
+const basicFontImport = css`
+  @import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR");
+`;
+const basicLetterSpacing = -0.03;
+
 const globalStyles = css`
   :root {
     --header-height: 70px;
@@ -13,6 +18,10 @@ const globalStyles = css`
     padding: 0;
     outline: 0;
     box-sizing: border-box;
+  }
+
+  * {
+    letter-spacing: ${basicLetterSpacing}rem;
   }
 
   html,
@@ -44,7 +53,10 @@ const globalStyles = css`
     border: 0;
     font-size: 1.6rem;
     color: #333;
-    letter-spacing: -0.8px;
+
+    // figma style 적용
+    ${basicFontImport}
+    font-family: "Noto Sans KR", sans-serif;
 
     a {
       color: inherit;
