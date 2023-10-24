@@ -1,5 +1,12 @@
+import { UI } from "./style";
+
 function LoginPage() {
-  return <div>LoginPage2</div>;
+  return (
+    <>
+      <UI.Container>LoginPage2</UI.Container>
+      <button>button</button>
+    </>
+  );
 }
 
 export default LoginPage;
