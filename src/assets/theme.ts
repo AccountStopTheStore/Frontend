@@ -12,39 +12,39 @@ const font_color = {
 
 const font_style = {
   light_small: `
-      font-weight: light;
+      font-weight: 300;
       font-size: 13px;
     `,
   light_medium: `
-      font-weight: light;
+      font-weight: 300;
       font-size: 16px;
     `,
   light_large: `
-      font-weight: light;
+      font-weight: 300;
       font-size: 20px;
     `,
   regular_small: `
-      font-weight: regular;
+      font-weight: 400;
       font-size: 13px;
     `,
   regular_medium: `
-      font-weight: regular;
+      font-weight: 400;
       font-size: 16px;
     `,
   regular_large: `
-      font-weight: regular;
+      font-weight: 400;
       font-size: 20px;
     `,
   bold_small: `
-      font-weight: bold;
+      font-weight: 700;
       font-size: 13px;
     `,
   bold_medium: `
-      font-weight: bold;
+      font-weight: 700;
       font-size: 16px;
     `,
   bold_large: `
-      font-weight: bold;
+      font-weight: 700;
       font-size: 20px;
     `,
 };
