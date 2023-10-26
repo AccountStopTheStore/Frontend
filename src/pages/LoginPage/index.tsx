@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { UI } from "./style";
 
 function LoginPage() {
@@ -6,9 +7,12 @@ function LoginPage() {
       <UI.Container1>LoginPage1</UI.Container1>
       <UI.Container2>LoginPage2</UI.Container2>
       <UI.Container3>LoginPage3</UI.Container3>
+      <UI.Container3>123,456,789원</UI.Container3>
       <UI.Button1>button1</UI.Button1>
       <UI.Button2>button2</UI.Button2>
       <UI.Button3>button3</UI.Button3>
+      <br />
+      <UI.Button3>123,456,789원</UI.Button3>
     </>
   );
 }
