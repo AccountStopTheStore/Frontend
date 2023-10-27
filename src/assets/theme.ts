@@ -49,10 +49,13 @@ const font_style = {
     `,
 };
 
+const border_radius = `border-radius: 5px;`;
+
 export type FontColorProps = typeof font_color;
 export type FontStyleProps = typeof font_style;
 
 export const theme = {
   font_color,
   font_style,
+  border_radius,
 };

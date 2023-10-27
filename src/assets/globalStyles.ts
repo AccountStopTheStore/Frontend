@@ -21,7 +21,10 @@ const globalStyles = css`
   }
 
   * {
+    // figma style 적용
     letter-spacing: ${basicLetterSpacing}rem;
+    ${basicFontImport}
+    font-family: "Noto Sans KR";
   }
 
   html,
@@ -48,12 +51,8 @@ const globalStyles = css`
     margin: 0;
     padding: 0;
     border: 0;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     color: #333;
-
-    // figma style 적용
-    ${basicFontImport}
-    font-family: "Noto Sans KR", sans-serif;
 
     a {
       color: inherit;
@@ -93,6 +92,7 @@ const globalStyles = css`
   label,
   input {
     vertical-align: middle;
+    font-size: inherit;
   }
 
   img {
