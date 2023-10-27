@@ -5,8 +5,8 @@ import MainPage from "./pages/MainPage";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<LoginPage />} />
-      <Route path="/main" element={<MainPage />} />
+      <Route path="/" element={<MainPage />} />
+      <Route path="/login" element={<LoginPage />} />
     </Routes>
   );
 }
