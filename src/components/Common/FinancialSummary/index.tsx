@@ -2,7 +2,7 @@ import { theme } from "../../../assets/theme";
 import { FinancialSummaryUI } from "./style";
 
 function FinancialSummary() {
-  // TODO: 수입, 지출, 합계 데이터 가져와 연결하기
+  /** TODO: 수입, 지출, 합계 데이터 가져와 연결하기 */
 
   const income = 2000;
   const expense = 3000;
