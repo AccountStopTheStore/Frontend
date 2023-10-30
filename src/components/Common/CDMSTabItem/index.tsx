@@ -1,5 +1,5 @@
 import { theme } from "../../../assets/theme";
-import { tabButtonsType } from "../CDMSTab";
+import { tabButtonsType } from "../CDMSTabItems";
 import { CDMSTabItemUI } from "./style";
 
 interface CDMSTabItemProps {
