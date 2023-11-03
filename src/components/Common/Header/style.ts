@@ -3,7 +3,7 @@ import { theme } from "../../../assets/theme";
 
 //
 const HeaderContainer = styled.header`
-  width: 390px;
+  width: 100%;
   height: 77px;
   background-color: ${theme.font_color.primary_green};
   color: ${theme.font_color.black};
@@ -15,11 +15,15 @@ const HeaderContainer = styled.header`
 const HeaderWrapper = styled.div`
   width: 100%;
   height: 100%;
-  display: flex;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
 `;
 
-const LeftBtnWrapper = styled.div``;
+const LeftBtnWrapper = styled.div`
+  margin-right: auto;
+`;
 
 const PageName = styled.h2`
   ${theme.font_style.bold_large};
@@ -27,7 +31,9 @@ const PageName = styled.h2`
   margin: 0 auto;
 `;
 
-const RightBtnWrapper = styled.div``;
+const RightBtnWrapper = styled.div`
+  margin-left: auto;
+`;
 
 const Button = styled.button`
   img {
