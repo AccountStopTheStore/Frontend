@@ -4,7 +4,7 @@ type Mode = "guestCount" | "assetGroup";
 
 interface PopUpProps {
   mode: Mode;
-  onclick: (slectedItem: number | string) => void;
+  onclick: (selectedItem: number | string) => void;
 }
 
 function PopUp({ mode, onclick }: PopUpProps) {
