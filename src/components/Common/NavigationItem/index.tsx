@@ -1,4 +1,4 @@
-import { bottomNavigationType } from "../Navigation";
+import { bottomNavigationType } from "../NavigationItems";
 import { NavigationItemUI } from "./style";
 
 interface NavigationItemProps {
