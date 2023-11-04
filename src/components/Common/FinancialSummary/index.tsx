@@ -15,7 +15,7 @@ function FinancialSummary() {
   ];
 
   return (
-    <FinancialSummaryUI.FinancialSummaryContaienr>
+    <FinancialSummaryUI.FinancialSummaryContainer>
       <FinancialSummaryUI.ItemsWrapper>
         {FinancialSummaryItems.map(item => (
           <FinancialSummaryUI.ItemWrapper key={item.name}>
@@ -33,7 +33,7 @@ function FinancialSummary() {
           </FinancialSummaryUI.ItemWrapper>
         ))}
       </FinancialSummaryUI.ItemsWrapper>
-    </FinancialSummaryUI.FinancialSummaryContaienr>
+    </FinancialSummaryUI.FinancialSummaryContainer>
   );
 }
 
