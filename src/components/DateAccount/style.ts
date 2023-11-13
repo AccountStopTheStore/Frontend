@@ -1,24 +1,9 @@
-import {
-  ApplicationHeight,
-  CDMSTabItemsHeight,
-  ChosenYearMonthHeight,
-  FinancialSummaryHeight,
-  HeaderHeight,
-  NavigationItemsHeight,
-} from "@/src/assets/height";
+import { AccountHeight } from "@/src/assets/height";
 import { theme } from "@/src/assets/theme";
 import styled from "@emotion/styled";
 
-const DateAccountHeight =
-  ApplicationHeight -
-  (HeaderHeight +
-    ChosenYearMonthHeight +
-    FinancialSummaryHeight +
-    CDMSTabItemsHeight +
-    NavigationItemsHeight);
-
 const Section = styled.section`
-  height: calc(${DateAccountHeight}px);
+  height: calc(${AccountHeight}px);
 
   background-color: ${theme.font_color.gray1};
   overflow: auto;

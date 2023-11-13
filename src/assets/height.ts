@@ -5,3 +5,11 @@ export const ChosenYearMonthHeight = 53;
 export const FinancialSummaryHeight = 70;
 export const CDMSTabItemsHeight = 50;
 export const NavigationItemsHeight = 70;
+
+export const AccountHeight =
+  ApplicationHeight -
+  (HeaderHeight +
+    ChosenYearMonthHeight +
+    FinancialSummaryHeight +
+    CDMSTabItemsHeight +
+    NavigationItemsHeight);
