@@ -12,15 +12,16 @@ function CommonButton({ children, onClick }: CommonButtonProps) {
       variant="text"
       style={{
         width: "100%",
+        height: "50px",
         borderBottom: `1px solid ${theme.font_color.gray2}`,
-        padding: "13.15px 20px",
+        paddingLeft: "20px",
         justifyContent: "flex-start",
         color: `${theme.font_color.black}`,
-        fontWeight: "300",
-        fontSize: "13px",
+        fontWeight: "400",
+        fontSize: "16px",
+        backgroundColor: `${theme.font_color.white}`,
       }}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       {children}
     </Button>
   );
