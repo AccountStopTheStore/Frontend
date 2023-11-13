@@ -29,7 +29,7 @@ function DayIncomeExpenseInfos({ memberId }: AccountsMemberData) {
       accountId: 1,
       categoryName: "간식",
       assetType: "현금",
-      amount: 1500,
+      amount: 200000000000000000,
       transactionType: "지출",
       transactionDetail: "감자칩",
       transactedAt: "2023-10-23 10:00:00",

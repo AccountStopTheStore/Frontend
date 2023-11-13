@@ -16,7 +16,7 @@ const FinancialSummaryContainer = styled.div`
 const ItemsWrapper = styled.div`
   width: inherit;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 `;
 
