@@ -1,10 +1,10 @@
 /** 메인 로직은 아니지만,
- * 코드 작성 시 자주 사용하게 될 함수 및 style을 따로 정리한 파일 */
+ * 코드 작성 시 자주 사용하게 될 함수를 따로 정리한 파일 */
 
 /** COMPLETED: (index.tsx) 회계식으로 숫자 표현하기
  * 세 자리씩 끊어서 쉼표 사용하는 방식
  * index.tsx에 사용하는 경우를 생각하고 제작 */
-export const NumberForAccounting = (number: number) => {
+export const ChangeNumberForAccounting = (number: number) => {
   /* 1. 숫자를 문자열로 변환 */
   const numStr = String(number);
 
@@ -23,31 +23,26 @@ export const NumberForAccounting = (number: number) => {
   integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   /* 5. 분리한 숫자값을 재조합 */
-  if (hasDecimal) {
-    return `${integerPart}.${decimalPart}`;
-  } else {
-    return integerPart;
+  if (hasDecimal && number < 0) {
+    return `-${integerPart}.${decimalPart}원`;
+  } else if (hasDecimal && number >= 0) {
+    return `${integerPart}.${decimalPart}원`;
+  } else if (!hasDecimal && number < 0) {
+    return `-${integerPart}원`;
+  } else if (!hasDecimal) {
+    return `${integerPart}원`;
   }
 };
 
-/** COMPLETED: (style.ts) content가 과도하게 길 때, ...으로 생략하기(JS로 구현) */
-export const TruncateTextByWidth = (text: string, maxWidth: number) => {
-  const ellipsis = "...";
+/** COMPLETED: (index.tsx) 수입과 지출의 합계 결과 표현하기 */
+export const CalculateTotal = (income: number, expense: number) => {
+  const total = income + expense;
 
-  /* 문자열이 maxWidth보다 짧으면 그대로 반환 */
-  if (text.length <= maxWidth) {
-    return text;
-  }
-
-  /* maxWidth에 ellipsis 길이를 뺀 길이까지만 자르기 */
-  const truncatedText = text.slice(0, maxWidth - ellipsis.length);
-
-  /* 최종 결과에 ellipsis 추가 */
-  return truncatedText + ellipsis;
+  return ChangeNumberForAccounting(total);
 };
 
 /** COMPLETED: '오전/오후 00:00' 형태로 시간 구성하기 */
-export const changeTime = (time: string) => {
+export const ChangeTime = (time: string) => {
   /* 1. Date 객체로 변환 */
   const date = new Date(time);
 
@@ -64,4 +59,39 @@ export const changeTime = (time: string) => {
   )}:${String(minutes).padStart(2, "0")}`;
 
   return formattedTime;
+};
+
+/** COMPLETED: '00.00 ~ 00.00'로 표시하기 */
+export const ChangeWeeks = (start: string, end: string) => {
+  /* 1. Date 객체로 변환 */
+  const startNewDate = new Date(start);
+  const endNewDate = new Date(end);
+
+  /* 2. 달 형태로 변경 */
+  const startMonth = startNewDate.getMonth();
+  const startDate = startNewDate.getDate();
+  const endMonth = endNewDate.getMonth();
+  const endDate = endNewDate.getDate();
+
+  /* 3. 최종 formattedMonth 생성 및 반환 */
+  const formattedWeeks = `${String(startMonth).padStart(2, "0")}.${String(
+    startDate
+  ).padStart(2, "0")} ~ ${String(endMonth).padStart(2, "0")}.${String(
+    endDate
+  ).padStart(2, "0")}`;
+
+  return formattedWeeks;
+};
+/** COMPLETED: '월'만 표시하기 */
+export const ChangeMonth = (time: string) => {
+  /* 1. Date 객체로 변환 */
+  const date = new Date(time);
+
+  /* 2. 달 형태로 변경 */
+  const month = date.getMonth();
+
+  /* 3. 최종 formattedMonth 생성 및 반환 */
+  const formattedMonth = `${month}월`;
+
+  return formattedMonth;
 };
