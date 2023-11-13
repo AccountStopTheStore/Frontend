@@ -4,6 +4,7 @@ import MainPage from "./pages/MainPage";
 import LoadingPage from "./pages/LoadingPage";
 import SignUpPage from "./pages/SignUpPage";
 import PasswordResetPage from "./pages/PasswordResetPage";
+import RecordAccountBookPage from "./pages/RecordAccountBookPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/passwordreset" element={<PasswordResetPage />} />
       <Route path="/loading" element={<LoadingPage />} />
+      <Route path="/recordAccountBook" element={<RecordAccountBookPage />} />
     </Routes>
   );
 }
