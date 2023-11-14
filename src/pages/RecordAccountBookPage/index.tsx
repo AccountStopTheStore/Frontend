@@ -9,9 +9,19 @@ function RecordAccountBookPage() {
     console.log("short button");
   };
 
+  const handleBackbutton = () => {
+    console.log("뒤로가기");
+  };
+
   return (
     <Layout>
-      <Header pageName={"수입 및 지출 입력"} />
+      <Header
+        pageName={"수입 및 지출 입력"}
+        isBackButton={true}
+        isFilterButton={false}
+        isMoreButton={false}
+        onBackClick={handleBackbutton}
+      />
       <IncomeExpenseButton />
       <InputArea />
       <ShortButton isSaveButton={true} onClick={handleShortButton} />

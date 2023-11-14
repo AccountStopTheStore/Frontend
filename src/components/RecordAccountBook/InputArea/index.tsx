@@ -5,6 +5,7 @@ import { theme } from "@/src/assets/theme";
 import RecurringInstallmentButtons from "../RecurringInstallmentButtons";
 import PlusSVG from "@/public/icon/Plus.svg";
 import CloseSVG from "@/public/icon/Close.svg";
+import { useNavigate } from "react-router-dom";
 
 function InputArea() {
   const labelInputItems = [
@@ -59,6 +60,8 @@ function InputArea() {
   const [btnLabel, setBtnLabel] = useState<string>("반복/할부");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  const naviagte = useNavigate();
+
   /** svg 파일 관리 다시한번 확인한기 */
   const RecurringICon = () => (
     <svg
@@ -84,11 +87,13 @@ function InputArea() {
   const handleRecurringButton = () => {
     console.log("반복 버튼 클릭");
     setBtnLabel("반복");
+    naviagte("/recordAccountBook/recurring");
   };
 
   const handleInstallmentButton = () => {
     console.log("할부 버튼 클릭");
     setBtnLabel("할부");
+    naviagte("/recordAccountBook/installment");
   };
 
   // 이미지
