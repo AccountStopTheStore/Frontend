@@ -16,14 +16,7 @@ export interface AccountsData {
   updatedAt: string;
 }
 
-interface AccountsMemberData {
-  memberId: number;
-  accounts?: AccountsData[];
-}
-
-function DayIncomeExpenseInfos({ memberId }: AccountsMemberData) {
-  console.log(memberId);
-
+function DayIncomeExpenseInfos() {
   const exampleAccounts = [
     {
       accountId: 1,
