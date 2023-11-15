@@ -17,7 +17,7 @@ const HeaderWrapper = styled.div`
   height: 100%;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 3fr 1fr;
   align-items: center;
 `;
 
@@ -26,7 +26,7 @@ const LeftBtnWrapper = styled.div`
 `;
 
 const PageName = styled.h2`
-  ${theme.font_style.bold_large};
+  ${theme.font_style.bold_medium};
 
   margin: 0 auto;
 `;
