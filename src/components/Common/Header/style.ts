@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { theme } from "../../../assets/theme";
 
-//
 const HeaderContainer = styled.header`
   width: 100%;
   height: 77px;

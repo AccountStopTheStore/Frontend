@@ -6,36 +6,51 @@ import filterSVG from "/icon/Filter.svg";
 
 interface HeaderProps {
   pageName: string;
+  isBackButton: boolean;
+  isFilterButton: boolean;
+  isMoreButton: boolean;
+  onSearchClick?: () => void;
+  onBackClick?: () => void;
+  onFilterClick?: () => void;
+  onMoreClick?: () => void;
 }
 
-function Header({ pageName }: HeaderProps) {
-  /** TODO: 카테고리 페이지에 따라 버튼 표시되게 설정하기 */
-  // searchSVG: 가계부
-  // backSVG: 검색, 수입 및 지출 입력, 기록지, 저축 챌린지,
-  // filterSVG: 검색
-  // moreSVG: 저축 챌린지, 더보기
-
+function Header({
+  pageName,
+  isBackButton,
+  isFilterButton,
+  isMoreButton,
+  onSearchClick,
+  onBackClick,
+  onFilterClick,
+  onMoreClick,
+}: HeaderProps) {
   return (
     <HeaderUI.HeaderContainer>
       <HeaderUI.HeaderWrapper>
         <HeaderUI.LeftBtnWrapper>
-          <HeaderUI.Button>
-            <img src={searchkSVG} alt="search SVG" />
-          </HeaderUI.Button>
-          <HeaderUI.Button style={{ display: "none" }}>
-            <img src={backSVG} alt="back SVG" />
+          <HeaderUI.Button
+            type="button"
+            onClick={isBackButton ? onBackClick : onSearchClick}>
+            {isBackButton ? (
+              <img src={backSVG} alt="search SVG" />
+            ) : (
+              <img src={searchkSVG} alt="back SVG" />
+            )}
           </HeaderUI.Button>
         </HeaderUI.LeftBtnWrapper>
-
         <HeaderUI.PageName>{pageName}</HeaderUI.PageName>
-
-        <HeaderUI.RightBtnWrapper style={{ display: "none" }}>
-          <HeaderUI.Button>
-            <img src={filterSVG} alt="filter SVG" />
-          </HeaderUI.Button>
-          <HeaderUI.Button>
-            <img src={moreSVG} alt="more SVG" />
-          </HeaderUI.Button>
+        <HeaderUI.RightBtnWrapper>
+          {isFilterButton && (
+            <HeaderUI.Button type="button" onClick={onFilterClick}>
+              <img src={filterSVG} alt="filter SVG" />
+            </HeaderUI.Button>
+          )}
+          {isMoreButton && (
+            <HeaderUI.Button type="button" onClick={onMoreClick}>
+              <img src={moreSVG} alt="more SVG" />
+            </HeaderUI.Button>
+          )}
         </HeaderUI.RightBtnWrapper>
       </HeaderUI.HeaderWrapper>
     </HeaderUI.HeaderContainer>
