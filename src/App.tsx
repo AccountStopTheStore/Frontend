@@ -9,6 +9,7 @@ import RecordAccountBookPage from "./pages/RecordAccountBookPage";
 import RecurringPage from "./pages/RecurringPage";
 import InstallmentPage from "./pages/InstallmentPage";
 
+
 function App() {
   return (
     <Routes>
@@ -24,6 +25,7 @@ function App() {
         path="/recordAccountBook/installment"
         element={<InstallmentPage />}
       />
+      <Route path="/account" element={<AccountPage />} />
     </Routes>
   );
 }

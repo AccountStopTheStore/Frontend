@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { theme } from "../../../assets/theme";
 import { AccountsData } from "../DayIncomeExpenseInfos";
 import { DayIncomeExpenseInfoUI } from "./style";
+import { ChangeNumberForAccounting, ChangeTime } from "@/src/assets/format";
 
 interface DayIncomeExpenseInfoProps {
   onClick: (item: AccountsData) => void;
@@ -9,20 +10,6 @@ interface DayIncomeExpenseInfoProps {
 }
 
 function DayIncomeExpenseInfo({ onClick, item }: DayIncomeExpenseInfoProps) {
-  /** 날짜 및 시간 데이터 '오전/오후 00:00' 형태로 변경 */
-  // 1. Date 객체로 변환
-  const date = new Date(item.createdAt);
-  // 2. 시간 형태 변경
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const ampm = hours >= 12 ? "오후" : "오전";
-  const formattedHours = hours % 12 || 12; // 12시간 형식으로 변경
-  // 3. 최종 formattedTime 생성
-  const formattedTime = `${ampm} ${String(formattedHours).padStart(
-    2,
-    "0"
-  )}:${String(minutes).padStart(2, "0")}`;
-
   return (
     <li>
       <Button
@@ -42,14 +29,14 @@ function DayIncomeExpenseInfo({ onClick, item }: DayIncomeExpenseInfoProps) {
           <div>
             <div>{item.transactionDetail}</div>
             <div>
-              <span>{formattedTime}</span>
+              <span>{ChangeTime(item.createdAt)}</span>
               <span>{item.assetType}</span>
             </div>
           </div>
           <div
             style={item.transactionType === "수입" ? incomeStyle : expenseStyle}
           >
-            {item.amount}원
+            {ChangeNumberForAccounting(item.amount)}
           </div>
         </DayIncomeExpenseInfoUI.ContentContainer>
       </Button>
@@ -60,9 +47,13 @@ function DayIncomeExpenseInfo({ onClick, item }: DayIncomeExpenseInfoProps) {
 // 수입 지출 조건에 따른 스타일 적용
 const incomeStyle = {
   color: `${theme.font_color.primary_blue}`,
+  fontWeight: 700,
+  fontSize: "13px",
 };
 const expenseStyle = {
   color: `${theme.font_color.primary_red}`,
+  fontWeight: 700,
+  fontSize: "13px",
 };
 
 export default DayIncomeExpenseInfo;
