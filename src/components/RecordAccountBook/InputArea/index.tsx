@@ -5,6 +5,7 @@ import { theme } from "@/src/assets/theme";
 import RecurringInstallmentButtons from "../RecurringInstallmentButtons";
 import PlusSVG from "@/public/icon/Plus.svg";
 import CloseSVG from "@/public/icon/Close.svg";
+import { useNavigate } from "react-router-dom";
 
 function InputArea() {
   const labelInputItems = [
@@ -13,14 +14,14 @@ function InputArea() {
       inputId: "date",
       inputName: "transactedAt",
       placeholder: "",
-      hasButton: true,
+      addContent: "button",
     },
     {
       label: "금액",
       inputId: "amount",
       inputName: "amount",
       placeholder: "금액을 입력해주세요.",
-      hasWonUnit: true,
+      addContent: "won",
     },
     {
       label: "분류",
@@ -59,6 +60,8 @@ function InputArea() {
   const [btnLabel, setBtnLabel] = useState<string>("반복/할부");
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  const naviagte = useNavigate();
+
   /** svg 파일 관리 다시한번 확인한기 */
   const RecurringICon = () => (
     <svg
@@ -84,11 +87,13 @@ function InputArea() {
   const handleRecurringButton = () => {
     console.log("반복 버튼 클릭");
     setBtnLabel("반복");
+    naviagte("/recordAccountBook/recurring");
   };
 
   const handleInstallmentButton = () => {
     console.log("할부 버튼 클릭");
     setBtnLabel("할부");
+    naviagte("/recordAccountBook/installment");
   };
 
   // 이미지
@@ -117,7 +122,7 @@ function InputArea() {
                 inputName={item.inputName}
                 placeholder={item.placeholder}
               />
-              {item.hasButton && (
+              {item.addContent === "button" && (
                 <InputAreaUI.RecurringInstallmentBtn
                   type="button"
                   onClick={handleRecurringInstallmentBtn}>
@@ -125,13 +130,15 @@ function InputArea() {
                   {btnLabel}
                 </InputAreaUI.RecurringInstallmentBtn>
               )}
-              {item.hasButton && showRecurringInstallmentBtns && (
+              {item.addContent === "button" && showRecurringInstallmentBtns && (
                 <RecurringInstallmentButtons
                   onRecurringClick={handleRecurringButton}
                   onInstallmentClick={handleInstallmentButton}
                 />
               )}
-              {item.hasWonUnit && <InputAreaUI.WonUnit>원</InputAreaUI.WonUnit>}
+              {item.addContent === "won" && (
+                <InputAreaUI.WonUnit>원</InputAreaUI.WonUnit>
+              )}
             </InputAreaUI.LabelInputWrapper>
           ))}
         </InputAreaUI.Wrapper>
