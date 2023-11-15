@@ -19,6 +19,11 @@ const ContentContainer = styled.div`
       justify-content: flex-start;
     }
     > div:nth-of-type(1) {
+      white-space: nowrap; /* 줄 바꿈을 허용하지 않음 */
+      overflow: hidden; /* 내용이 컨테이너를 벗어나면 숨김 */
+      text-overflow: ellipsis; /* 내용이 컨테이너를 벗어나면 ...으로 표시 */
+      width: 120px;
+
       ${theme.font_style.regular_medium};
     }
     > div:nth-of-type(2) {
