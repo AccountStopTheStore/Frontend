@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { theme } from "../../../assets/theme";
 import { AccountsData } from "../DayIncomeExpenseInfos";
 import { DayIncomeExpenseInfoUI } from "./style";
-import { NumberForAccounting, changeTime } from "@/src/assets/format";
+import { ChangeNumberForAccounting, ChangeTime } from "@/src/assets/format";
 
 interface DayIncomeExpenseInfoProps {
   onClick: (item: AccountsData) => void;
@@ -29,14 +29,14 @@ function DayIncomeExpenseInfo({ onClick, item }: DayIncomeExpenseInfoProps) {
           <div>
             <div>{item.transactionDetail}</div>
             <div>
-              <span>{changeTime(item.createdAt)}</span>
+              <span>{ChangeTime(item.createdAt)}</span>
               <span>{item.assetType}</span>
             </div>
           </div>
           <div
             style={item.transactionType === "수입" ? incomeStyle : expenseStyle}
           >
-            {NumberForAccounting(item.amount)}원
+            {ChangeNumberForAccounting(item.amount)}
           </div>
         </DayIncomeExpenseInfoUI.ContentContainer>
       </Button>
