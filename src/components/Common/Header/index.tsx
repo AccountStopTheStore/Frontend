@@ -1,12 +1,14 @@
 import { HeaderUI } from "./style";
 import backSVG from "/icon/Back.svg";
-import searchkSVG from "/icon/Search.svg";
+import searchSVG from "/icon/Search.svg";
 import moreSVG from "/icon/More.svg";
 import filterSVG from "/icon/Filter.svg";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   pageName: string;
   isBackButton: boolean;
+  isSearcButton: boolean;
   isFilterButton: boolean;
   isMoreButton: boolean;
   onSearchClick?: () => void;
@@ -18,26 +20,33 @@ interface HeaderProps {
 function Header({
   pageName,
   isBackButton,
+  isSearcButton,
   isFilterButton,
   isMoreButton,
   onSearchClick,
-  onBackClick,
   onFilterClick,
   onMoreClick,
 }: HeaderProps) {
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
   return (
     <HeaderUI.HeaderContainer>
       <HeaderUI.HeaderWrapper>
         <HeaderUI.LeftBtnWrapper>
-          <HeaderUI.Button
-            type="button"
-            onClick={isBackButton ? onBackClick : onSearchClick}>
-            {isBackButton ? (
-              <img src={backSVG} alt="search SVG" />
-            ) : (
-              <img src={searchkSVG} alt="back SVG" />
-            )}
-          </HeaderUI.Button>
+          {isBackButton && (
+            <HeaderUI.Button type="button" onClick={handleBackClick}>
+              <img src={backSVG} alt="back SVG" />
+            </HeaderUI.Button>
+          )}
+          {isSearcButton && (
+            <HeaderUI.Button type="button" onClick={onSearchClick}>
+              <img src={searchSVG} alt="search SVG" />
+            </HeaderUI.Button>
+          )}
         </HeaderUI.LeftBtnWrapper>
         <HeaderUI.PageName>{pageName}</HeaderUI.PageName>
         <HeaderUI.RightBtnWrapper>
