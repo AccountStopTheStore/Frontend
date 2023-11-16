@@ -3,6 +3,8 @@
 
 /** COMPLETED: (index.tsx) 회계식으로 숫자 표현하기
  * 세 자리씩 끊어서 쉼표 사용하는 방식
+ * 음수까지 표현
+ * 소수점 두 번째자리까지 표현
  * index.tsx에 사용하는 경우를 생각하고 제작 */
 export const ChangeNumberForAccounting = (number: number) => {
   /* 1. 숫자를 문자열로 변환 */
@@ -39,6 +41,13 @@ export const CalculateTotal = (income: number, expense: number) => {
   const total = income + expense;
 
   return ChangeNumberForAccounting(total);
+};
+
+/** COMPLETED: 백분율(Percentage) 계산하기
+ * 소수점 없이 정수로 계산
+ */
+export const CalculatePercentage = (numerator: number, denominator: number) => {
+  return `${Math.floor((numerator / denominator) * 100)}%`;
 };
 
 /** COMPLETED: '오전/오후 00:00' 형태로 시간 구성하기 */
