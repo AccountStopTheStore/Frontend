@@ -1,20 +1,21 @@
+import {
+  CalculatePercentage,
+  ChangeNumberForAccounting,
+} from "@/src/assets/format";
 import { BudgetAccountBarGraphUI } from "./style";
 
 export const BudgetAccountBarGraphData = {
   budget: 150000,
-  입금: 170000,
-  잔금: 40000,
+  deposit: 170000,
+  balance: 40000,
 };
 
 function BudgetAccountBarGraph() {
-  const budget대비입금 = Math.floor(
-    (BudgetAccountBarGraphData.입금 / BudgetAccountBarGraphData.budget) * 100
-  );
   return (
     <BudgetAccountBarGraphUI.BudgetAccountBarGraphContainer>
       <BudgetAccountBarGraphUI.TotalBudget>
         <div>전체 예산</div>
-        <div>{BudgetAccountBarGraphData.budget}원</div>
+        <div>{ChangeNumberForAccounting(BudgetAccountBarGraphData.budget)}</div>
       </BudgetAccountBarGraphUI.TotalBudget>
       <BudgetAccountBarGraphUI.BarGraphContainer>
         <BudgetAccountBarGraphUI.BarGraph>
@@ -25,13 +26,20 @@ function BudgetAccountBarGraph() {
             <BudgetAccountBarGraphUI.TotalLength></BudgetAccountBarGraphUI.TotalLength>
             <BudgetAccountBarGraphUI.CurrentLength></BudgetAccountBarGraphUI.CurrentLength>
             <BudgetAccountBarGraphUI.DepositPercent>
-              {budget대비입금}%
+              {CalculatePercentage(
+                BudgetAccountBarGraphData.deposit,
+                BudgetAccountBarGraphData.budget
+              )}
             </BudgetAccountBarGraphUI.DepositPercent>
           </BudgetAccountBarGraphUI.LengthContainer>
         </BudgetAccountBarGraphUI.BarGraph>
         <BudgetAccountBarGraphUI.DepositBalanceContainer>
-          <div>{BudgetAccountBarGraphData.입금}원</div>
-          <div>{BudgetAccountBarGraphData.잔금}원</div>
+          <div>
+            {ChangeNumberForAccounting(BudgetAccountBarGraphData.deposit)}
+          </div>
+          <div>
+            {ChangeNumberForAccounting(BudgetAccountBarGraphData.balance)}
+          </div>
         </BudgetAccountBarGraphUI.DepositBalanceContainer>
       </BudgetAccountBarGraphUI.BarGraphContainer>
     </BudgetAccountBarGraphUI.BudgetAccountBarGraphContainer>
