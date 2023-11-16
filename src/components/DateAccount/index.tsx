@@ -12,7 +12,7 @@ function DateAccount() {
         <div>{DayOfWeek[today.getDay()]}</div>
         <div>{`${today.getFullYear()}.${today.getMonth()}`}</div>
       </DateAccountUI.DateContainer>
-      <DayIncomeExpenseInfos memberId={1} />
+      <DayIncomeExpenseInfos />
     </DateAccountUI.Section>
   );
 }
