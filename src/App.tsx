@@ -8,7 +8,7 @@ import AccountPage from "./pages/AccountPage";
 import RecordAccountBookPage from "./pages/RecordAccountBookPage";
 import RecurringPage from "./pages/RecurringPage";
 import InstallmentPage from "./pages/InstallmentPage";
-
+import RecordPage from "./pages/RecordPage";
 
 function App() {
   return (
@@ -18,14 +18,14 @@ function App() {
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/passwordreset" element={<PasswordResetPage />} />
       <Route path="/loading" element={<LoadingPage />} />
-      <Route path="/account" element={<Account />} />
+      <Route path="/account" element={<AccountPage />} />
       <Route path="/recordAccountBook" element={<RecordAccountBookPage />} />
       <Route path="/recordAccountBook/recurring" element={<RecurringPage />} />
       <Route
         path="/recordAccountBook/installment"
         element={<InstallmentPage />}
       />
-      <Route path="/account" element={<AccountPage />} />
+      <Route path="/record" element={<RecordPage />} />
     </Routes>
   );
 }
