@@ -14,7 +14,7 @@ const createAPIInstance = (config: AxiosRequestConfig) => {
 
 /** COMPLETED: APIInstance */
 const APIInstance = createAPIInstance({
-  baseURL: API_BASE_URL + "/auth",
+  baseURL: API_BASE_URL,
 });
 
 export { APIInstance };
