@@ -7,7 +7,6 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   height: 45px;
-  border: 1px solid red;
 `;
 
 const Label = styled.label`
