@@ -1,6 +1,7 @@
 import { LabelInputUI } from "./style";
 
 export interface LabelInputProps {
+  type: string;
   label: string;
   inputId: string;
   inputName: string;
@@ -8,6 +9,7 @@ export interface LabelInputProps {
 }
 
 function LabelInput({
+  type = "text",
   label,
   inputId,
   inputName,
@@ -17,7 +19,7 @@ function LabelInput({
     <LabelInputUI.Container>
       <LabelInputUI.Label htmlFor={inputId}>{label}</LabelInputUI.Label>
       <LabelInputUI.Input
-        type="text"
+        type={type}
         id={inputId}
         name={inputName}
         placeholder={placeholder}
