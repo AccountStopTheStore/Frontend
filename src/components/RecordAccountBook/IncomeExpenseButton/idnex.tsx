@@ -1,5 +1,5 @@
 import { IncomeExpenseButtonUI } from "./style";
-import { theme } from "../../../../assets/theme";
+import { theme } from "../../../assets/theme";
 import { useState } from "react";
 
 function IncomeExpenseButton() {

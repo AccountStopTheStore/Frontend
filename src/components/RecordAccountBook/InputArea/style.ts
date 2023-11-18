@@ -53,7 +53,7 @@ const MemoInputWrapper = styled.div`
   position: relative;
 `;
 
-const AddImageButton = styled.label`
+const AddImageButtonLabel = styled.label`
   position: absolute;
   top: 25%;
   right: 0;
@@ -61,29 +61,6 @@ const AddImageButton = styled.label`
   img {
     width: 20px;
     height: 20px;
-  }
-`;
-
-const SelectedImageContainer = styled.div`
-  width: 100%;
-  height: 180px;
-  position: relative;
-`;
-
-const SelectedImage = styled.img`
-  width: 100%;
-  height: 180px;
-  object-fit: fill;
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-
-  img {
-    width: 18px;
-    height: 18px;
   }
 `;
 
@@ -95,8 +72,5 @@ export const InputAreaUI = {
   WonUnit,
   MemoArea,
   MemoInputWrapper,
-  AddImageButton,
-  SelectedImageContainer,
-  SelectedImage,
-  CloseButton,
+  AddImageButtonLabel,
 } as const;

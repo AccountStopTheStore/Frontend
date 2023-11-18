@@ -2,10 +2,17 @@ import { ShortButtonUI } from "./style";
 
 interface ShortButtonProps {
   isSaveButton: boolean;
-  onClick: () => void;
+  onCancelClick: () => void;
+  onSaveClick: () => void;
+  onDeleteClick?: () => void;
 }
 
-function ShortButton({ isSaveButton, onClick }: ShortButtonProps) {
+function ShortButton({
+  isSaveButton,
+  onCancelClick,
+  onSaveClick,
+  onDeleteClick,
+}: ShortButtonProps) {
   const deleteAccountButton = {
     width: "126px",
   };
@@ -20,10 +27,12 @@ function ShortButton({ isSaveButton, onClick }: ShortButtonProps) {
 
   return (
     <ShortButtonUI.Container style={deleteContainerStyle}>
-      <ShortButtonUI.CancelButton onClick={onClick} style={deleteStyle}>
+      <ShortButtonUI.CancelButton onClick={onCancelClick} style={deleteStyle}>
         취소
       </ShortButtonUI.CancelButton>
-      <ShortButtonUI.GreenButton onClick={onClick} style={deleteStyle}>
+      <ShortButtonUI.GreenButton
+        onClick={isSaveButton ? onSaveClick : onDeleteClick}
+        style={deleteStyle}>
         {isSaveButton ? "저장" : "탈퇴"}
       </ShortButtonUI.GreenButton>
     </ShortButtonUI.Container>

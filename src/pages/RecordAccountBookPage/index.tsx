@@ -1,15 +1,15 @@
 import Header from "../../components/Common/Header";
 import Layout from "../../components/Common/Layout";
 import ShortButton from "../../components/Common/ShortButton";
-import IncomeExpenseButton from "../../components/RecordAccountBook/IncomeExpenseButton/IncomeExpenseButton/idnex";
+import IncomeExpenseButton from "../../components/RecordAccountBook/IncomeExpenseButton/idnex";
 import InputArea from "../../components/RecordAccountBook/InputArea";
 
 function RecordAccountBookPage() {
-  const handleShortButton = () => {
-    console.log("short button");
+  const handleCancelButton = () => {
+    console.log("취소");
   };
 
-  const handleBackbutton = () => {
+  const handleSaveButton = () => {
     console.log("뒤로가기");
   };
 
@@ -18,13 +18,20 @@ function RecordAccountBookPage() {
       <Header
         pageName={"수입 및 지출 입력"}
         isBackButton={true}
+        isSearchButton={false}
         isFilterButton={false}
+        isAddButton={false}
         isMoreButton={false}
-        onBackClick={handleBackbutton}
       />
-      <IncomeExpenseButton />
-      <InputArea />
-      <ShortButton isSaveButton={true} onClick={handleShortButton} />
+      <form>
+        <IncomeExpenseButton />
+        <InputArea />
+        <ShortButton
+          isSaveButton={true}
+          onCancelClick={handleCancelButton}
+          onSaveClick={handleSaveButton}
+        />
+      </form>
     </Layout>
   );
 }
