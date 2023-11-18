@@ -9,6 +9,8 @@ import RecordAccountBookPage from "./pages/RecordAccountBookPage";
 import RecurringPage from "./pages/RecurringPage";
 import InstallmentPage from "./pages/InstallmentPage";
 import RecordPage from "./pages/RecordPage";
+import SettingPage from "./pages/SettingPage";
+import ChallengePage from "./pages/ChallengePage";
 
 function App() {
   return (
@@ -25,7 +27,9 @@ function App() {
         path="/recordAccountBook/installment"
         element={<InstallmentPage />}
       />
+      <Route path="/challenge" element={<ChallengePage />} />
       <Route path="/record" element={<RecordPage />} />
+      <Route path="/setting" element={<SettingPage />} />
     </Routes>
   );
 }

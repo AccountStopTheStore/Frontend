@@ -2,7 +2,7 @@ import { LongButtonUI } from "./style";
 
 interface LongButtonProps {
   buttonName: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 function LongButton({ buttonName, onClick }: LongButtonProps) {

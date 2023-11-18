@@ -1,8 +1,8 @@
-import AccountPNG from "../../../../public/icon/Account.png";
-import StatsPNG from "../../../../public/icon/Stats.png";
-import WroteMapPNG from "../../../../public/icon/WroteMap.png";
-import ChallengePNG from "../../../../public/icon/Challenge.png";
-import MorePNG from "../../../../public/icon/More.png";
+import AccountPNG from "@/public/icon/Account.png";
+import StatsPNG from "@/public/icon/Stats.png";
+import WroteMapPNG from "@/public/icon/WroteMap.png";
+import ChallengePNG from "@/public/icon/Challenge.png";
+import MorePNG from "@/public/icon/More.png";
 import { NavigationItemsUI } from "./style";
 import { useState } from "react";
 import NavigationItem from "../NavigationItem";
