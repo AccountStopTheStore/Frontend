@@ -4,7 +4,7 @@ import MainPage from "./pages/MainPage";
 import LoadingPage from "./pages/LoadingPage";
 import SignUpPage from "./pages/SignUpPage";
 import PasswordResetPage from "./pages/PasswordResetPage";
-import AccountPage from "./pages/AccountPage";
+// import AccountPage from "./pages/AccountPage";
 import RecordAccountBookPage from "./pages/RecordAccountBookPage";
 import RecurringPage from "./pages/RecurringPage";
 import InstallmentPage from "./pages/InstallmentPage";
@@ -18,7 +18,7 @@ function App() {
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/passwordreset" element={<PasswordResetPage />} />
       <Route path="/loading" element={<LoadingPage />} />
-      <Route path="/account" element={<AccountPage />} />
+      {/* <Route path="/account" element={<AccountPage />} /> */}
       <Route path="/recordAccountBook" element={<RecordAccountBookPage />} />
       <Route path="/recordAccountBook/recurring" element={<RecurringPage />} />
       <Route

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 interface HeaderProps {
   pageName: string;
   isBackButton: boolean;
-  isSearcButton: boolean;
+  isSearchButton: boolean;
   isFilterButton: boolean;
   isAddButton: boolean;
   isMoreButton: boolean;
@@ -29,7 +29,7 @@ interface RederButtonProps {
 function Header({
   pageName,
   isBackButton,
-  isSearcButton,
+  isSearchButton,
   isFilterButton,
   isAddButton,
   isMoreButton,
@@ -60,7 +60,7 @@ function Header({
               src: backSVG,
               alt: "back SVG",
             })}
-          {isSearcButton &&
+          {isSearchButton &&
             renderButton({
               onClick: onSearchClick,
               src: searchSVG,

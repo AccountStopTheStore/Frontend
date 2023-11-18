@@ -6,6 +6,8 @@ export interface LabelInputProps {
   inputId: string;
   inputName: string;
   placeholder: string;
+  onClick?: () => void;
+  readonly?: boolean | undefined;
 }
 
 function LabelInput({
@@ -14,6 +16,8 @@ function LabelInput({
   inputId,
   inputName,
   placeholder,
+  onClick,
+  readonly,
 }: LabelInputProps) {
   return (
     <LabelInputUI.Container>
@@ -24,6 +28,8 @@ function LabelInput({
         name={inputName}
         placeholder={placeholder}
         spellCheck={false}
+        onClick={onClick}
+        readOnly={readonly}
       />
     </LabelInputUI.Container>
   );
