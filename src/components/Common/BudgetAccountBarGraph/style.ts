@@ -2,13 +2,22 @@ import styled from "@emotion/styled";
 import { theme } from "../../../assets/theme";
 // import { BudgetAccountBarGraphData } from "./index";
 
-const totalLength = 252;
-const currentLength = totalLength * (120000 / 150000);
-const isOver = currentLength >= totalLength;
+/** TODO: 모든 가계부 Atom 값에서 수입 - 지출 = deposit 계산하기 */
+/** TODO: budget - deposit = balance 계산하기 */
+
+const totalLength = 250;
+/** TODO: 날짜로 수정 필요 */
+const currentDate = totalLength * (16 / 30);
+/** TODO: 예산과 입금액으로 수정 필요 */
+const currentLength = totalLength * (150000 / 170000);
+const isOver = currentDate >= totalLength;
+const todayLocation = isOver ? totalLength - 25 : currentDate - 25;
 
 const BudgetAccountBarGraphContainer = styled.div`
   display: flex;
   justify-content: space-around;
+
+  border-bottom: 1px solid ${theme.font_color.gray2};
 `;
 const TotalBudget = styled.div`
   ${theme.font_style.regular_medium};
@@ -41,6 +50,7 @@ const TodayPlace = styled.div`
   margin-bottom: 10px;
 
   position: relative;
+  left: calc(${todayLocation}px);
   :before {
     content: "";
     position: absolute;

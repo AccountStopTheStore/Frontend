@@ -1,4 +1,4 @@
-import ChatPNG from "../../../../public/icon/Chat.png";
+import ChatPNG from "@/public/icon/Chat.png";
 import { FixedCircleButtonUI } from "./style";
 
 interface FixedCircleButtonProps {

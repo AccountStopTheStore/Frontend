@@ -1,10 +1,11 @@
 import { InputUI } from "./style";
 
 export interface InputProps {
+  type: "text" | "password";
   placeholder: string;
 }
 
-function Input({ placeholder }: InputProps) {
+function Input({ placeholder, type }: InputProps) {
   const handleFocus = () => {
     console.log("handleFocus");
   };
@@ -14,7 +15,7 @@ function Input({ placeholder }: InputProps) {
 
   return (
     <InputUI.Input
-      type="text"
+      type={type}
       placeholder={placeholder}
       onFocus={handleFocus}
       onBlur={handleBlur}

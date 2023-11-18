@@ -5,17 +5,35 @@ import {
 import { BudgetAccountBarGraphUI } from "./style";
 
 export const BudgetAccountBarGraphData = {
-  budget: 150000,
-  deposit: 170000,
-  balance: 40000,
+  deposit: 150000,
+  balance: 20000,
 };
 
-function BudgetAccountBarGraph() {
+export const BudgetsData = {
+  month: 11,
+  budget: 170000,
+};
+
+interface BudgetAccountBarGraphProps {
+  name: number | string;
+  budget: number;
+  deposit: number;
+}
+
+function BudgetAccountBarGraph({
+  name,
+  budget,
+  deposit,
+}: BudgetAccountBarGraphProps) {
+  /** TODO: 해당 달의 처음부터 오늘까지 모든 가계부 값 가져오기 */
+  /** TODO: 가져온 모든 가계부 값 recoil Atom에 담기 */
+  /** TODO: 모든 가계부 Atom 값에서 수입 - 지출 = deposit 계산하기 */
+  /** TODO: budget - deposit = balance 계산하기 */
   return (
     <BudgetAccountBarGraphUI.BudgetAccountBarGraphContainer>
       <BudgetAccountBarGraphUI.TotalBudget>
-        <div>전체 예산</div>
-        <div>{ChangeNumberForAccounting(BudgetAccountBarGraphData.budget)}</div>
+        <div>{name}</div>
+        <div>{ChangeNumberForAccounting(budget)}</div>
       </BudgetAccountBarGraphUI.TotalBudget>
       <BudgetAccountBarGraphUI.BarGraphContainer>
         <BudgetAccountBarGraphUI.BarGraph>
@@ -26,20 +44,13 @@ function BudgetAccountBarGraph() {
             <BudgetAccountBarGraphUI.TotalLength></BudgetAccountBarGraphUI.TotalLength>
             <BudgetAccountBarGraphUI.CurrentLength></BudgetAccountBarGraphUI.CurrentLength>
             <BudgetAccountBarGraphUI.DepositPercent>
-              {CalculatePercentage(
-                BudgetAccountBarGraphData.deposit,
-                BudgetAccountBarGraphData.budget
-              )}
+              {CalculatePercentage(deposit, budget)}
             </BudgetAccountBarGraphUI.DepositPercent>
           </BudgetAccountBarGraphUI.LengthContainer>
         </BudgetAccountBarGraphUI.BarGraph>
         <BudgetAccountBarGraphUI.DepositBalanceContainer>
-          <div>
-            {ChangeNumberForAccounting(BudgetAccountBarGraphData.deposit)}
-          </div>
-          <div>
-            {ChangeNumberForAccounting(BudgetAccountBarGraphData.balance)}
-          </div>
+          <div>{ChangeNumberForAccounting(deposit)}</div>
+          <div>{ChangeNumberForAccounting(budget - deposit)}</div>
         </BudgetAccountBarGraphUI.DepositBalanceContainer>
       </BudgetAccountBarGraphUI.BarGraphContainer>
     </BudgetAccountBarGraphUI.BudgetAccountBarGraphContainer>

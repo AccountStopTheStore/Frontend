@@ -69,7 +69,50 @@ export const ChangeTime = (time: string) => {
 
   return formattedTime;
 };
+/** COMPLETED: '0000.00.00 ~ 0000.00.00'로 달 전체 일일 표시하기 */
+export const ChangeMonthPeriod = (time: string) => {
+  /* 1. Date 객체로 변환 */
+  const date = new Date(time);
 
+  /* 2. 년월일 형태로 변경 */
+  const firstYearsMonthDate = new Date(date.getFullYear(), date.getMonth(), 1);
+  const nextMonth = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+  const lastYearsMonthDate = new Date(nextMonth.getTime() - 1);
+
+  console.log("firstDate: ", firstYearsMonthDate);
+  console.log("lastDate: ", lastYearsMonthDate);
+
+  /* 3. Date 객체로 변환 */
+  const firstYears = new Date(firstYearsMonthDate).getFullYear();
+  const firstMonth = new Date(firstYearsMonthDate).getMonth();
+  const firstDate = new Date(firstYearsMonthDate).getDate();
+  const lastYears = new Date(lastYearsMonthDate).getFullYear();
+  const lastMonth = new Date(lastYearsMonthDate).getMonth();
+  const lastDate = new Date(lastYearsMonthDate).getDate();
+
+  /* 4. 출력 */
+  return `${firstYears}.${firstMonth}.${firstDate} ~ ${lastYears}.${lastMonth}.${lastDate}`;
+};
+/** COMPLETED: '0000.00.00 ~ 0000.00.00'로 달 전체 일일 표시하기 */
+export const ChangeChallengePeriod = (
+  startedAt: string,
+  finishedAt: string
+) => {
+  /* 1. Date 객체로 변환 */
+  const startedTotalDate = new Date(startedAt);
+  const finishedTotalDate = new Date(finishedAt);
+
+  /* 3. Date 객체로 변환 */
+  const startedYears = new Date(startedTotalDate).getFullYear();
+  const startedMonth = new Date(startedTotalDate).getMonth();
+  const startedDate = new Date(startedTotalDate).getDate();
+  const finishedYears = new Date(finishedTotalDate).getFullYear();
+  const finishedMonth = new Date(finishedTotalDate).getMonth();
+  const finishedDate = new Date(finishedTotalDate).getDate();
+
+  /* 4. 출력 */
+  return `${startedYears}.${startedMonth}.${startedDate} ~ ${finishedYears}.${finishedMonth}.${finishedDate}`;
+};
 /** COMPLETED: '00.00 ~ 00.00'로 표시하기 */
 export const ChangeWeeks = (start: string, end: string) => {
   /* 1. Date 객체로 변환 */
