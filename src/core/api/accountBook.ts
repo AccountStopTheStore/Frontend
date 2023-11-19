@@ -90,6 +90,11 @@ export const AccountBookAPI = {
       ACCOUNTS + `/autocomplete?limit=${limit}&query=${query}`
     );
   },
+  /** COMPLETED: getNearbyAccountBooks GET 요청하기  */
+  getNearbyAccountBooks: (lat: number, lng: number) => {
+    return APIInstance.get(ACCOUNTS + `/nearby?lat=${lat}&lng=${lng}`);
+  },
+
   /** COMPLETED: getSearch GET 요청하기 */
   getSearch: (
     categoryName: string,
