@@ -16,14 +16,14 @@ function DayIncomeExpenseInfo({ onClick, item }: DayIncomeExpenseInfoProps) {
         variant="text"
         style={{
           width: "100%",
+          height: "64px",
           borderBottom: `1px solid ${theme.font_color.gray2}`,
           padding: "6px 20px",
           color: `${theme.font_color.black}`,
           fontWeight: "300",
           fontSize: "13px",
         }}
-        onClick={() => onClick(item)}
-      >
+        onClick={() => onClick(item)}>
         <DayIncomeExpenseInfoUI.ContentContainer>
           <div>{item.categoryName}</div>
           <div>
@@ -34,8 +34,9 @@ function DayIncomeExpenseInfo({ onClick, item }: DayIncomeExpenseInfoProps) {
             </div>
           </div>
           <div
-            style={item.transactionType === "수입" ? incomeStyle : expenseStyle}
-          >
+            style={
+              item.transactionType === "수입" ? incomeStyle : expenseStyle
+            }>
             {ChangeNumberForAccounting(item.amount)}
           </div>
         </DayIncomeExpenseInfoUI.ContentContainer>
