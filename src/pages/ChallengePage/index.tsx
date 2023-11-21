@@ -1,31 +1,25 @@
-import BarGraphItemDetails from "@/src/components/BarGraphItemDetails/index";
 import BarGraphList from "@/src/components/BarGraphList";
-import Chatting from "@/src/components/Chatting";
-import FixedCircleButton from "@/src/components/Common/FixedCircleButton";
 import Header from "@/src/components/Common/Header";
-import Layout from "@/src/components/Common/Layout";
-import NavigationItems from "@/src/components/Common/NavigationItems";
-import CreateChallengeGroup from "@/src/components/CreateChallengeGroup";
-import EnterSavingOrBudget from "@/src/components/EnterSavingOrBudget";
+import { useNavigate } from "react-router-dom";
 
 function ChallengePage() {
+  const navigation = useNavigate();
+  const handleAddClick = () => {
+    navigation("/challenge/create");
+  };
   return (
-    <Layout>
+    <>
       <Header
         pageName="저축 챌린지"
         isBackButton={true}
-        isSearcButton={false}
+        isSearchButton={false}
         isFilterButton={false}
         isMoreButton={false}
+        isAddButton={true}
+        onAddClick={handleAddClick}
       />
-      {/* <BarGraphList /> */}
-      {/* <BarGraphItemDetails />
-      <FixedCircleButton buttonType="채팅" /> */}
-      {/* <CreateChallengeGroup /> */}
-      {/* <EnterSavingOrBudget enterType="저축" /> */}
-      <Chatting />
-      <NavigationItems />
-    </Layout>
+      <BarGraphList />
+    </>
   );
 }
 
