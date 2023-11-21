@@ -1,10 +1,9 @@
 import Header from "@/src/components/Common/Header";
 import NavigationItems from "@/src/components/Common/NavigationItems";
 import KakaoMap from "@/src/components/KakaoMap";
-import RecordInfos from "@/src/components/RecordInfos";
+// import RecordInfos from "@/src/components/RecordInfos";
 import { useEffect, useState } from "react";
 // import { AccountBookAPI } from "@/src/core/api/accountBook";
-import { AccountsData } from "@/src/components/Common/DayIncomeExpenseInfos";
 
 function RecordPage() {
   const exampleNearby = [
@@ -24,6 +23,7 @@ function RecordPage() {
       latitude: 37.5922940508,
       longitude: 126.90738231,
       installment: false,
+      transactedAt: "",
     },
     {
       accountId: 2,
@@ -41,6 +41,7 @@ function RecordPage() {
       latitude: 37.592355469552,
       longitude: 126.913642682037,
       installment: false,
+      transactedAt: "",
     },
     {
       accountId: 3,
@@ -58,6 +59,7 @@ function RecordPage() {
       latitude: 37.5928348327068,
       longitude: 126.911983196588,
       installment: false,
+      transactedAt: "",
     },
     {
       accountId: 4,
@@ -75,6 +77,7 @@ function RecordPage() {
       latitude: 37.5931409230026,
       longitude: 126.913846721415,
       installment: false,
+      transactedAt: "",
     },
   ];
 
@@ -85,10 +88,10 @@ function RecordPage() {
 
   /** getNearbyAccountBooks로 가져온 데이터 */
   // const [nearbyAccountBooksData, setNearbyAccountBooksData] = useState<
-  //   AccountsData[]
+  //   GetNearbyAccountBooks[]
   // >([]);
 
-  const [exampleData, setExampleData] = useState<AccountsData[]>([]);
+  const [exampleData, setExampleData] = useState<GetNearbyAccountBooks[]>([]);
   useEffect(() => {
     setExampleData(exampleNearby);
   }, []);
@@ -117,11 +120,9 @@ function RecordPage() {
         isFilterButton={false}
         isAddButton={false}
         isMoreButton={false}
-        isSearchButton={false}
-        isAddButton={false}
       />
       <KakaoMap onLocationChange={handleLocationChange} data={exampleData} />
-      <RecordInfos data={exampleData} />
+      {/* <RecordInfos data={exampleData} /> */}
       <NavigationItems />
     </>
   );

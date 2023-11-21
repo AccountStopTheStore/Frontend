@@ -6,9 +6,7 @@ import LongButton from "../Common/LongButton";
 // import OAuthButton from "../OAuthButton";
 import { LoginUI } from "./style";
 import { useNavigate } from "react-router-dom";
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import OAuthButton from "../OAuthButton";
-import { APIInstance, AuthAPIInstance } from "@/src/core/api/instance";
 
 // const URL = "https://asts.cozybinarybase.com:8443";
 
@@ -30,9 +28,6 @@ function Login() {
     }
   };
 
-  const handleOAuthLogin = async () => {
-    memberAPI.signInWithOAuth("임경락");
-  };
   return (
     <LoginUI.SectionContainer>
       <LoginUI.Header>로그인</LoginUI.Header>
