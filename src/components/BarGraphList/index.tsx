@@ -84,7 +84,7 @@ function BarGraphList() {
   return (
     <BarGraphListUI.List>
       {array.map((item) => {
-        return <BarGraphItem item={item} />;
+        return <BarGraphItem item={item} path={`/challenge/${item.groupId}`} />;
       })}
     </BarGraphListUI.List>
   );

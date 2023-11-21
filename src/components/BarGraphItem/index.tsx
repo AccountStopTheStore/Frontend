@@ -5,16 +5,17 @@ import { ChangeChallengePeriod } from "@/src/assets/format";
 
 interface BarGraphItemProps {
   item: ChallengeData;
+  path: string;
 }
 
-function BarGraphItem({ item }: BarGraphItemProps) {
+function BarGraphItem({ item, path }: BarGraphItemProps) {
   let deposit = 0;
   for (let i = 0; i < item.groupMembers.length; i++) {
     deposit = deposit + item.groupMembers[i].totalSavingAmount;
   }
 
   return (
-    <BarGraphItemUI.ItemButton>
+    <BarGraphItemUI.ItemLink to={path}>
       <div>
         <span>{item.groupName}</span>
         <BarGraphItemUI.ChallengePeriod>
@@ -29,7 +30,7 @@ function BarGraphItem({ item }: BarGraphItemProps) {
         budget={item.targetAmount}
         deposit={deposit}
       />
-    </BarGraphItemUI.ItemButton>
+    </BarGraphItemUI.ItemLink>
   );
 }
 
