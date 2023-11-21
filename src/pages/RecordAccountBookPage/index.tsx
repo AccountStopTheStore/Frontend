@@ -3,7 +3,7 @@ import Header from "../../components/Common/Header";
 import ShortButton from "../../components/Common/ShortButton";
 import IncomeExpenseButton from "../../components/RecordAccountBook/IncomeExpenseButton/idnex";
 import InputArea from "../../components/RecordAccountBook/InputArea";
-import { saveAccountBookAtom } from "@/src/components/Test/component";
+import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
 import { AccountBookAPI } from "@/src/core/api/accountBook";
 
 function RecordAccountBookPage() {
