@@ -21,7 +21,7 @@ export const saveAccountBookAtom = atom<SaveAccountBookAtomProps>({
     amount: 0,
     assetName: "",
     categoryName: "",
-    imageIds: [37],
+    imageIds: [],
     isInstallment: 0,
     memo: "",
     recurringType: "",
