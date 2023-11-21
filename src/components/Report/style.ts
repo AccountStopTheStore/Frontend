@@ -11,12 +11,14 @@ const BudgetItem = styled.li`
   > div {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 
     padding: 15px 20px;
     > span {
       ${theme.font_style.bold_large};
     }
+  }
+  > div:first-of-type {
+    align-items: center;
   }
 `;
 
@@ -39,35 +41,27 @@ const AssetContainer = styled.div`
     }
     > div {
       ${theme.font_style.regular_medium};
-      color: ${theme.font_color.gray2};
+      color: ${theme.font_color.gray3};
     }
   }
 `;
 
 const AssetList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-
   margin: 0 20px;
   border: 1px solid ${theme.font_color.gray2};
   padding: 20px;
   > li {
+    display: flex;
+    justify-content: space-between;
+    ${theme.font_style.regular_medium}
+
     margin-bottom: 20px;
-  }
-  > li:nth-of-type(7) {
-    margin-bottom: 0;
+    > span:first-of-type {
+      color: ${theme.font_color.gray3};
+    }
   }
   > li:last-of-type {
     margin-bottom: 0;
-  }
-  > li:nth-of-type(even) {
-    text-align: right;
-    color: ${theme.font_color.black};
-    ${theme.font_style.regular_medium};
-  }
-  > li:nth-of-type(odd) {
-    color: ${theme.font_color.gray4};
-    ${theme.font_style.regular_small};
   }
 `;
 

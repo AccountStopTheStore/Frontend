@@ -1,5 +1,4 @@
 import Header from "../../components/Common/Header";
-import Layout from "../../components/Common/Layout";
 import ShortButton from "../../components/Common/ShortButton";
 import IncomeExpenseButton from "../../components/RecordAccountBook/IncomeExpenseButton/idnex";
 import InputArea from "../../components/RecordAccountBook/InputArea";
@@ -14,7 +13,7 @@ function RecordAccountBookPage() {
   };
 
   return (
-    <Layout>
+    <>
       <Header
         pageName={"수입 및 지출 입력"}
         isBackButton={true}
@@ -32,7 +31,7 @@ function RecordAccountBookPage() {
           onSaveClick={handleSaveButton}
         />
       </form>
-    </Layout>
+    </>
   );
 }
 

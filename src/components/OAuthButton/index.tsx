@@ -2,15 +2,15 @@ import GoogleLogoPNG from "@/public/icon/Google_Logo.png";
 import { OAuthButtonUI } from "./style";
 
 interface OAuthButtonProps {
-  onClick: () => void;
+  path: string;
 }
 
-function OAuthButton({ onClick }: OAuthButtonProps) {
+function OAuthButton({ path }: OAuthButtonProps) {
   return (
-    <OAuthButtonUI.Button onClick={onClick}>
+    <OAuthButtonUI.LinkButton to={path}>
       <img src={GoogleLogoPNG} alt="GoogleLogoPNG" />
       Google 로그인
-    </OAuthButtonUI.Button>
+    </OAuthButtonUI.LinkButton>
   );
 }
 

@@ -1,38 +1,30 @@
+import { useRecoilState } from "recoil";
 import MonthIncomeExpenseInfos from "../Common/MonthIncomeExpenseInfos";
 import { MonthAccountUI } from "./style";
+import { calendarDateAtom } from "@/src/hooks/recoil/useCalendarDate";
+
+export interface MonthData {
+  year: number;
+  month: number;
+}
 
 function MonthAccount() {
-  const exampleArray = [
-    {
-      startAt: "2023-10-01 10:00:00",
-      endAt: "2023-10-07 10:00:00",
-      income: 3000000,
-      expense: 1000000,
-      total: 2000000,
-    },
-    {
-      startAt: "2023-10-01 10:00:00",
-      endAt: "2023-10-07 10:00:00",
-      income: 3000000,
-      expense: 1000000,
-      total: 2000000,
-    },
-    {
-      startAt: "2023-10-01 10:00:00",
-      endAt: "2023-10-07 10:00:00",
-      income: 3000000,
-      expense: 1000000,
-      total: 2000000,
-    },
-  ];
+  const [getYearMonthDate] = useRecoilState(calendarDateAtom);
+
+  const currentYear = getYearMonthDate.year;
+
+  const monthsArray: MonthData[] = [];
+  for (let month = 1; month <= 12; month++) {
+    monthsArray.push({ year: currentYear, month });
+  }
 
   return (
     <MonthAccountUI.Section>
       <ul>
-        {exampleArray.map((transactionInfo) => {
+        {monthsArray.reverse().map((transactionInfo) => {
           return (
             <MonthIncomeExpenseInfos
-              key={transactionInfo.startAt}
+              key={transactionInfo.month}
               transactionInfo={transactionInfo}
             />
           );

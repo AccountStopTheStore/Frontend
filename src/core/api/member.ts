@@ -1,4 +1,4 @@
-import { APIInstance } from "./instance";
+import { APIInstance, AuthAPIInstance } from "./instance";
 
 const AUTH = "/auth";
 /** member-controller */
@@ -54,5 +54,11 @@ export const memberAPI = {
   /** COMPLETED: signOut DELETE 요청하기 */
   signOut: () => {
     return APIInstance.delete(AUTH + "/withdrawal");
+  },
+  /** COMPLETED: OAuth로 로그인 POST 요청하기 */
+  signInWithOAuth: (name: string) => {
+    return AuthAPIInstance.post("", {
+      name: name,
+    });
   },
 };

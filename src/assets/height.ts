@@ -6,6 +6,7 @@ export const FinancialSummaryHeight = 70;
 export const CDMSTabItemsHeight = 50;
 export const NavigationItemsHeight = 70;
 export const ChallengeTopContainerHeight = 92.75;
+export const BottomDateModalHeight = 470;
 
 export const AccountHeight =
   ApplicationHeight -
