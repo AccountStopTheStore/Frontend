@@ -1,8 +1,9 @@
 import { theme } from "@/src/assets/theme";
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
-const ItemButton = styled(Button)`
+const ItemLink = styled(Link)`
   ${theme.font_style.light_medium};
   color: ${theme.font_color.black};
   background-color: ${theme.font_color.white};
@@ -28,6 +29,6 @@ const ItemButton = styled(Button)`
 const ChallengePeriod = styled.div``;
 
 export const BarGraphItemUI = {
-  ItemButton,
+  ItemLink,
   ChallengePeriod,
 };
