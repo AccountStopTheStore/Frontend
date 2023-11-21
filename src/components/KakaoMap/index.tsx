@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { MapUI } from "./style";
 import DisplayMarker from "../DisplayMarker";
-import { AccountsData } from "../Common/DayIncomeExpenseInfos";
 import BackToCenterIcon from "@/public/icon/BackToCenter.svg";
+import { GetNearbyAccountBooks } from "@/src/@types/models/getNearbyAccountBooks";
 
 declare global {
   interface Window {
@@ -12,7 +12,7 @@ declare global {
 
 interface onLocationChangeCallBack {
   onLocationChange: (lat: number, lng: number) => void;
-  data: AccountsData[];
+  data: GetNearbyAccountBooks[];
 }
 
 function KakaoMap({ onLocationChange, data }: onLocationChangeCallBack) {
