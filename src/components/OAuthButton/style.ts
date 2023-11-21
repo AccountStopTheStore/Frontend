@@ -1,9 +1,10 @@
 import { theme } from "@/src/assets/theme";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const deleteMarginWidth = "390px - 64px";
 
-const Button = styled.button`
+const LinkButton = styled(Link)`
   width: calc(${deleteMarginWidth});
   height: 40px;
 
@@ -22,5 +23,5 @@ const Button = styled.button`
 `;
 
 export const OAuthButtonUI = {
-  Button,
+  LinkButton,
 };

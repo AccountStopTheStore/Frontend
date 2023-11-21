@@ -13,12 +13,14 @@ function RecurringInstallmentButtons({
     <RecurringInstallmentButtonsUI.Wrapper>
       <RecurringInstallmentButtonsUI.RecurringButton
         type="button"
-        onClick={onRecurringClick}>
+        onClick={onRecurringClick}
+      >
         반복
       </RecurringInstallmentButtonsUI.RecurringButton>
       <RecurringInstallmentButtonsUI.InstallmentButton
         type="button"
-        onClick={onInstallmentClick}>
+        onClick={onInstallmentClick}
+      >
         할부
       </RecurringInstallmentButtonsUI.InstallmentButton>
     </RecurringInstallmentButtonsUI.Wrapper>

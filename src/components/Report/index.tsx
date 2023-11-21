@@ -58,7 +58,7 @@ function Report() {
     <ReportUI.Section>
       <ReportUI.BudgetItem>
         <div>
-          <span>"예산"</span>=
+          <span>예산</span>
           <ReportUI.SettingBudgetButton>예산 설정</ReportUI.SettingBudgetButton>
         </div>
         <BudgetAccountBarGraph
@@ -73,14 +73,22 @@ function Report() {
           <div>{ChangeMonthPeriod(exampleObject.startAt)}</div>
         </div>
         <ReportUI.AssetList>
-          <li>전월 대비 지출 (당월/전월)</li>
-          <li>100%</li>
-          <li>지출 (현금)</li>
-          <li>110,000원</li>
-          <li>지출 (은행)</li>
-          <li>0원</li>
-          <li>저금</li>
-          <li>1000원</li>
+          <li>
+            <span>전월 대비 지출 (당월/전월)</span>
+            <span>100%</span>
+          </li>
+          <li>
+            <span>지출 (현금)</span>
+            <span>110,000원</span>
+          </li>
+          <li>
+            <span>지출 (은행)</span>
+            <span>0원</span>
+          </li>
+          <li>
+            <span>저금</span>
+            <span>1000원</span>
+          </li>
         </ReportUI.AssetList>
       </ReportUI.AssetContainer>
     </ReportUI.Section>

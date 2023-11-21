@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { CDMSTabItemsUI } from "./style";
 import CDMSTabItem from "../CDMSTabItem";
+import Calendar from "../Calendar";
+import DateAccount from "../../DateAccount";
+import MonthAccount from "../../MonthAccount";
+import Report from "../../Report";
 
 export interface tabButtonsType {
   tabName: string;
@@ -27,8 +31,7 @@ function CDMSTabItems() {
     },
   ]);
 
-  const eventHandler = (item: tabButtonsType) => {
-    console.log(item);
+  const eventHandler = async (item: tabButtonsType) => {
     /** tabButtons에 활성화 버튼 변경하기 */
     const updatedTabButtons = tabButtons.map((tabItem) => {
       // 클릭한 항목만 active를 true, 나머지는 false로 설정
@@ -38,26 +41,28 @@ function CDMSTabItems() {
       };
     });
     setTabButtons(updatedTabButtons);
-
-    /** TODO: middle section에 영역이 바뀌도록 설정하기 */
-    // 1. 달력
-    // 2. 일일
-    // 3. 월별
-    // 4. 결산
   };
   return (
-    <CDMSTabItemsUI.UnorderedListContainer>
-      {tabButtons.map((item) => (
-        <CDMSTabItem
-          key={item.tabName}
-          onClick={() => eventHandler(item)}
-          item={item}
-        />
-        // <li key={item.tabName}>
-        //   <button onClick={() => eventHandler(item)}>{item.tabName}</button>
-        // </li>
-      ))}
-    </CDMSTabItemsUI.UnorderedListContainer>
+    <>
+      <CDMSTabItemsUI.UnorderedListContainer>
+        {tabButtons.map((item) => (
+          <CDMSTabItem
+            key={item.tabName}
+            onClick={() => eventHandler(item)}
+            item={item}
+          />
+        ))}
+      </CDMSTabItemsUI.UnorderedListContainer>
+      {tabButtons[3].active ? (
+        <Report />
+      ) : tabButtons[2].active ? (
+        <MonthAccount />
+      ) : tabButtons[1].active ? (
+        <DateAccount />
+      ) : (
+        <Calendar />
+      )}
+    </>
   );
 }
 

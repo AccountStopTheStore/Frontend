@@ -6,17 +6,10 @@ import {
   ChangeNumberForAccounting,
 } from "@/src/assets/format";
 import MonthIncomeExpenseInfo from "../MonthIncomeExpenseInfo";
-
-interface transactionInfoData {
-  startAt: string;
-  endAt: string;
-  income: number;
-  expense: number;
-  total: number;
-}
+import { MonthData } from "../../MonthAccount";
 
 interface MonthIncomeExpenseInfosProps {
-  transactionInfo: transactionInfoData;
+  transactionInfo: MonthData;
 }
 
 function MonthIncomeExpenseInfos({
@@ -55,15 +48,15 @@ function MonthIncomeExpenseInfos({
   return (
     <MonthIncomeExpenseInfosUI.MonthIncomeExpenseInfosItem>
       <MonthIncomeExpenseInfosUI.MonthButton onClick={handleMonthButton}>
-        <div>{ChangeMonth(transactionInfo.startAt)}</div>
-        <MonthIncomeExpenseInfosUI.TransactionContainer>
+        <div>{transactionInfo.month}월</div>
+        {/* <MonthIncomeExpenseInfosUI.TransactionContainer>
           <div>{ChangeNumberForAccounting(transactionInfo.income)}</div>
           <div>{ChangeNumberForAccounting(transactionInfo.expense)}</div>
           <div></div>
           <div>
             {CalculateTotal(transactionInfo.income, transactionInfo.expense)}
           </div>
-        </MonthIncomeExpenseInfosUI.TransactionContainer>
+        </MonthIncomeExpenseInfosUI.TransactionContainer> */}
       </MonthIncomeExpenseInfosUI.MonthButton>
       <ul>
         {isOpenWeeks &&

@@ -25,20 +25,18 @@ export const ChangeNumberForAccounting = (number: number) => {
   integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   /* 5. 분리한 숫자값을 재조합 */
-  if (hasDecimal && number < 0) {
-    return `-${integerPart}.${decimalPart}원`;
-  } else if (hasDecimal && number >= 0) {
-    return `${integerPart}.${decimalPart}원`;
-  } else if (!hasDecimal && number < 0) {
-    return `-${integerPart}원`;
+  if (hasDecimal) {
+    return `${integerPart}.${decimalPart}`;
   } else if (!hasDecimal) {
-    return `${integerPart}원`;
+    return `${integerPart}`;
   }
 };
 
 /** COMPLETED: (index.tsx) 수입과 지출의 합계 결과 표현하기 */
-export const CalculateTotal = (income: number, expense: number) => {
-  const total = income + expense;
+export const CalculateTotal = (income: number | "", expense: number | "") => {
+  if (income === "" || expense === "") return;
+
+  const total = income - expense;
 
   return ChangeNumberForAccounting(total);
 };
@@ -120,9 +118,9 @@ export const ChangeWeeks = (start: string, end: string) => {
   const endNewDate = new Date(end);
 
   /* 2. 달 형태로 변경 */
-  const startMonth = startNewDate.getMonth();
+  const startMonth = startNewDate.getMonth() + 1;
   const startDate = startNewDate.getDate();
-  const endMonth = endNewDate.getMonth();
+  const endMonth = endNewDate.getMonth() + 1;
   const endDate = endNewDate.getDate();
 
   /* 3. 최종 formattedMonth 생성 및 반환 */
@@ -140,7 +138,7 @@ export const ChangeMonth = (time: string) => {
   const date = new Date(time);
 
   /* 2. 달 형태로 변경 */
-  const month = date.getMonth();
+  const month = date.getMonth() + 1;
 
   /* 3. 최종 formattedMonth 생성 및 반환 */
   const formattedMonth = `${month}월`;
