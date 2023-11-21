@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import LabelInput from "../../Common/LabelInput";
 import { InputAreaUI } from "./style";
 import { theme } from "@/src/assets/theme";
@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import RecurringICon from "../RecurringIcon";
 import SelectedImage from "../SelectedImage";
 import SeparatedCategory from "../../Common/SeparatedCategory";
+import { useRecoilState } from "recoil";
+import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
 
 export const checkGreenColor = "#3cb043";
 
@@ -114,6 +116,15 @@ function InputArea() {
     }
   };
 
+  /** TODO: recoil에 값 추가하기 */
+  const handleMemo = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPostAccountBook(prev => ({
+      ...prev,
+      memo: value,
+    }));
+  };
+  const [, setPostAccountBook] = useRecoilState(saveAccountBookAtom);
   return (
     <InputAreaUI.Container>
       <InputAreaUI.Wrapper>
@@ -172,6 +183,7 @@ function InputArea() {
             inputId="memo"
             inputName="memo"
             placeholder="메모를 입력해주세요."
+            onClick={handleMemo}
           />
           {/** 이미지 업로드 */}
           <InputAreaUI.AddImageButtonLabel htmlFor="addImage">

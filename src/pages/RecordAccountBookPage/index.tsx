@@ -1,15 +1,22 @@
+import { useRecoilState } from "recoil";
 import Header from "../../components/Common/Header";
 import ShortButton from "../../components/Common/ShortButton";
 import IncomeExpenseButton from "../../components/RecordAccountBook/IncomeExpenseButton/idnex";
 import InputArea from "../../components/RecordAccountBook/InputArea";
+import { saveAccountBookAtom } from "@/src/components/Test/component";
+import { AccountBookAPI } from "@/src/core/api/accountBook";
 
 function RecordAccountBookPage() {
   const handleCancelButton = () => {
-    console.log("취소");
+    console.log("저장 안하고 가계부 페이지로 이동");
   };
 
+  /** TODO: recoil에 값 사용하기 */
+  const [postAccountBook] = useRecoilState(saveAccountBookAtom);
   const handleSaveButton = () => {
-    console.log("뒤로가기");
+    console.log("저장하고 가계부 페이지로 이동");
+
+    AccountBookAPI.saveAccountBook(postAccountBook);
   };
 
   return (

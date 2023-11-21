@@ -20,14 +20,16 @@ function App() {
   const isLoginPage = window.location.pathname === "/login";
   const isSignUpPage = window.location.pathname === "/signup";
   const isPasswordReset = window.location.pathname === "/passwordreset";
+  const isRecordAccountBook = window.location.pathname === "/recordAccountBook";
 
   return (
     <Layout>
       <Routes>
+        <Route path="/" element={<AccountPage />} />
+        <Route path="/account" element={<AccountPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/passwordreset" element={<PasswordResetPage />} />
-        <Route path="/account" element={<AccountPage />} />
         <Route path="/recordAccountBook" element={<RecordAccountBookPage />} />
         <Route
           path="/recordAccountBook/recurring"
@@ -48,7 +50,10 @@ function App() {
         <Route path="/setting" element={<SettingPage />} />
         <Route path="/chatting" element={<ChattingPage />} />
       </Routes>
-      {!isLoginPage && !isSignUpPage && !isPasswordReset && <NavigationItems />}
+      {!isLoginPage &&
+        !isSignUpPage &&
+        !isPasswordReset &&
+        !isRecordAccountBook && <NavigationItems />}
     </Layout>
   );
 }

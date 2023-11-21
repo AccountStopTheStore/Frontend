@@ -7,7 +7,6 @@ import { ThemeProvider as MUIThemeProvider, createTheme } from "@mui/material";
 import globalStyles from "./assets/globalStyles.ts";
 import { theme } from "./assets/theme.ts";
 import { RecoilRoot } from "recoil";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const $root = document.getElementById("root") as HTMLElement;
 
@@ -23,14 +22,8 @@ ReactDOM.createRoot($root).render(
     <EmotionThemeProvider theme={muiTheme}>
       <RecoilRoot>
         <BrowserRouter>
-          <GoogleOAuthProvider
-            clientId={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}
-            onScriptLoadError={() => console.log("실패")}
-            onScriptLoadSuccess={() => console.log("성공")}
-          >
-            <App />
-            <Global styles={globalStyles} />
-          </GoogleOAuthProvider>
+          <App />
+          <Global styles={globalStyles} />
         </BrowserRouter>
       </RecoilRoot>
     </EmotionThemeProvider>

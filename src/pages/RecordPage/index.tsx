@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 // import { AccountBookAPI } from "@/src/core/api/accountBook";
 import { AccountsData } from "@/src/components/Common/DayIncomeExpenseInfos";
 
-
 function RecordPage() {
   const exampleNearby = [
     {
@@ -110,7 +109,7 @@ function RecordPage() {
   // };
 
   return (
-    <Layout>
+    <>
       <Header
         pageName="기록지"
         isSearchButton={false}
@@ -124,8 +123,7 @@ function RecordPage() {
       <KakaoMap onLocationChange={handleLocationChange} data={exampleData} />
       <RecordInfos data={exampleData} />
       <NavigationItems />
-    </Layout>
-
+    </>
   );
 }
 

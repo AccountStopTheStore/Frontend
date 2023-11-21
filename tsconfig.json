@@ -25,8 +25,7 @@
     "paths": {
       "@/*": ["./*"]
     },
-
-    "types": ["node", "vite/client", ["kakao.maps.d.ts"]
+    "types": ["node", "vite/client", "kakao.maps.d.ts"]
   },
   "include": ["src", "custom.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

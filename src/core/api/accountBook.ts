@@ -26,31 +26,31 @@ export const AccountBookAPI = {
     );
   },
   /** COMPLETED: saveAccountBook POST 요청하기(등록) */
-  saveAccountBook: (
-    address: string,
-    amount: number,
-    assetName: string,
-    categoryName: string,
-    imageIds: number[],
-    isInstallment: false,
-    memo: string,
-    recurringType: string,
-    transactedAt: string,
-    transactionDetail: string,
-    transactionType: string
-  ) => {
+  saveAccountBook: (postAccountBook: {
+    address: string;
+    amount: number;
+    assetName: string;
+    categoryName: string;
+    imageIds: number[];
+    isInstallment: number;
+    memo: string;
+    recurringType: string;
+    transactedAt: string;
+    transactionDetail: string;
+    transactionType: string;
+  }) => {
     return APIInstance.post<PostAccount>(ACCOUNTS, {
-      address: address,
-      amount: amount,
-      assetName: assetName,
-      categoryName: categoryName,
-      imageIds: imageIds,
-      isInstallment: isInstallment,
-      memo: memo,
-      recurringType: recurringType,
-      transactedAt: transactedAt,
-      transactionDetail: transactionDetail,
-      transactionType: transactionType,
+      address: postAccountBook.address,
+      amount: postAccountBook.amount,
+      assetName: postAccountBook.assetName,
+      categoryName: postAccountBook.categoryName,
+      imageIds: postAccountBook.imageIds,
+      isInstallment: postAccountBook.isInstallment,
+      memo: postAccountBook.memo,
+      recurringType: postAccountBook.recurringType,
+      transactedAt: postAccountBook.transactedAt,
+      transactionDetail: postAccountBook.transactionDetail,
+      transactionType: postAccountBook.transactionType,
     });
   },
   /** COMPLETED: updateAccountBook PUT 요청하기 */
