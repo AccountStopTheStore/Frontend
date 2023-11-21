@@ -1,5 +1,4 @@
 import Header from "@/src/components/Common/Header";
-import Layout from "@/src/components/Common/Layout";
 import LongButton from "@/src/components/Common/LongButton";
 import { InstallmentPageUI } from "./style";
 import { useState } from "react";
@@ -22,13 +21,15 @@ function InstallmentPage() {
   };
 
   return (
-    <Layout>
+    <>
       <Header
         pageName="할부"
         isBackButton={true}
         isFilterButton={false}
         isMoreButton={false}
         onBackClick={handleBackButton}
+        isSearchButton={false}
+        isAddButton={false}
       />
       <InstallmentPageUI.Container>
         <InstallmentPageUI.Form>
@@ -40,7 +41,7 @@ function InstallmentPage() {
         </InstallmentPageUI.Form>
         <LongButton buttonName="저장" onClick={handleSaveButton} />
       </InstallmentPageUI.Container>
-    </Layout>
+    </>
   );
 }
 

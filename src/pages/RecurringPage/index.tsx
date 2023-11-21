@@ -1,6 +1,5 @@
 import CommonButton from "@/src/components/Common/CommonButton";
 import Header from "@/src/components/Common/Header";
-import Layout from "@/src/components/Common/Layout";
 import { RecurringUI } from "@/src/components/Recurring/style";
 
 function RecurringPage() {
@@ -25,8 +24,15 @@ function RecurringPage() {
   };
 
   return (
-    <Layout>
-      <Header pageName="반복" />
+    <>
+      <Header
+        pageName="반복"
+        isBackButton={false}
+        isSearchButton={false}
+        isFilterButton={false}
+        isAddButton={false}
+        isMoreButton={false}
+      />
       <RecurringUI.Background>
         <div>
           {recurringItems.map((item, index) => (
@@ -38,7 +44,7 @@ function RecurringPage() {
           ))}
         </div>
       </RecurringUI.Background>
-    </Layout>
+    </>
   );
 }
 

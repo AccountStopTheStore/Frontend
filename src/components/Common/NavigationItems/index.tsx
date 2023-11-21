@@ -6,40 +6,48 @@ import MorePNG from "@/public/icon/More.png";
 import { NavigationItemsUI } from "./style";
 import { useState } from "react";
 import NavigationItem from "../NavigationItem";
+import { useNavigate } from "react-router-dom";
 
 export interface bottomNavigationType {
   image: string;
   categoryName: string;
+  address: string;
   active: boolean;
 }
 
 function NavigationItems() {
+  const navigation = useNavigate();
   const [bottomNavigation, setBottomNavigation] = useState<
     bottomNavigationType[]
   >([
     {
       image: AccountPNG,
       categoryName: "가계부",
+      address: "/account",
       active: true,
     },
     {
       image: StatsPNG,
       categoryName: "통계",
+      address: "/statistic",
       active: false,
     },
     {
       image: WroteMapPNG,
       categoryName: "기록지",
+      address: "/record",
       active: false,
     },
     {
       image: ChallengePNG,
       categoryName: "챌린지",
+      address: "/challenge",
       active: false,
     },
     {
       image: MorePNG,
       categoryName: "더보기",
+      address: "/setting",
       active: false,
     },
   ]);
@@ -57,6 +65,7 @@ function NavigationItems() {
     setBottomNavigation(updatedNavigation);
 
     /** TODO: middle section에 영역이 바뀌도록 설정하기 */
+    navigation(`${item.address}`);
     // 1. 가계부
     // 2. 통계
     // 3. 기록지
@@ -65,15 +74,17 @@ function NavigationItems() {
   };
 
   return (
-    <NavigationItemsUI.UnorderedListContainer>
-      {bottomNavigation.map((item) => (
-        <NavigationItem
-          key={item.categoryName}
-          onClick={() => eventHandler(item)}
-          item={item}
-        />
-      ))}
-    </NavigationItemsUI.UnorderedListContainer>
+    <>
+      <NavigationItemsUI.UnorderedListContainer>
+        {bottomNavigation.map((item) => (
+          <NavigationItem
+            key={item.categoryName}
+            onClick={() => eventHandler(item)}
+            item={item}
+          />
+        ))}
+      </NavigationItemsUI.UnorderedListContainer>
+    </>
   );
 }
 

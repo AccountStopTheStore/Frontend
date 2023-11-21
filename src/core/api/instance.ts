@@ -18,4 +18,9 @@ const APIInstance = createAPIInstance({
   withCredentials: true,
 });
 
-export { APIInstance };
+/** COMPLETED: AuthAPIInstance */
+const AuthAPIInstance = createAPIInstance({
+  baseURL: API_BASE_URL + "/oauth2/authorization/google",
+});
+
+export { APIInstance, AuthAPIInstance };

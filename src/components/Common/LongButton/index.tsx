@@ -1,13 +1,14 @@
 import { LongButtonUI } from "./style";
 
 interface LongButtonProps {
+  type: "button" | "submit" | "reset" | undefined;
   buttonName: string;
   onClick?: () => void;
 }
 
-function LongButton({ buttonName, onClick }: LongButtonProps) {
+function LongButton({ type, buttonName, onClick }: LongButtonProps) {
   return (
-    <LongButtonUI.LongButton onClick={onClick}>
+    <LongButtonUI.LongButton type={type} onClick={onClick}>
       {buttonName}
     </LongButtonUI.LongButton>
   );

@@ -21,7 +21,8 @@ function CustomTabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tabpanel-${index}`}
-      {...other}>
+      {...other}
+    >
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
@@ -64,8 +65,8 @@ export default function StatisticsTabs() {
           borderBottom: `1px solid ${theme.font_color.gray2}`,
           padding: "0 20px",
           backgroundColor: theme.font_color.gray1,
-          border: "1px solid red",
-        }}>
+        }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
@@ -78,7 +79,8 @@ export default function StatisticsTabs() {
           }}
           sx={{
             "& button": { color: theme.font_color.gray3 },
-          }}>
+          }}
+        >
           {tabNames.map((name, index) => (
             <StyledTab
               key={index}

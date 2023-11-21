@@ -1,4 +1,3 @@
-import Layout from "@/src/components/Common/Layout";
 import Header from "@/src/components/Common/Header";
 import NavigationItems from "@/src/components/Common/NavigationItems";
 import KakaoMap from "@/src/components/KakaoMap";
@@ -6,6 +5,7 @@ import RecordInfos from "@/src/components/RecordInfos";
 import { useEffect, useState } from "react";
 // import { AccountBookAPI } from "@/src/core/api/accountBook";
 import { AccountsData } from "@/src/components/Common/DayIncomeExpenseInfos";
+
 
 function RecordPage() {
   const exampleNearby = [
@@ -118,11 +118,14 @@ function RecordPage() {
         isFilterButton={false}
         isAddButton={false}
         isMoreButton={false}
+        isSearchButton={false}
+        isAddButton={false}
       />
       <KakaoMap onLocationChange={handleLocationChange} data={exampleData} />
       <RecordInfos data={exampleData} />
       <NavigationItems />
     </Layout>
+
   );
 }
 

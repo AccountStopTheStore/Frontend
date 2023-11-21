@@ -1,8 +1,12 @@
+import { GetAccounts } from "@/src/@types/models/getAccounts";
 import { APIInstance } from "./instance";
+import { PostAccount } from "@/src/@types/models/postAccount";
+import { PutAccount } from "@/src/@types/models/putAccount";
+import { DeleteAccount } from "@/src/@types/models/deleteAccount";
 
 const ACCOUNTS = "/accounts";
 export const AccountBookAPI = {
-  /** COMPLETED: getAccountBooks GET 요청하기 */
+  /** COMPLETED: getAccountBooks GET 요청하기(조회) */
   getAccountBooks: (
     endDate: string,
     limit: number,
@@ -10,12 +14,18 @@ export const AccountBookAPI = {
     startDate: string,
     transactionType: string
   ) => {
-    return APIInstance.get(
+    return APIInstance.get<GetAccounts[]>(
       ACCOUNTS +
         `?endDate=${endDate}&limit=${limit}&page=${page}&startDate=${startDate}&transactionType=${transactionType}`
     );
   },
-  /** COMPLETED: saveAccountBook POST 요청하기 */
+  /** COMPLETED: getAccountBooksMonthly GET 요청하기(조회) */
+  getAccountBooksMonthly: (year: number, month: number) => {
+    return APIInstance.get<GetAccounts[]>(
+      ACCOUNTS + `?yearMonth=${year}-${month}`
+    );
+  },
+  /** COMPLETED: saveAccountBook POST 요청하기(등록) */
   saveAccountBook: (
     address: string,
     amount: number,
@@ -29,7 +39,7 @@ export const AccountBookAPI = {
     transactionDetail: string,
     transactionType: string
   ) => {
-    return APIInstance.post(ACCOUNTS, {
+    return APIInstance.post<PostAccount>(ACCOUNTS, {
       address: address,
       amount: amount,
       assetName: assetName,
@@ -42,10 +52,6 @@ export const AccountBookAPI = {
       transactionDetail: transactionDetail,
       transactionType: transactionType,
     });
-  },
-  /** COMPLETED: getAccountBook GET 요청하기 */
-  getAccountBook: (accountId: number) => {
-    return APIInstance.get(ACCOUNTS + `/${accountId}`);
   },
   /** COMPLETED: updateAccountBook PUT 요청하기 */
   updateAccountBook: (
@@ -62,7 +68,7 @@ export const AccountBookAPI = {
     transactionDetail: string,
     transactionType: string
   ) => {
-    return APIInstance.put(ACCOUNTS + `/${accountId}`, {
+    return APIInstance.put<PutAccount>(ACCOUNTS + `/${accountId}`, {
       address: address,
       amount: amount,
       assetName: assetName,
@@ -78,7 +84,7 @@ export const AccountBookAPI = {
   },
   /** COMPLETED: deleteAccountBook DELETE 요청하기 */
   deleteAccountBook: (accountId: number) => {
-    return APIInstance.delete(ACCOUNTS + `/${accountId}`);
+    return APIInstance.delete<DeleteAccount>(ACCOUNTS + `/${accountId}`);
   },
   /** COMPLETED: getAccountBookImages GET 요청하기 */
   getAccountBookImages: (accountId: number) => {
