@@ -49,7 +49,7 @@ export const CalculatePercentage = (numerator: number, denominator: number) => {
 };
 
 /** COMPLETED: '오전/오후 00:00' 형태로 시간 구성하기 */
-export const ChangeTime = (time: string) => {
+export const ChangeTime = (time: string | Date) => {
   /* 1. Date 객체로 변환 */
   const date = new Date(time);
 
@@ -146,23 +146,10 @@ export const ChangeMonth = (time: string) => {
   return formattedMonth;
 };
 
-/** COMPLETED: Cookie에 Token이 존재하는지 확인하기 */
-export const isHaveToken = () => {
-  const COOKIE_VALUE = `${document.cookie}`;
-  const PARTS = COOKIE_VALUE.split(";");
-  const ACCESS_TOKEN = PARTS[5].split("=")[1];
-
-  if (ACCESS_TOKEN) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 /** COMPLETED: Cookie에 Token 가져오기 */
 export const getAccessToken = () => {
   const COOKIE_VALUE = `${document.cookie}`;
-  console.log("COOKIE_VALUE: ", COOKIE_VALUE);
+  console.log("COOKIE_VALUE2: ", COOKIE_VALUE);
   // const PARTS = COOKIE_VALUE.split(";");
   // const ACCESS_TOKEN = PARTS[5].split("=")[1];
 
