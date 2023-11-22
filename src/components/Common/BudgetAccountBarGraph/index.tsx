@@ -1,7 +1,7 @@
 import {
   CalculatePercentage,
   ChangeNumberForAccounting,
-} from "@/src/assets/format";
+} from "@/src/assets/util";
 import { BudgetAccountBarGraphUI } from "./style";
 
 export const BudgetAccountBarGraphData = {

@@ -3,7 +3,7 @@ import { ShortButtonUI } from "./style";
 interface ShortButtonProps {
   isSaveButton: boolean;
   onCancelClick: () => void;
-  onSaveClick: () => void;
+  onSaveClick?: () => void;
   onDeleteClick?: () => void;
 }
 

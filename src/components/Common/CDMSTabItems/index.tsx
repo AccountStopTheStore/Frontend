@@ -33,7 +33,7 @@ function CDMSTabItems() {
 
   const eventHandler = async (item: tabButtonsType) => {
     /** tabButtons에 활성화 버튼 변경하기 */
-    const updatedTabButtons = tabButtons.map((tabItem) => {
+    const updatedTabButtons = tabButtons.map(tabItem => {
       // 클릭한 항목만 active를 true, 나머지는 false로 설정
       return {
         ...tabItem,
@@ -45,7 +45,7 @@ function CDMSTabItems() {
   return (
     <>
       <CDMSTabItemsUI.UnorderedListContainer>
-        {tabButtons.map((item) => (
+        {tabButtons.map(item => (
           <CDMSTabItem
             key={item.tabName}
             onClick={() => eventHandler(item)}

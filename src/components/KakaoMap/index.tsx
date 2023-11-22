@@ -23,6 +23,7 @@ function KakaoMap({ onLocationChange, data }: onLocationChangeCallBack) {
     useState<kakao.maps.LatLng | null>(null);
 
   const [message, setMessage] = useState<HTMLDivElement | string>("");
+  console.log("message: ", message);
 
   /** 카카오 맵 불러오기 */
   useEffect(() => {

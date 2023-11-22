@@ -2,7 +2,7 @@ import { theme } from "@/src/assets/theme";
 import { CalendarUI } from "./style";
 import { useRecoilState } from "recoil";
 import { calendarDateAtom } from "@/src/hooks/recoil/useCalendarDate";
-import { CalculateTotal } from "@/src/assets/format";
+import { CalculateTotal } from "@/src/assets/util";
 import { AccountBookAPI } from "@/src/core/api/accountBook";
 import { useEffect, useState } from "react";
 import { GetAccounts } from "@/src/@types/models/getAccounts";
@@ -70,7 +70,7 @@ function Calendar() {
     const calendarArray = [];
 
     /** 해당 월의 거래 내역 필터링 */
-    const filteredTransactions = transactions.filter((transaction) => {
+    const filteredTransactions = transactions.filter(transaction => {
       const transactionDate = new Date(transaction.transactedAt);
       return (
         transactionDate.getFullYear() === year &&
@@ -95,7 +95,7 @@ function Calendar() {
       };
 
       /** FIXME: 해당 날짜에 속하는 거래 내역을 추출하여 배열에 추가하기 */
-      const transactionsForDate = filteredTransactions.filter((transaction) => {
+      const transactionsForDate = filteredTransactions.filter(transaction => {
         return new Date(transaction.transactedAt).getDate() === i;
       });
 
@@ -161,8 +161,7 @@ function Calendar() {
               key={index}
               onClick={() => onDateClick(day)}
               disabled={day.date === "" && true}
-              style={day.date === "" ? disabledStyle : ableStyle}
-            >
+              style={day.date === "" ? disabledStyle : ableStyle}>
               {day.date !== "" && (
                 <>
                   <div>{day.date}</div>

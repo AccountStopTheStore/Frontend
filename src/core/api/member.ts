@@ -11,7 +11,7 @@ export const memberAPI = {
   },
   /** COMPLETED: verifyEmail PUT 요청하기 */
   verifyEmail: (code: string, email: string) => {
-    return APIInstance.put(AUTH + "/email-verification", {
+    return APIInstance.put(AUTH + "/email-verifications", {
       code: code,
       email: email,
     });
@@ -28,8 +28,8 @@ export const memberAPI = {
       email: email,
     });
   },
-  /** TODO: resetPassword POST 요청하기
-   * token은 어떻게 가져오지? document.cookie 참고?
+  /** COMPLETED: resetPassword POST 요청하기
+   * token은 어떻게 가져오지? util 함수인 isHaveToken 함수 사용하기(document.cookie 사용)
    */
   resetPassword: (memberId: number, password: string, token: string) => {
     return APIInstance.post(AUTH + `/reset-password/${memberId}/t/${token}`, {

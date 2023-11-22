@@ -1,6 +1,5 @@
 import { theme } from "@/src/assets/theme";
 import styled from "@emotion/styled";
-import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const ItemLink = styled(Link)`

@@ -2,7 +2,7 @@ import {
   CalculateTotal,
   ChangeNumberForAccounting,
   ChangeWeeks,
-} from "@/src/assets/format";
+} from "@/src/assets/util";
 import { MonthIncomeExpenseInfoUI } from "./style";
 
 interface transactionInfoData {

@@ -1,3 +1,4 @@
+import { GetNearbyAccountBooks } from "@/src/@types/models/getNearbyAccountBooks";
 import Header from "@/src/components/Common/Header";
 import NavigationItems from "@/src/components/Common/NavigationItems";
 import KakaoMap from "@/src/components/KakaoMap";
@@ -85,6 +86,7 @@ function RecordPage() {
     lat: number;
     lng: number;
   } | null>(null);
+  console.log("currentLatLng: ", currentLatLng);
 
   /** getNearbyAccountBooks로 가져온 데이터 */
   // const [nearbyAccountBooksData, setNearbyAccountBooksData] = useState<

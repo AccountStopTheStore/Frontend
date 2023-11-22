@@ -1,5 +1,16 @@
 import styled from "@emotion/styled";
 import { theme } from "../../../assets/theme";
+import { Button } from "@mui/material";
+
+const DayIncomeExpenseInfoButton = styled(Button)`
+  width: 100%;
+  height: 64px;
+  border-bottom: 1px solid ${theme.font_color.gray2};
+  padding: 6px 20px;
+  color: ${theme.font_color.black};
+  font-weight: 300;
+  fontsize: 13px;
+`;
 
 const ContentContainer = styled.div`
   width: 100%;
@@ -37,5 +48,6 @@ const ContentContainer = styled.div`
 `;
 
 export const DayIncomeExpenseInfoUI = {
+  DayIncomeExpenseInfoButton,
   ContentContainer,
 };

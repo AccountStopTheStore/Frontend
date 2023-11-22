@@ -1,8 +1,7 @@
-import { Button } from "@mui/material";
 import { theme } from "../../../assets/theme";
 import { AccountsData } from "../DayIncomeExpenseInfos";
 import { DayIncomeExpenseInfoUI } from "./style";
-import { ChangeNumberForAccounting, ChangeTime } from "@/src/assets/format";
+import { ChangeNumberForAccounting, ChangeTime } from "@/src/assets/util";
 
 interface DayIncomeExpenseInfoProps {
   onClick: (item: AccountsData) => void;
@@ -12,17 +11,8 @@ interface DayIncomeExpenseInfoProps {
 function DayIncomeExpenseInfo({ onClick, item }: DayIncomeExpenseInfoProps) {
   return (
     <li>
-      <Button
+      <DayIncomeExpenseInfoUI.DayIncomeExpenseInfoButton
         variant="text"
-        style={{
-          width: "100%",
-          height: "64px",
-          borderBottom: `1px solid ${theme.font_color.gray2}`,
-          padding: "6px 20px",
-          color: `${theme.font_color.black}`,
-          fontWeight: "300",
-          fontSize: "13px",
-        }}
         onClick={() => onClick(item)}>
         <DayIncomeExpenseInfoUI.ContentContainer>
           <div>{item.categoryName}</div>
@@ -40,7 +30,7 @@ function DayIncomeExpenseInfo({ onClick, item }: DayIncomeExpenseInfoProps) {
             {ChangeNumberForAccounting(item.amount)}
           </div>
         </DayIncomeExpenseInfoUI.ContentContainer>
-      </Button>
+      </DayIncomeExpenseInfoUI.DayIncomeExpenseInfoButton>
     </li>
   );
 }

@@ -1,4 +1,4 @@
-import { ChangeChallengePeriod } from "@/src/assets/format";
+import { ChangeChallengePeriod } from "@/src/assets/util";
 import { array1Data } from "../BarGraphItemDetails";
 import { BarGraphItemDetailsTopContainerUI } from "./style";
 

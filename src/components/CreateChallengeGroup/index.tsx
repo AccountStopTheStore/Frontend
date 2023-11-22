@@ -45,10 +45,13 @@ function CreateChallengeGroup() {
   const handleSavingButton = () => {
     console.log("saving");
   };
+  const handleCancelButton = () => {
+    console.log("cancel");
+  };
   return (
     <CreateChallengeGroupUI.Container>
       <div>
-        {array.map((object) => {
+        {array.map(object => {
           return (
             <LabelInput
               key={object.inputId}
@@ -61,7 +64,11 @@ function CreateChallengeGroup() {
           );
         })}
       </div>
-      <ShortButton isSaveButton onClick={handleSavingButton} />
+      <ShortButton
+        isSaveButton
+        onSaveClick={handleSavingButton}
+        onCancelClick={handleCancelButton}
+      />
     </CreateChallengeGroupUI.Container>
   );
 }
