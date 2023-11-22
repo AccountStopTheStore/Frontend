@@ -1,4 +1,4 @@
-import { ChangeMonthPeriod } from "@/src/assets/format";
+import { ChangeMonthPeriod } from "@/src/assets/util";
 import BudgetAccountBarGraph from "../Common/BudgetAccountBarGraph";
 import { ReportUI } from "./style";
 

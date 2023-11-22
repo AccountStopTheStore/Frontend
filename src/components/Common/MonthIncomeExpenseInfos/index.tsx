@@ -1,10 +1,5 @@
 import { useState } from "react";
 import { MonthIncomeExpenseInfosUI } from "./style";
-import {
-  CalculateTotal,
-  ChangeMonth,
-  ChangeNumberForAccounting,
-} from "@/src/assets/format";
 import MonthIncomeExpenseInfo from "../MonthIncomeExpenseInfo";
 import { MonthData } from "../../MonthAccount";
 
@@ -60,7 +55,7 @@ function MonthIncomeExpenseInfos({
       </MonthIncomeExpenseInfosUI.MonthButton>
       <ul>
         {isOpenWeeks &&
-          exampleArray.map((transactionInfo) => {
+          exampleArray.map(transactionInfo => {
             return (
               <MonthIncomeExpenseInfo
                 key={transactionInfo.startAt}

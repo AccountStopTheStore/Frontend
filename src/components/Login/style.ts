@@ -11,7 +11,7 @@ const SectionContainer = styled.section`
   justify-content: center;
   align-items: center;
 
-  > form {
+  >div: first-of-type {
     width: 100%;
     > * {
       display: block;

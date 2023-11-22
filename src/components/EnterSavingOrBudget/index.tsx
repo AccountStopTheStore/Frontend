@@ -10,7 +10,7 @@ function EnterSavingOrBudget({ enterType }: EnterSavingOrBudgetProps) {
     <EnterSavingOrBudgetUI.Container>
       <EnterSavingOrBudgetUI.EnterContainer>
         <EnterSavingOrBudgetUI.Input type="text" placeholder="입력하기" />
-        <LongButton buttonName={"저장"} />
+        <LongButton buttonName={"저장"} type={"button"} />
       </EnterSavingOrBudgetUI.EnterContainer>
     </EnterSavingOrBudgetUI.Container>
   );

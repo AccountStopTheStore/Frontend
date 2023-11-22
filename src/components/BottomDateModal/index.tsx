@@ -1,4 +1,3 @@
-import { PropsWithChildren, useState } from "react";
 import DateTopContainer from "../Common/DateTopContainer";
 import DayIncomeExpenseInfos from "../Common/DayIncomeExpenseInfos";
 import { BottomDateModalUI } from "./style";

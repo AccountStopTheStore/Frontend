@@ -145,3 +145,56 @@ export const ChangeMonth = (time: string) => {
 
   return formattedMonth;
 };
+
+/** COMPLETED: Cookie에 Token이 존재하는지 확인하기 */
+export const isHaveToken = () => {
+  const COOKIE_VALUE = `${document.cookie}`;
+  const PARTS = COOKIE_VALUE.split(";");
+  const ACCESS_TOKEN = PARTS[5].split("=")[1];
+
+  if (ACCESS_TOKEN) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+/** COMPLETED: Cookie에 Token 가져오기 */
+export const getAccessToken = () => {
+  const COOKIE_VALUE = `${document.cookie}`;
+  console.log("COOKIE_VALUE: ", COOKIE_VALUE);
+  // const PARTS = COOKIE_VALUE.split(";");
+  // const ACCESS_TOKEN = PARTS[5].split("=")[1];
+
+  // if (ACCESS_TOKEN) {
+  //   return true;
+  // } else {
+  //   return false;
+  // }
+};
+
+/** COMPLETED: 이메일 유효성 검사하기 */
+export const isValidEmail = (email: string): boolean => {
+  /** 이메일 형식을 정의한 정규표현식 */
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+  // 정규표현식을 사용하여 이메일 형식을 검증
+  return emailRegex.test(email);
+};
+
+/** COMPLETED: 비밀번호 유효성 검사하기 */
+export const isPasswordValid = (password: string) => {
+  /* 최소 길이 검사 */
+  if (password.length < 8) {
+    return false;
+  }
+
+  /* 대/소문자, 숫자, 특수문자 포함 여부 검사 */
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasLowercase = /[a-z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+  /* 모든 규칙을 만족해야 유효한 비밀번호로 판단 */
+  return hasUppercase && hasLowercase && hasNumber && hasSpecialChar;
+};

@@ -5,6 +5,7 @@ import { useState } from "react";
 
 function InstallmentPage() {
   const [inputValue, setInputValue] = useState<string>("");
+  console.log("inputValue: ", inputValue);
 
   const handleBackButton = () => {
     /** 이전 페이지로 이동 */
@@ -39,7 +40,11 @@ function InstallmentPage() {
             onChange={InputChange}
           />
         </InstallmentPageUI.Form>
-        <LongButton buttonName="저장" onClick={handleSaveButton} />
+        <LongButton
+          buttonName="저장"
+          onClick={handleSaveButton}
+          type={"button"}
+        />
       </InstallmentPageUI.Container>
     </>
   );

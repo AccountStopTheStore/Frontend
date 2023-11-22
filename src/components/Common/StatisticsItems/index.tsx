@@ -11,6 +11,7 @@ interface StatisticsItemsProps {
 }
 
 function StatisticsItems({ selectedTab }: StatisticsItemsProps) {
+  console.log("selectedTab: ", selectedTab);
   /** TODO */
   // 선택된 탭, 수입 및 지출 금액 연결 하기
   // 금액 천 단위로 표시

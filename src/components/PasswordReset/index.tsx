@@ -11,8 +11,12 @@ function PasswordReset() {
     <PasswordResetUI.SectionContainer>
       <PasswordResetUI.Header>비밀번호 재설정</PasswordResetUI.Header>
       <form onSubmit={exampleFunction}>
-        <Input placeholder={"이메일"} />
-        <LongButton buttonName={"발송"} onClick={exampleFunction} />
+        <Input placeholder={"이메일"} type={"text"} />
+        <LongButton
+          buttonName={"발송"}
+          onClick={exampleFunction}
+          type={"button"}
+        />
       </form>
     </PasswordResetUI.SectionContainer>
   );

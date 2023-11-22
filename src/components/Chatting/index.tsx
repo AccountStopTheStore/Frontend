@@ -1,7 +1,7 @@
 import SendPNG from "@/public/icon/Send.png";
 import BarGraphItemDetailsTopContainer from "../BarGraphItemDetailsTopContainer";
 import { ChattingUI } from "./style";
-// import { ChangeTime } from "@/src/assets/format";
+// import { ChangeTime } from "@/src/assets/util";
 import ChattingContent from "../ChattingContent";
 
 function Chatting() {
@@ -76,7 +76,7 @@ function Chatting() {
       <BarGraphItemDetailsTopContainer array1={array1} />
       <ChattingUI.BottomContainer>
         <ChattingUI.ChattingList>
-          {chattingArray.map((content) => {
+          {chattingArray.map(content => {
             return <ChattingContent content={content} />;
           })}
         </ChattingUI.ChattingList>

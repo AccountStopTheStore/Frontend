@@ -1,7 +1,7 @@
 import BudgetAccountBarGraph from "../Common/BudgetAccountBarGraph";
 import { ChallengeData } from "../BarGraphList";
 import { BarGraphItemUI } from "./style";
-import { ChangeChallengePeriod } from "@/src/assets/format";
+import { ChangeChallengePeriod } from "@/src/assets/util";
 
 interface BarGraphItemProps {
   item: ChallengeData;

@@ -1,3 +1,4 @@
+import { theme } from "@/src/assets/theme";
 import styled from "@emotion/styled";
 
 const SectionContainer = styled.section`
@@ -23,7 +24,13 @@ const Header = styled.h1`
   margin-bottom: 33px;
 `;
 
+const ErrorContainer = styled.div`
+  color: ${theme.font_color.primary_red};
+  ${theme.font_style.bold_small}
+`;
+
 export const SignUpUI = {
   SectionContainer,
   Header,
+  ErrorContainer,
 };

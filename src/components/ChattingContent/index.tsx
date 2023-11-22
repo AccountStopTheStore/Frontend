@@ -1,4 +1,4 @@
-import { ChangeTime } from "@/src/assets/format";
+import { ChangeTime } from "@/src/assets/util";
 import { ChattingContentUI } from "./style";
 
 interface ChattingContentData {

@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import { LabelInputUI } from "./style";
 
 export interface LabelInputProps {
@@ -6,7 +7,7 @@ export interface LabelInputProps {
   inputId: string;
   inputName: string;
   placeholder: string;
-  onClick?: () => void;
+  onClick?: (e: ChangeEvent<HTMLInputElement>) => void;
   readonly?: boolean | undefined;
 }
 
@@ -28,7 +29,7 @@ function LabelInput({
         name={inputName}
         placeholder={placeholder}
         spellCheck={false}
-        onClick={onClick}
+        onChange={onClick}
         readOnly={readonly}
       />
     </LabelInputUI.Container>

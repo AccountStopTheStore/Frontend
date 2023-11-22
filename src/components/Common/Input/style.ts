@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { theme } from "../../../assets/theme";
+import { Button } from "@mui/material";
 
 const deleteMarginLength = "100% - 64px";
 
@@ -22,6 +23,23 @@ const Input = styled.input`
   }
 `;
 
+const InputButton = styled(Button)`
+  height: 40px;
+
+  background-color: ${theme.font_color.primary_green};
+  color: ${theme.font_color.white};
+  ${theme.font_style.light_small};
+
+  position: absolute;
+  right: 0;
+  margin-right: 32px;
+
+  :hover {
+    background-color: ${theme.font_color.primary_green};
+  }
+`;
+
 export const InputUI = {
   Input,
+  InputButton,
 };
