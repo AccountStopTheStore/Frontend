@@ -18,8 +18,15 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Option */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "types": ["node", "vite/client", "kakao.maps.d.ts"]
   },
-  "include": ["src"],
+  "include": ["src", "custom.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
