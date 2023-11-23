@@ -10,6 +10,7 @@ const DayIncomeExpenseInfoButton = styled(Button)`
   color: ${theme.font_color.black};
   font-weight: 300;
   fontsize: 13px;
+  background-color: ${theme.font_color.white};
 `;
 
 const ContentContainer = styled.div`
@@ -21,6 +22,7 @@ const ContentContainer = styled.div`
   > div:nth-of-type(1) {
     margin-right: 46px;
     color: ${theme.font_color.gray3};
+    ${theme.font_style.regular_small};
   }
   > div:nth-of-type(2) {
     flex: 1;
@@ -40,9 +42,15 @@ const ContentContainer = styled.div`
     > div:nth-of-type(2) {
       color: ${theme.font_color.gray3};
 
+      > span {
+        ${theme.font_style.regular_small};
+      }
       > span:nth-of-type(1) {
         margin-right: 32px;
       }
+    }
+    > div:nth-of-type(2) {
+      ${theme.font_style.bold_small};
     }
   }
 `;

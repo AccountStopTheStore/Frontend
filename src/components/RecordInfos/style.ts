@@ -8,18 +8,19 @@ const Container = styled.div`
   width: 100%;
   position: absolute;
   bottom: ${NavigationItemsHeight}px;
-  background-color: ${theme.font_color.white};
+  background-color: ${theme.font_color.gray1};
   border-top: 1px solid ${theme.font_color.gray2};
   z-index: 1;
 `;
 
 const Address = styled.div`
   widht: inherit;
-  height: 84px;
   padding: 20px;
   border-bottom: 1px solid ${theme.font_color.gray2};
+  background-color: ${theme.font_color.white};
   ${theme.font_style.bold_large};
   color: ${theme.font_color.black};
+  white-space: normal;
 `;
 
 const ListContainerUl = styled.ul`

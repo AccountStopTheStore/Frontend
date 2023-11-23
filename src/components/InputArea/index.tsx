@@ -1,93 +1,12 @@
 import { ChangeEvent, useState } from "react";
 import LabelInput from "../Common/LabelInput";
 import { InputAreaUI } from "./style";
-
 import SelectedImage from "../SelectedImage";
 import SeparatedCategory from "../Common/SeparatedCategory";
 import { useRecoilState } from "recoil";
 import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
 
-// interface InputAreaData {
-//   type: string;
-//   label: string;
-//   inputId: string;
-//   value: string | number;
-//   placeholder: string;
-//   addContent: string;
-//   onClick: undefined | (() => void);
-//   handleChange: undefined | (() => void);
-//   readonly: boolean;
-// }
-
 function InputArea() {
-  // const InputArray = [
-  //   {
-  //     type: "text",
-  //     label: "날짜",
-  //     inputId: "transactedAt",
-  //     value: "",
-  //     placeholder: "날짜를 입력해주세요.",
-  //     addContent: "button",
-  //     onClick: undefined,
-  //     handleChange: handleDate,
-  //     readonly: false,
-  //   },
-  //   {
-  //     type: "number",
-  //     label: "금액",
-  //     inputId: "amount",
-  //     value: 0,
-  //     placeholder: "금액을 입력해주세요.",
-  //     addContent: "won",
-  //     onClick: undefined,
-  //     handleChange: handleAmount,
-  //     readonly: false,
-  //   },
-  //   {
-  //     type: "text",
-  //     label: "분류",
-  //     inputId: "categoryName",
-  //     value: "",
-  //     placeholder: "카테고리를 선택해주세요.",
-  //     addContent: "nothing",
-  //     onClick: () => setShowSeparatedCategory(!showSeparatedCategory),
-  //     handleChange: handleCategoryName,
-  //     readonly: true,
-  //   },
-  //   {
-  //     type: "text",
-  //     label: "자산",
-  //     inputId: "asset",
-  //     value: "",
-  //     placeholder: "결제 수단을 선택해주세요.",
-  //     addContent: "nothing",
-  //     onClick: () => setShowSeparatedCategory(!showSeparatedCategory),
-  //     handleChange: handleAsset,
-  //     readonly: true,
-  //   },
-  //   {
-  //     type: "text",
-  //     label: "사용처",
-  //     inputId: "transactionDetail",
-  //     value: "",
-  //     placeholder: "사용처를 입력해주세요.",
-  //     addContent: "nothing",
-  //     onClick: undefined,
-  //     handleChange: handleTransactionDetail,
-  //     readonly: false,
-  //   },
-  //   {
-  //     type: "text",
-  //     label: "주소",
-  //     inputId: "address",
-  //     value: "",
-  //     placeholder: "주소를 입력해주세요.",
-  //     addContent: "nothing",
-  //     onClick: undefined,
-  //     handleChange: handleAddress,
-  //     readonly: false,
-  //   },
-  // ];
   const [postSaveAccountBook, setPostSaveAccountBook] =
     useRecoilState(saveAccountBookAtom);
   const [showSeparatedCategory, setShowSeparatedCategory] =
