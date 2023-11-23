@@ -32,7 +32,7 @@ export const AccountBookAPI = {
     assetName: string;
     categoryName: string;
     imageIds: number[];
-    isInstallment: number;
+    isInstallment: boolean;
     memo: string;
     recurringType: string;
     transactedAt: string;
@@ -54,33 +54,36 @@ export const AccountBookAPI = {
     });
   },
   /** COMPLETED: updateAccountBook PUT 요청하기 */
-  updateAccountBook: (
-    accountId: number,
-    address: string,
-    amount: number,
-    assetName: string,
-    categoryName: string,
-    imageIds: number[],
-    isInstallment: false,
-    memo: string,
-    recurringType: string,
-    transactedAt: string,
-    transactionDetail: string,
-    transactionType: string
-  ) => {
-    return APIInstance.put<PutAccount>(ACCOUNTS + `/${accountId}`, {
-      address: address,
-      amount: amount,
-      assetName: assetName,
-      categoryName: categoryName,
-      imageIds: imageIds,
-      isInstallment: isInstallment,
-      memo: memo,
-      recurringType: recurringType,
-      transactedAt: transactedAt,
-      transactionDetail: transactionDetail,
-      transactionType: transactionType,
-    });
+  updateAccountBook: (PutAccountBook: {
+    accountId: number;
+    address: string;
+    amount: number;
+    assetName: string;
+    categoryName: string;
+    imageIds: number[];
+    isInstallment: boolean;
+    memo: string;
+    recurringType: string;
+    transactedAt: string;
+    transactionDetail: string;
+    transactionType: string;
+  }) => {
+    return APIInstance.put<PutAccount>(
+      ACCOUNTS + `/${PutAccountBook.accountId}`,
+      {
+        address: PutAccountBook.address,
+        amount: PutAccountBook.amount,
+        assetName: PutAccountBook.assetName,
+        categoryName: PutAccountBook.categoryName,
+        imageIds: PutAccountBook.imageIds,
+        isInstallment: PutAccountBook.isInstallment,
+        memo: PutAccountBook.memo,
+        recurringType: PutAccountBook.recurringType,
+        transactedAt: PutAccountBook.transactedAt,
+        transactionDetail: PutAccountBook.transactionDetail,
+        transactionType: PutAccountBook.transactionType,
+      }
+    );
   },
   /** COMPLETED: deleteAccountBook DELETE 요청하기 */
   deleteAccountBook: (accountId: number) => {

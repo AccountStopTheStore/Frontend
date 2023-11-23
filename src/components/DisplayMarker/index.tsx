@@ -7,6 +7,7 @@ interface DisplayMarkerProps {
     width: number;
     height: number;
   };
+  markerClick?: () => void;
 }
 
 function DisplayMarker({
@@ -15,6 +16,7 @@ function DisplayMarker({
   message,
   markerImageURL,
   markerImageSize,
+  markerClick,
 }: DisplayMarkerProps) {
   // 마커 이미지 사이즈
   const markerSize = new window.kakao.maps.Size(
@@ -44,7 +46,9 @@ function DisplayMarker({
 
   // 마커 이벤트 등록
   const hanldeMarkerClick = () => {
-    console.log("마커 클릭");
+    if (markerClick) {
+      markerClick();
+    }
   };
 
   kakao.maps.event.addListener(marker, "mouseover", function () {

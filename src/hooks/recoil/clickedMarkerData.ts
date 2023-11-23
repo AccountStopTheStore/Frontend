@@ -1,7 +1,6 @@
-/**
- * 기록지 조회 Response Interface
- */
-export type GetNearbyAccountBooks = {
+import { atom } from "recoil";
+
+export interface clickedMarkerDataAtomProps {
   accountId: number;
   address: string;
   amount: number;
@@ -18,4 +17,9 @@ export type GetNearbyAccountBooks = {
   transactionDetail: string;
   transactionType: string;
   updatedAt: string;
-};
+}
+
+export const clickedMarkerDataAtom = atom<clickedMarkerDataAtomProps[]>({
+  key: "clickedMarkerDataAtom",
+  default: [],
+});

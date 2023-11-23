@@ -20,14 +20,14 @@ function DayIncomeExpenseInfo({ onClick, item }: DayIncomeExpenseInfoProps) {
             <div>{item.transactionDetail}</div>
             <div>
               <span>{ChangeTime(item.createdAt)}</span>
-              <span>{item.assetType}</span>
+              <span>{item.assetName}</span>
             </div>
           </div>
           <div
             style={
               item.transactionType === "수입" ? incomeStyle : expenseStyle
             }>
-            {ChangeNumberForAccounting(item.amount)}
+            {ChangeNumberForAccounting(item.amount)}원
           </div>
         </DayIncomeExpenseInfoUI.ContentContainer>
       </DayIncomeExpenseInfoUI.DayIncomeExpenseInfoButton>

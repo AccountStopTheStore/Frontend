@@ -3,6 +3,8 @@ import { MapUI } from "./style";
 import DisplayMarker from "../DisplayMarker";
 import BackToCenterIcon from "@/public/icon/BackToCenter.svg";
 import { GetNearbyAccountBooks } from "@/src/@types/models/getNearbyAccountBooks";
+import { useRecoilState } from "recoil";
+import { clickedMarkerDataAtom } from "@/src/hooks/recoil/clickedMarkerData";
 
 declare global {
   interface Window {
@@ -13,17 +15,40 @@ declare global {
 interface onLocationChangeCallBack {
   onLocationChange: (lat: number, lng: number) => void;
   data: GetNearbyAccountBooks[];
+  toggleRecordInfosVisibility: () => void;
 }
 
-function KakaoMap({ onLocationChange, data }: onLocationChangeCallBack) {
+function KakaoMap({
+  onLocationChange,
+  data,
+  toggleRecordInfosVisibility,
+}: onLocationChangeCallBack) {
   const { kakao } = window;
   const mapRef = useRef<HTMLDivElement>(null);
+
   const [map, setMap] = useState<any>(null);
   const [currentLocation, setCurrentLocation] =
     useState<kakao.maps.LatLng | null>(null);
+  const [datas, setDatas] = useState<GetNearbyAccountBooks[]>([]);
+  useEffect(() => {
+    setDatas(data);
+  }, []);
 
   const [message, setMessage] = useState<HTMLDivElement | string>("");
-  console.log("message: ", message);
+
+  const [, setClickedMarkerData] = useRecoilState(clickedMarkerDataAtom);
+
+  // 마커 클릭 이벤트
+  const handleMarkerClick = (markerData: GetNearbyAccountBooks) => {
+    const markerAddress = markerData.address;
+
+    const selectedAddressData = data.filter(data => {
+      return data.address === markerAddress;
+    });
+
+    setClickedMarkerData(selectedAddressData);
+    toggleRecordInfosVisibility();
+  };
 
   /** 카카오 맵 불러오기 */
   useEffect(() => {
@@ -50,6 +75,7 @@ function KakaoMap({ onLocationChange, data }: onLocationChangeCallBack) {
 
         setCurrentLocation(locPosition);
         onLocationChange(lat, lng);
+        console.log("위경도", lat, lng);
       });
     } else {
       // HTML5의 GeoLocation을 사용할 수 없을 때 마커 표시 위치와 인포윈도우 내용 설정
@@ -88,6 +114,7 @@ function KakaoMap({ onLocationChange, data }: onLocationChangeCallBack) {
             markerImageURL:
               "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png",
             markerImageSize: { width: 24, height: 35 },
+            markerClick: () => handleMarkerClick(item),
           });
         });
       }

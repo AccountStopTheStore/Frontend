@@ -2,17 +2,17 @@ import { GetNearbyAccountBooks } from "@/src/@types/models/getNearbyAccountBooks
 import Header from "@/src/components/Common/Header";
 import NavigationItems from "@/src/components/Common/NavigationItems";
 import KakaoMap from "@/src/components/KakaoMap";
-// import RecordInfos from "@/src/components/RecordInfos";
+import RecordInfos from "@/src/components/RecordInfos";
 import { useEffect, useState } from "react";
-// import { AccountBookAPI } from "@/src/core/api/accountBook";
+import { AccountBookAPI } from "@/src/core/api/accountBook";
 
 function RecordPage() {
   const exampleNearby = [
     {
       accountId: 1,
-      address: "서울특별시 은평구 은평터널로 150",
+      address: "서울특별시 은평구 은평터널로 150 ",
       categoryName: "간식",
-      assetType: "현금",
+      assetName: "현금",
       amount: 2000000,
       transactionType: "지출",
       transactionDetail: "감자칩, 서신초등학교",
@@ -30,7 +30,7 @@ function RecordPage() {
       accountId: 2,
       address: "서울특별시 은평구 증산로 403-1",
       categoryName: "간식",
-      assetType: "현금",
+      assetName: "현금",
       amount: 1500,
       transactionType: "수입",
       transactionDetail: "몽소",
@@ -46,9 +46,9 @@ function RecordPage() {
     },
     {
       accountId: 3,
-      address: "서울특별시 은평구 가좌로 275-2",
+      address: "서울특별시 은평구 신사동 증산로 413",
       categoryName: "간식",
-      assetType: "현금",
+      assetName: "현금",
       amount: 1500,
       transactionType: "수입",
       transactionDetail: "신사초등학교",
@@ -57,8 +57,8 @@ function RecordPage() {
       recurringType: "",
       createdAt: "2023-11-17 13:00:00",
       updatedAt: "",
-      latitude: 37.5928348327068,
-      longitude: 126.911983196588,
+      latitude: 37.5931409230026,
+      longitude: 126.913846721415,
       installment: false,
       transactedAt: "",
     },
@@ -66,7 +66,7 @@ function RecordPage() {
       accountId: 4,
       address: "서울특별시 은평구 신사동 증산로 413",
       categoryName: "간식",
-      assetType: "현금",
+      assetName: "현금",
       amount: 1500,
       transactionType: "지출",
       transactionDetail: "설렁탕",
@@ -85,33 +85,42 @@ function RecordPage() {
   const [currentLatLng, setCurrentLatLng] = useState<{
     lat: number;
     lng: number;
-  } | null>(null);
-  console.log("currentLatLng: ", currentLatLng);
+  }>({ lat: 0, lng: 0 });
 
-  /** getNearbyAccountBooks로 가져온 데이터 */
-  // const [nearbyAccountBooksData, setNearbyAccountBooksData] = useState<
-  //   GetNearbyAccountBooks[]
-  // >([]);
-
-  const [exampleData, setExampleData] = useState<GetNearbyAccountBooks[]>([]);
-  useEffect(() => {
-    setExampleData(exampleNearby);
-  }, []);
+  // const [exampleData, setExampleData] = useState<GetNearbyAccountBooks[]>([]);
+  // useEffect(() => {
+  //   setExampleData(exampleNearby);
+  // }, []);
+  const [isRecordInfosVisible, setIsRecordInfosVisible] =
+    useState<boolean>(false);
 
   const handleLocationChange = (lat: number, lng: number) => {
     setCurrentLatLng({ lat, lng });
   };
 
-  // const getNearbyAccountBooks = (lat: number, lng: number) => {
-  //   AccountBookAPI.getNearbyAccountBooks(lat, lng)
-  //     .then(response => {
-  //       setNearbyAccountBooksData(response.data);
-  //       console.log("기록지 수신 성공: ", response.data);
-  //     })
-  //     .catch(error => {
-  //       console.error("기록지 수신 실패:", error);
-  //     });
-  // };
+  const toggleRecordInfosVisibility = () => {
+    setIsRecordInfosVisible(!isRecordInfosVisible);
+  };
+
+  /** getNearbyAccountBooks로 가져온 데이터 */
+  const [nearbyAccountBooksData, setNearbyAccountBooksData] = useState<
+    GetNearbyAccountBooks[]
+  >([]);
+
+  const getNearbyAccountBook = (lat: number, lng: number) => {
+    AccountBookAPI.getNearbyAccountBooks(lat, lng)
+      .then(response => {
+        setNearbyAccountBooksData(response.data);
+        console.log("기록지 수신 성공: ", response.data);
+      })
+      .catch(error => {
+        console.error("기록지 수신 실패:", error);
+      });
+  };
+
+  useEffect(() => {
+    getNearbyAccountBook(37.59305502696753, 126.91361917024199);
+  }, []);
 
   return (
     <>
@@ -123,8 +132,12 @@ function RecordPage() {
         isAddButton={false}
         isMoreButton={false}
       />
-      <KakaoMap onLocationChange={handleLocationChange} data={exampleData} />
-      {/* <RecordInfos data={exampleData} /> */}
+      <KakaoMap
+        onLocationChange={handleLocationChange}
+        data={nearbyAccountBooksData}
+        toggleRecordInfosVisibility={toggleRecordInfosVisibility}
+      />
+      <RecordInfos isVisible={isRecordInfosVisible} />
       <NavigationItems />
     </>
   );

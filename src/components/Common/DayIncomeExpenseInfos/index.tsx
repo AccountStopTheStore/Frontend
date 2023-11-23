@@ -4,7 +4,7 @@ export interface AccountsData {
   accountId: number;
   address: string;
   amount: number;
-  assetType: string;
+  assetName: string;
   categoryName: string;
   createdAt: string;
   imageIds: number[];
@@ -24,7 +24,7 @@ function DayIncomeExpenseInfos() {
       accountId: 1,
       address: "서울특별시 은평구 은평터널로 150",
       categoryName: "간식",
-      assetType: "현금",
+      assetName: "현금",
       amount: 2000000,
       transactionType: "지출",
       transactionDetail: "감자칩, 서신초등학교",
@@ -41,7 +41,7 @@ function DayIncomeExpenseInfos() {
       accountId: 2,
       address: "서울특별시 은평구 증산로 403-1",
       categoryName: "간식",
-      assetType: "현금",
+      assetName: "현금",
       amount: 1500,
       transactionType: "수입",
       transactionDetail: "몽소",
