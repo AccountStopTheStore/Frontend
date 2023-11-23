@@ -15,15 +15,9 @@ import Layout from "./components/Common/Layout";
 import ChattingPage from "./pages/ChattingPage";
 import ChallengeDetailPage from "./pages/ChallengeDetailPage";
 import CreateChallengeGroupPage from "./pages/CreateChallengeGroupPage";
-// import { isHaveToken } from "./assets/util";
-
-interface ProtectedRouteProps {
-  isLoggedIn: boolean;
-  children: React.ReactNode;
-}
 
 function App() {
-  // const isLoggedIn = isHaveToken();
+  const isLoggedIn = isHaveToken();
 
   const isLoginPage = window.location.pathname === "/login";
   const isSignUpPage = window.location.pathname === "/signup";
@@ -34,118 +28,35 @@ function App() {
     <Layout>
       <Routes>
         {/* COMPLETED: 처음 화면에 진입했을 때 */}
-        <Route path="/" element={<LoginPage />} />
+        <Route
+          path="/"
+          element={isLoggedIn ? <AccountPage /> : <LoginPage />}
+        />
         {/* COMPLETED: 로그인하지 않아서, Token이 없을 때 */}
-        <Route
-          path="/login"
-          element={
-            // <UnProtectedRoute isLoggedIn={isLoggedIn}>
-            <LoginPage />
-          }
-        />
-        <Route
-          path="/signUp"
-          element={
-            // <UnProtectedRoute isLoggedIn={isLoggedIn}>
-            <SignUpPage />
-          }
-        />
-        <Route
-          path="/passwordReset"
-          element={
-            // <UnProtectedRoute isLoggedIn={isLoggedIn}>
-            <PasswordResetPage />
-          }
-        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signUp" element={<SignUpPage />} />
+        <Route path="/passwordReset" element={<PasswordResetPage />} />
         {/* COMPLETED: 로그인하여, Token이 주어졌을 때 */}
-        <Route
-          path="/account"
-          element={
-            <ProtectedRoute isLoggedIn={true}>
-              <AccountPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/recordAccountBook"
-          element={
-            <ProtectedRoute isLoggedIn={true}>
-              <RecordAccountBookPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/account" element={<AccountPage />} />
+        <Route path="/recordAccountBook" element={<RecordAccountBookPage />} />
         <Route
           path="/recordAccountBook/recurring"
-          element={
-            <ProtectedRoute isLoggedIn={true}>
-              <RecurringPage />
-            </ProtectedRoute>
-          }
+          element={<RecurringPage />}
         />
         <Route
           path="/recordAccountBook/installment"
-          element={
-            <ProtectedRoute isLoggedIn={true}>
-              <InstallmentPage />
-            </ProtectedRoute>
-          }
+          element={<InstallmentPage />}
         />
-        <Route
-          path="/challenge"
-          element={
-            <ProtectedRoute isLoggedIn={true}>
-              <ChallengePage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/challenge/:slug"
-          element={
-            <ProtectedRoute isLoggedIn={true}>
-              <ChallengeDetailPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/challenge" element={<ChallengePage />} />
+        <Route path="/challenge/:slug" element={<ChallengeDetailPage />} />
         <Route
           path="/challenge/create"
-          element={
-            <ProtectedRoute isLoggedIn={true}>
-              <CreateChallengeGroupPage />
-            </ProtectedRoute>
-          }
+          element={<CreateChallengeGroupPage />}
         />
-        <Route
-          path="/statistic"
-          element={
-            <ProtectedRoute isLoggedIn={true}>
-              <StatisticPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/record"
-          element={
-            <ProtectedRoute isLoggedIn={true}>
-              <RecordPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/setting"
-          element={
-            <ProtectedRoute isLoggedIn={true}>
-              <SettingPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/chatting/:slug"
-          element={
-            <ProtectedRoute isLoggedIn={true}>
-              <ChattingPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/statistic" element={<StatisticPage />} />
+        <Route path="/record" element={<RecordPage />} />
+        <Route path="/setting" element={<SettingPage />} />
+        <Route path="/chatting/:slug" element={<ChattingPage />} />
       </Routes>
       {!isLoginPage &&
         !isSignUpPage &&
@@ -155,15 +66,21 @@ function App() {
   );
 }
 
-const ProtectedRoute = ({ isLoggedIn, children }: ProtectedRouteProps) => {
-  if (!isLoggedIn) {
-    return (
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-      </Routes>
-    );
-  }
+/** COMPLETED: Cookie에 Token이 존재하는지 확인하기 */
+const isHaveToken = () => {
+  const COOKIE_VALUE = `${document.cookie}`;
+  console.log("COOKIE_VALUE: ", COOKIE_VALUE);
 
-  return children;
+  if (!COOKIE_VALUE) return false;
+
+  const PARTS = COOKIE_VALUE.split(";");
+  const ACCESS_TOKEN = PARTS[5].split("=")[1];
+
+  if (ACCESS_TOKEN) {
+    return true;
+  } else {
+    return false;
+  }
 };
+
 export default App;

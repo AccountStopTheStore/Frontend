@@ -3,8 +3,24 @@ import BarGraphItemDetailsTopContainer from "../BarGraphItemDetailsTopContainer"
 import { ChattingUI } from "./style";
 // import { ChangeTime } from "@/src/assets/util";
 import ChattingContent from "../ChattingContent";
+import { API_WEBSOCKET_URL } from "@/src/core/api/instance";
+import { useEffect, useState } from "react";
+import Stomp from "stompjs";
+import { ChangeTime } from "@/src/assets/util";
+
+export interface Message {
+  groupId: number;
+  senderId: number;
+  message: string;
+  messageType: "TALK" | "LEAVE" | "ENTER";
+  date: string;
+}
 
 function Chatting() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [stompClient, setStompClient] = useState<Stomp.Client>();
+
   const array1 = {
     groupId: 2,
     groupName: "testGroup2",
@@ -71,18 +87,85 @@ function Chatting() {
       access: "enter",
     },
   ];
+
+  const connect = async () => {
+    const socket = new WebSocket(`${API_WEBSOCKET_URL}/ws`);
+    console.log("socket.onmessage: ", socket.onmessage);
+
+    const stomp = Stomp.over(socket);
+    // stomp.debug = msg => console.log("debug message: ", msg);
+    /* COMPLETED: Websocket 연결하기 */
+    stomp.connect({}, () => {
+      /** COMPLETED: 연결 성공 시 실행되는 함수 */
+      setStompClient(stomp);
+
+      console.log("Connected to WebSocket");
+      /* COMPLETED: 채팅 메시지를 구독하기 */
+      const receiveMessage = stomp.subscribe(
+        `/chat/groups/3`,
+        onReceiveMessage,
+        { id: 1 }
+      );
+
+      console.log("receiveMessage.id: ", receiveMessage.id);
+      console.log("receiveMessage.unsubscribe: ", receiveMessage.unsubscribe);
+    });
+  };
+
+  const onReceiveMessage = (message: Stomp.Message) => {
+    const newMessages: Message[] = [...messages, JSON.parse(message.body)];
+    console.log("Received message: ", newMessages);
+    setMessages(newMessages);
+  };
+
+  useEffect(() => {
+    connect();
+  }, []);
+
+  /** COMPLETED:  Websocket 연결 해제하기 */
+  // return () => {
+  //   if (stompClient) {
+  //     stompClient.disconnect(() =>
+  //       console.log("Websocket 연결이 해제되었습니다.")
+  //     );
+  //   }
+  // };
+
+  /* Click 이벤트 등 전송하기 관련 이벤트를 통한 채팅 메시지 전송하기 */
+  const sendMessage = (message: string) => {
+    if (stompClient && message !== "") {
+      stompClient.send(
+        "/app/send",
+        {},
+        JSON.stringify({
+          groupId: 3,
+          senderId: 9,
+          message: message,
+          messageType: "TALK",
+        })
+      );
+      /* input창 초기화 */
+      setNewMessage("");
+    }
+  };
+
   return (
     <div>
       <BarGraphItemDetailsTopContainer array1={array1} />
       <ChattingUI.BottomContainer>
         <ChattingUI.ChattingList>
-          {chattingArray.map(content => {
-            return <ChattingContent content={content} />;
+          {messages.map((content, index) => {
+            return <ChattingContent key={index} content={content} />;
           })}
         </ChattingUI.ChattingList>
         <ChattingUI.ChattingInputContainer>
-          <ChattingUI.ChattingInput type="text" placeholder="채팅 입력" />
-          <ChattingUI.SendButton>
+          <ChattingUI.ChattingInput
+            type="text"
+            value={newMessage}
+            placeholder="채팅 입력"
+            onChange={e => setNewMessage(e.target.value)}
+          />
+          <ChattingUI.SendButton onClick={() => sendMessage(newMessage)}>
             <img src={SendPNG} alt="Send PNG" />
           </ChattingUI.SendButton>
         </ChattingUI.ChattingInputContainer>
