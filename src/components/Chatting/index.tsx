@@ -10,10 +10,9 @@ import { ChangeTime } from "@/src/assets/util";
 
 export interface Message {
   groupId: number;
-  senderId: number;
   message: string;
   messageType: "TALK" | "LEAVE" | "ENTER";
-  date: string;
+  senderId: number;
 }
 
 function Chatting() {
@@ -59,35 +58,6 @@ function Chatting() {
     ],
   };
 
-  const chattingArray = [
-    {
-      memberName: "김나나",
-      sendTime: "2023-01-01T12:00:00",
-      messageContent: "",
-      access: "exit",
-    },
-    {
-      memberName: "Aiden",
-      sendTime: "2023-01-01T12:00:00",
-      messageContent:
-        "메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1",
-      access: "others",
-    },
-    {
-      memberName: "Aiden",
-      sendTime: "2023-01-01T12:00:00",
-      messageContent:
-        "메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1메시지 내용 1",
-      access: "me",
-    },
-    {
-      memberName: "임경락",
-      sendTime: "2023-01-01T12:00:00",
-      messageContent: "메시지 내용 1",
-      access: "enter",
-    },
-  ];
-
   const connect = async () => {
     const socket = new WebSocket(`${API_WEBSOCKET_URL}/ws`);
     console.log("socket.onmessage: ", socket.onmessage);
@@ -101,35 +71,33 @@ function Chatting() {
 
       console.log("Connected to WebSocket");
       /* COMPLETED: 채팅 메시지를 구독하기 */
-      const receiveMessage = stomp.subscribe(
-        `/chat/groups/3`,
-        onReceiveMessage,
-        { id: 1 }
-      );
-
-      console.log("receiveMessage.id: ", receiveMessage.id);
-      console.log("receiveMessage.unsubscribe: ", receiveMessage.unsubscribe);
+      stomp.subscribe(`/chat/groups/3`, onReceiveMessage);
     });
   };
 
-  const onReceiveMessage = (message: Stomp.Message) => {
-    const newMessages: Message[] = [...messages, JSON.parse(message.body)];
-    console.log("Received message: ", newMessages);
-    setMessages(newMessages);
+  const onReceiveMessage = async (message: Stomp.Message) => {
+    setMessages(prev => {
+      const newMessage = JSON.parse(message.body);
+      return [...prev, newMessage];
+    });
+  };
+
+  /** COMPLETED:  Websocket 연결 해제하기 */
+  const disconnect = () => {
+    if (stompClient) {
+      stompClient.disconnect(() =>
+        console.log("Websocket 연결이 해제되었습니다.")
+      );
+    }
   };
 
   useEffect(() => {
     connect();
-  }, []);
 
-  /** COMPLETED:  Websocket 연결 해제하기 */
-  // return () => {
-  //   if (stompClient) {
-  //     stompClient.disconnect(() =>
-  //       console.log("Websocket 연결이 해제되었습니다.")
-  //     );
-  //   }
-  // };
+    return () => {
+      disconnect();
+    };
+  }, []);
 
   /* Click 이벤트 등 전송하기 관련 이벤트를 통한 채팅 메시지 전송하기 */
   const sendMessage = (message: string) => {
@@ -139,7 +107,6 @@ function Chatting() {
         {},
         JSON.stringify({
           groupId: 3,
-          senderId: 9,
           message: message,
           messageType: "TALK",
         })

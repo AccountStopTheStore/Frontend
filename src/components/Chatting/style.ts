@@ -11,6 +11,7 @@ const BottomContainer = styled.div`
 `;
 
 const ChattingList = styled.ul`
+  overflow: scroll;
   flex: 1;
 
   background-color: ${theme.font_color.primary_green};
