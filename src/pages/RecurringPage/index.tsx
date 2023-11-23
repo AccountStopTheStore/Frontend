@@ -1,6 +1,10 @@
 import CommonButton from "@/src/components/Common/CommonButton";
 import Header from "@/src/components/Common/Header";
-import { RecurringUI } from "@/src/components/Recurring/style";
+import { RecurringPageUI } from "@/src/pages/RecurringPage/style";
+import { useRecoilState } from "recoil";
+import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
+import { useNavigate } from "react-router-dom";
+import { btnLabelStateAtom } from "@/src/hooks/recoil/btnLabelState";
 
 function RecurringPage() {
   const recurringItems = [
@@ -19,7 +23,18 @@ function RecurringPage() {
     "1년마다",
   ];
 
+  const [, setPostSaveAccountBook] = useRecoilState(saveAccountBookAtom);
+  const [, setBtnLabel] = useRecoilState<string>(btnLabelStateAtom);
+  const navigate = useNavigate();
+
   const handleButtonClick = (item: string) => {
+    setPostSaveAccountBook(prev => ({
+      ...prev,
+      recurringType: item,
+    }));
+    setBtnLabel("반복");
+    navigate("/recordAccountBook");
+
     console.log(`${item} 클릭`);
   };
 
@@ -33,7 +48,7 @@ function RecurringPage() {
         isAddButton={false}
         isMoreButton={false}
       />
-      <RecurringUI.Background>
+      <RecurringPageUI.Background>
         <div>
           {recurringItems.map((item, index) => (
             <CommonButton
@@ -43,7 +58,7 @@ function RecurringPage() {
             />
           ))}
         </div>
-      </RecurringUI.Background>
+      </RecurringPageUI.Background>
     </>
   );
 }

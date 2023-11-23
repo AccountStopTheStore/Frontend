@@ -2,6 +2,7 @@ import axios, { AxiosRequestConfig } from "axios";
 
 /** TODO: GET 요청 */
 const API_BASE_URL = "https://asts.cozybinarybase.com:8443";
+export const API_WEBSOCKET_URL = "ws://asts.cozybinarybase.com:8443";
 
 /** COMPLETED: 1. instance 만들기 */
 const createAPIInstance = (config: AxiosRequestConfig) => {

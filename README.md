@@ -1,27 +1,35 @@
-# React + TypeScript + Vite
+# 가게그만가계(AccountStopTheStore)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+D:\Whale\Etc\Whale Reference\02. Programming\04. Zerobase_Frontend\01. Lesson_Reference\Mission\Team-project\AccountStopTheStore\public\main_icon.png
 
-Currently, two official plugins are available:
+## SUMMARY
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 개발 기간
 
-## Expanding the ESLint configuration
+## 기획 배경
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 해결 컨셉
 
-- Configure the top-level `parserOptions` property like this:
+## 기대 효과
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+## 프로젝트 소개
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## 서비스 아키텍쳐
+
+## ERD
+
+## 주요 개발 스택
+
+> 상세 스택은 package.json 파일을 참고해주세요.
+
+---
+
+# 프로젝트 상세
+
+## 미리보기
+
+## 팀원 소개
+
+## REFERENCE
+
+https://whale2200d.notion.site/6c862beb10dc4880a987bb6b3a3ea508?pvs=4

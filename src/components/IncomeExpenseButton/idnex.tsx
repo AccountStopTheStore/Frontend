@@ -1,20 +1,33 @@
 import { IncomeExpenseButtonUI } from "./style";
-import { theme } from "../../../assets/theme";
+import { theme } from "../../assets/theme";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
 
 function IncomeExpenseButton() {
   const [isIncomeClicked, setIsIncomeClicked] = useState<boolean>(true);
   const [isExpenseClicked, setIsExpenseClicked] = useState<boolean>(false);
+  const [, setPostSaveAccountBook] = useRecoilState(saveAccountBookAtom);
 
   const handleIncomeClick = () => {
     setIsIncomeClicked(true);
     setIsExpenseClicked(false);
+    setPostSaveAccountBook(prev => ({
+      ...prev,
+      transactionType: "수입",
+    }));
+
     console.log("수입 버튼");
   };
 
   const handleExpenseClick = () => {
     setIsExpenseClicked(true);
     setIsIncomeClicked(false);
+    setPostSaveAccountBook(prev => ({
+      ...prev,
+      transactionType: "지출",
+    }));
+
     console.log("지출 버튼");
   };
 

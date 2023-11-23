@@ -27,14 +27,16 @@ function ShortButton({
 
   return (
     <ShortButtonUI.Container style={deleteContainerStyle}>
-      <ShortButtonUI.CancelButton onClick={onCancelClick} style={deleteStyle}>
-        취소
-      </ShortButtonUI.CancelButton>
-      <ShortButtonUI.GreenButton
-        onClick={isSaveButton ? onSaveClick : onDeleteClick}
-        style={deleteStyle}>
-        {isSaveButton ? "저장" : "탈퇴"}
-      </ShortButtonUI.GreenButton>
+      <ShortButtonUI.ButtonWrapper>
+        <ShortButtonUI.CancelButton onClick={onCancelClick} style={deleteStyle}>
+          취소
+        </ShortButtonUI.CancelButton>
+        <ShortButtonUI.GreenButton
+          onClick={isSaveButton ? onSaveClick : onDeleteClick}
+          style={deleteStyle}>
+          {isSaveButton ? "저장" : "탈퇴"}
+        </ShortButtonUI.GreenButton>
+      </ShortButtonUI.ButtonWrapper>
     </ShortButtonUI.Container>
   );
 }

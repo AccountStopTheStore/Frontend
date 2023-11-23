@@ -1,42 +1,26 @@
-import { ChangeTime } from "@/src/assets/util";
 import { ChattingContentUI } from "./style";
-
-interface ChattingContentData {
-  memberName: string;
-  sendTime: string;
-  messageContent: string;
-  access: string;
-}
+import { Message } from "../Chatting";
 
 interface ChattingContentProps {
-  content: ChattingContentData;
+  content: Message;
 }
 
 function ChattingContent({ content }: ChattingContentProps) {
   return (
     <>
-      {content.access === "enter" ? (
+      {content.messageType === "ENTER" ? (
         <ChattingContentUI.EnterExitItem>
-          <span>{`${content.memberName}님이 입장하셨습니다.`}</span>
+          <span>{`${content.senderId}님이 입장하셨습니다.`}</span>
         </ChattingContentUI.EnterExitItem>
-      ) : content.access === "exit" ? (
+      ) : content.messageType === "LEAVE" ? (
         <ChattingContentUI.EnterExitItem>
-          <span>{`${content.memberName}님이 퇴장하셨습니다.`}</span>
+          <span>{`${content.senderId}님이 퇴장하셨습니다.`}</span>
         </ChattingContentUI.EnterExitItem>
-      ) : content.access === "others" ? (
-        <ChattingContentUI.OthersItem>
-          <div>
-            <div>{content.memberName}</div>
-            <div>{`${ChangeTime(content.sendTime)}`}</div>
-          </div>
-          <div>{content.messageContent}</div>
-        </ChattingContentUI.OthersItem>
       ) : (
         <ChattingContentUI.MyItem>
-          <div>{content.messageContent}</div>
+          <div>{content.message}</div>
           <div>
-            <div>{content.memberName}</div>
-            <div>{`${ChangeTime(content.sendTime)}`}</div>
+            <div>{content.senderId}</div>
           </div>
         </ChattingContentUI.MyItem>
       )}

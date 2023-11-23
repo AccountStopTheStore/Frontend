@@ -1,26 +1,36 @@
 import styled from "@emotion/styled";
 import { theme } from "../../assets/theme";
 
-const inputWidth = "100% - 72px";
+const inputWrapperWidth = "100% - 72px";
 
 const Container = styled.div`
   margin-top: 75px;
+
+  div: first-of-type {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
-const Form = styled.form`
+const InputWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: calc(${inputWrapperWidth});
+  border-bottom: 1px solid ${theme.font_color.gray2};
+  margin-bottom: 25px;
+
+  span {
+    ${theme.font_style.regular_medium}
+  }
 `;
 
 const Input = styled.input`
   border: 0;
-  border-bottom: 1px solid ${theme.font_color.gray2};
-  width: calc(${inputWidth});
+  width: 40px;
   height: 40px;
   ${theme.font_style.regular_medium};
-
-  padding-left: 38%;
-  margin-bottom: 25px;
+  padding: 0 5px;
 `;
 
-export const InstallmentPageUI = { Container, Form, Input } as const;
+export const InstallmentPageUI = { Container, InputWrapper, Input } as const;

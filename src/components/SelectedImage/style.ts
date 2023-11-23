@@ -3,7 +3,7 @@ import { theme } from "@/src/assets/theme";
 
 const Container = styled.div`
   width: 100%;
-  min-height: 180px;
+  height: 220px;
   position: relative;
   border: 1px dashed ${theme.font_color.gray2};
   margin-top: 15px;
@@ -20,7 +20,7 @@ const Container = styled.div`
 
 const SelectedImageArea = styled.img`
   width: 100%;
-  min-height: 180px;
+  height: 220px;
   object-fit: fill;
 `;
 
