@@ -1,16 +1,7 @@
-import { ChangeTime } from "@/src/assets/util";
 import { ChattingContentUI } from "./style";
 import { Message } from "../Chatting";
 
-interface ChattingContentData {
-  // memberName: string;
-  // sendTime: string;
-  // messageContent: string;
-  // access: string;
-}
-
 interface ChattingContentProps {
-  // content: ChattingContentData;
   content: Message;
 }
 
