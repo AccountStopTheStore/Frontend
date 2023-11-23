@@ -3,10 +3,12 @@ import { theme } from "@/src/assets/theme";
 
 const Container = styled.div`
   width: 100%;
-  background-color: ${theme.font_color.gray2};
+  height: 450px;
+  background-color: ${theme.font_color.gray1};
   position: absolute;
   left: 0;
-  z-index: 1;
+  bottom: 0;
+  z-index: 2;
 `;
 
 const CategoryHeader = styled.div`
