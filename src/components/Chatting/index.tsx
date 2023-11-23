@@ -88,10 +88,12 @@ function Chatting() {
     },
   ];
 
-  const socket = new WebSocket(`${API_WEBSOCKET_URL}/ws`);
-  const stomp = Stomp.over(socket);
+  const connect = async () => {
+    const socket = new WebSocket(`${API_WEBSOCKET_URL}/ws`);
+    console.log("socket.onmessage: ", socket.onmessage);
 
-  useEffect(() => {
+    const stomp = Stomp.over(socket);
+    // stomp.debug = msg => console.log("debug message: ", msg);
     /* COMPLETED: Websocket 연결하기 */
     stomp.connect({}, () => {
       /** COMPLETED: 연결 성공 시 실행되는 함수 */
@@ -99,28 +101,35 @@ function Chatting() {
 
       console.log("Connected to WebSocket");
       /* COMPLETED: 채팅 메시지를 구독하기 */
-      stomp.subscribe(
-        `/chat/groups/${array1.groupId}`,
-        (message: Stomp.Message) => {
-          const newMessages: Message[] = [
-            ...messages,
-            JSON.parse(message.body),
-          ];
-          console.log("Received message: ", newMessages);
-          setMessages(newMessages);
-        }
+      const receiveMessage = stomp.subscribe(
+        `/chat/groups/3`,
+        onReceiveMessage,
+        { id: 1 }
       );
-    });
 
-    /** COMPLETED:  Websocket 연결 해제하기 */
-    return () => {
-      if (stompClient) {
-        stompClient.disconnect(() =>
-          console.log("Websocket 연결이 해제되었습니다.")
-        );
-      }
-    };
+      console.log("receiveMessage.id: ", receiveMessage.id);
+      console.log("receiveMessage.unsubscribe: ", receiveMessage.unsubscribe);
+    });
+  };
+
+  const onReceiveMessage = (message: Stomp.Message) => {
+    const newMessages: Message[] = [...messages, JSON.parse(message.body)];
+    console.log("Received message: ", newMessages);
+    setMessages(newMessages);
+  };
+
+  useEffect(() => {
+    connect();
   }, []);
+
+  /** COMPLETED:  Websocket 연결 해제하기 */
+  // return () => {
+  //   if (stompClient) {
+  //     stompClient.disconnect(() =>
+  //       console.log("Websocket 연결이 해제되었습니다.")
+  //     );
+  //   }
+  // };
 
   /* Click 이벤트 등 전송하기 관련 이벤트를 통한 채팅 메시지 전송하기 */
   const sendMessage = (message: string) => {
@@ -129,22 +138,12 @@ function Chatting() {
         "/app/send",
         {},
         JSON.stringify({
-          groupId: 2,
+          groupId: 3,
           senderId: 9,
           message: message,
           messageType: "TALK",
         })
       );
-      // /* Messages 배열 state에 추가 */
-      const newMessage: Message = {
-        groupId: 2,
-        senderId: 9,
-        message: message,
-        messageType: "TALK",
-        date: ChangeTime(new Date()),
-      };
-      const updatedMessages = [...messages, newMessage];
-      setMessages(updatedMessages);
       /* input창 초기화 */
       setNewMessage("");
     }
