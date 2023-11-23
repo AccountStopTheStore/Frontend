@@ -9,4 +9,4 @@ const Background = styled.div`
   background-color: ${theme.font_color.gray1};
 `;
 
-export const RecurringUI = { Background } as const;
+export const RecurringPageUI = { Background } as const;

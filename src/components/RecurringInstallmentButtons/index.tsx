@@ -1,6 +1,6 @@
 import { RecurringInstallmentButtonsUI } from "./style";
 
-interface RecurringInstallmentButtonsPRops {
+interface RecurringInstallmentButtonsProps {
   onRecurringClick: React.MouseEventHandler;
   onInstallmentClick: React.MouseEventHandler;
 }
@@ -8,19 +8,17 @@ interface RecurringInstallmentButtonsPRops {
 function RecurringInstallmentButtons({
   onRecurringClick,
   onInstallmentClick,
-}: RecurringInstallmentButtonsPRops) {
+}: RecurringInstallmentButtonsProps) {
   return (
     <RecurringInstallmentButtonsUI.Wrapper>
       <RecurringInstallmentButtonsUI.RecurringButton
         type="button"
-        onClick={onRecurringClick}
-      >
+        onClick={onRecurringClick}>
         반복
       </RecurringInstallmentButtonsUI.RecurringButton>
       <RecurringInstallmentButtonsUI.InstallmentButton
         type="button"
-        onClick={onInstallmentClick}
-      >
+        onClick={onInstallmentClick}>
         할부
       </RecurringInstallmentButtonsUI.InstallmentButton>
     </RecurringInstallmentButtonsUI.Wrapper>

@@ -6,7 +6,8 @@ export interface SaveAccountBookAtomProps {
   assetName: string;
   categoryName: string;
   imageIds: number[];
-  isInstallment: number;
+  isInstallment: boolean;
+  installmentMonth: number;
   memo: string;
   recurringType: string;
   transactedAt: string;
@@ -22,7 +23,8 @@ export const saveAccountBookAtom = atom<SaveAccountBookAtomProps>({
     assetName: "",
     categoryName: "",
     imageIds: [],
-    isInstallment: 0,
+    isInstallment: false,
+    installmentMonth: 0,
     memo: "",
     recurringType: "",
     transactedAt: "",

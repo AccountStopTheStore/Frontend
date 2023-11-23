@@ -2,23 +2,36 @@ import Header from "@/src/components/Common/Header";
 import LongButton from "@/src/components/Common/LongButton";
 import { InstallmentPageUI } from "./style";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
+import { btnLabelStateAtom } from "@/src/hooks/recoil/btnLabelState";
 
 function InstallmentPage() {
   const [inputValue, setInputValue] = useState<string>("");
-  console.log("inputValue: ", inputValue);
 
-  const handleBackButton = () => {
-    /** 이전 페이지로 이동 */
-    console.log("뒤로가기");
+  const [, setPostSaveAccountBook] = useRecoilState(saveAccountBookAtom);
+  const [, setBtnLabel] = useRecoilState<string>(btnLabelStateAtom);
+
+  const navigate = useNavigate();
+
+  const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+
+    setInputValue(newValue);
+    console.log(newValue);
   };
 
   const handleSaveButton = () => {
-    console.log("저장");
-  };
+    setPostSaveAccountBook(prev => ({
+      ...prev,
+      installmentMonth: parseInt(inputValue, 10),
+      isInstallment: true,
+    }));
+    setBtnLabel("할부");
+    navigate("/recordAccountBook");
 
-  const InputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-    console.log(event.target.value);
+    console.log("저장");
   };
 
   return (
@@ -28,22 +41,20 @@ function InstallmentPage() {
         isBackButton={true}
         isFilterButton={false}
         isMoreButton={false}
-        onBackClick={handleBackButton}
         isSearchButton={false}
         isAddButton={false}
       />
       <InstallmentPageUI.Container>
-        <InstallmentPageUI.Form>
-          <InstallmentPageUI.Input
-            type="text"
-            defaultValue={"개월"}
-            onChange={InputChange}
-          />
-        </InstallmentPageUI.Form>
+        <div>
+          <InstallmentPageUI.InputWrapper>
+            <InstallmentPageUI.Input type="number" onChange={inputChange} />
+            <span>개월</span>
+          </InstallmentPageUI.InputWrapper>
+        </div>
         <LongButton
+          type={"button"}
           buttonName="저장"
           onClick={handleSaveButton}
-          type={"button"}
         />
       </InstallmentPageUI.Container>
     </>

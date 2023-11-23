@@ -1,3 +1,4 @@
+import { imageUploadResponseAtomProps } from "@/src/hooks/recoil/useOcrResult";
 import { APIInstance } from "./instance";
 
 export const imageAPI = {
@@ -11,9 +12,7 @@ export const imageAPI = {
     formData.append("json-data", jsonData);
     formData.append("image-file", imageFile);
 
-    console.log("formData: ", formData);
-
-    return APIInstance.post(
+    return APIInstance.post<imageUploadResponseAtomProps>(
       "/images",
       formData,
       {

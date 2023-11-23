@@ -3,10 +3,17 @@ import { theme } from "../../../assets/theme";
 import { css } from "@emotion/react";
 
 const Container = styled.div`
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  padding: 0 20px;
+  margin-bottom: 20px;
+`;
+
+const ButtonWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px 20px;
 `;
 
 const buttonStyle = css`
@@ -29,6 +36,7 @@ const GreenButton = styled.button`
 
 export const ShortButtonUI = {
   Container,
+  ButtonWrapper,
   CancelButton,
   GreenButton,
 } as const;
