@@ -7,7 +7,7 @@ const currentDate = new Date().getDate();
 export interface CalendarDateAtomProps {
   year: number;
   month: number;
-  date: number;
+  date?: number;
 }
 
 export const calendarDateAtom = atom<CalendarDateAtomProps>({

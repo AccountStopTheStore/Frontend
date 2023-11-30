@@ -53,7 +53,7 @@ function App() {
                   path="/challenge/create"
                   element={<CreateChallengeGroupPage />}
                 />
-                <Route path="/statistic" element={<StatisticPage />} />
+                <Route path="/statistics" element={<StatisticPage />} />
                 <Route path="/record" element={<RecordPage />} />
                 <Route path="/setting" element={<SettingPage />} />
                 <Route path="/chatting/:slug" element={<ChattingPage />} />

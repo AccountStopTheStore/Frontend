@@ -47,8 +47,7 @@ export default function StatisticsTabs() {
   };
 
   const tabNames = ["수입", "지출", "합계"];
-
-  const tabWidth = "(100% - (20px * 2)) / 3"; // 100%를 390px로 지정하면 정확하게 3등분 됨
+  const tabWidth = "(100% - (20px * 2)) / 3";
 
   const StyledTab = styled(Tab)({
     "&.Mui-selected": {
@@ -61,7 +60,7 @@ export default function StatisticsTabs() {
       <Box
         sx={{
           width: "inherit",
-          height: "50",
+          height: "50px",
           borderBottom: `1px solid ${theme.font_color.gray2}`,
           padding: "0 20px",
           backgroundColor: theme.font_color.gray1,
@@ -77,7 +76,12 @@ export default function StatisticsTabs() {
             },
           }}
           sx={{
-            "& button": { color: theme.font_color.gray3 },
+            "& button": {
+              color: theme.font_color.gray3,
+              height: " 50px",
+              display: "flex",
+              alignItems: "center",
+            },
           }}>
           {tabNames.map((name, index) => (
             <StyledTab
@@ -86,7 +90,7 @@ export default function StatisticsTabs() {
               {...a11yProps(index)}
               sx={{
                 display: "block",
-                width: `calc(${tabWidth})`, // flex gorw: 1 설정
+                width: `calc(${tabWidth})`, // flex gorw: 1 설정 필요
                 fontSize: "16px",
                 fontWeight: 400,
                 flexGrow: 1,
