@@ -5,6 +5,11 @@ import KakaoMap from "@/src/components/KakaoMap";
 import RecordInfos from "@/src/components/RecordInfos";
 import { useEffect, useState } from "react";
 import { AccountBookAPI } from "@/src/core/api/accountBook";
+import { useRecoilValue } from "recoil";
+import {
+  currentLocationAtom,
+  currentLocationDataProps,
+} from "@/src/hooks/recoil/useCurrentLocation";
 
 function RecordPage() {
   const exampleNearby = [
@@ -82,21 +87,10 @@ function RecordPage() {
     },
   ];
 
-  const [currentLatLng, setCurrentLatLng] = useState<{
-    lat: number;
-    lng: number;
-  }>({ lat: 0, lng: 0 });
-
-  // const [exampleData, setExampleData] = useState<GetNearbyAccountBooks[]>([]);
-  // useEffect(() => {
-  //   setExampleData(exampleNearby);
-  // }, []);
   const [isRecordInfosVisible, setIsRecordInfosVisible] =
     useState<boolean>(false);
-
-  const handleLocationChange = (lat: number, lng: number) => {
-    setCurrentLatLng({ lat, lng });
-  };
+  const currentLatLng =
+    useRecoilValue<currentLocationDataProps>(currentLocationAtom);
 
   const toggleRecordInfosVisibility = () => {
     setIsRecordInfosVisible(!isRecordInfosVisible);
@@ -118,9 +112,10 @@ function RecordPage() {
       });
   };
 
+  /** COMPLETED: 위도, 경도 현재 위치로 바꾸기 */
   useEffect(() => {
-    getNearbyAccountBook(37.59305502696753, 126.91361917024199);
-  }, []);
+    getNearbyAccountBook(currentLatLng.lat, currentLatLng.lng);
+  }, [currentLatLng]);
 
   return (
     <>
@@ -133,7 +128,6 @@ function RecordPage() {
         isMoreButton={false}
       />
       <KakaoMap
-        onLocationChange={handleLocationChange}
         data={nearbyAccountBooksData}
         toggleRecordInfosVisibility={toggleRecordInfosVisibility}
       />
