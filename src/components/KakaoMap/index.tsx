@@ -5,6 +5,10 @@ import BackToCenterIcon from "@/public/icon/BackToCenter.svg";
 import { GetNearbyAccountBooks } from "@/src/@types/models/getNearbyAccountBooks";
 import { useRecoilState } from "recoil";
 import { clickedMarkerDataAtom } from "@/src/hooks/recoil/clickedMarkerData";
+import {
+  currentLocationAtom,
+  currentLocationDataProps,
+} from "@/src/hooks/recoil/useCurrentLocation";
 
 declare global {
   interface Window {
@@ -13,13 +17,11 @@ declare global {
 }
 
 interface onLocationChangeCallBack {
-  onLocationChange: (lat: number, lng: number) => void;
   data: GetNearbyAccountBooks[];
   toggleRecordInfosVisibility: () => void;
 }
 
 function KakaoMap({
-  onLocationChange,
   data,
   toggleRecordInfosVisibility,
 }: onLocationChangeCallBack) {
@@ -37,6 +39,8 @@ function KakaoMap({
   const [message, setMessage] = useState<HTMLDivElement | string>("");
 
   const [, setClickedMarkerData] = useRecoilState(clickedMarkerDataAtom);
+  const [currentLatLng, setCurrentLatLng] =
+    useRecoilState<currentLocationDataProps>(currentLocationAtom);
 
   // 마커 클릭 이벤트
   const handleMarkerClick = (markerData: GetNearbyAccountBooks) => {
@@ -55,7 +59,7 @@ function KakaoMap({
     const container = mapRef.current;
     const options = {
       center: new kakao.maps.LatLng(33.450701, 126.570667),
-      level: 4, //100m
+      level: 3,
     };
     // 지도 객체 생성
     const mapContainer = new kakao.maps.Map(container, options);
@@ -74,8 +78,11 @@ function KakaoMap({
         const locPosition = new kakao.maps.LatLng(lat, lng);
 
         setCurrentLocation(locPosition);
-        onLocationChange(lat, lng);
-        console.log("위경도", lat, lng);
+        setCurrentLatLng(prev => ({
+          ...prev,
+          lat: lat,
+          lng: lng,
+        }));
       });
     } else {
       // HTML5의 GeoLocation을 사용할 수 없을 때 마커 표시 위치와 인포윈도우 내용 설정
