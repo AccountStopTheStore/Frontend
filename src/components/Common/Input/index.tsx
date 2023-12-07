@@ -2,10 +2,10 @@ import { ChangeEvent } from "react";
 import { InputUI } from "./style";
 
 export interface InputProps {
-  type: "text" | "password" | "number";
+  type: "text" | "password" | "number" | "email";
   value?: string | number;
   placeholder: string;
-  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: () => void;
   content?: string;
   isOpenButton?: boolean;
@@ -16,7 +16,7 @@ function Input({
   type,
   value,
   placeholder,
-  handleChange,
+  onChange,
   handleBlur,
   content,
   isOpenButton,
@@ -28,8 +28,9 @@ function Input({
         type={type}
         value={value}
         placeholder={placeholder}
-        onChange={handleChange}
+        onChange={onChange}
         onBlur={handleBlur}
+        size={100}
       />
       {isOpenButton && (
         <InputUI.InputButton onClick={onClickButton}>

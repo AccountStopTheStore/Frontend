@@ -1,16 +1,18 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import LabelInput from "../Common/LabelInput";
 import { InputAreaUI } from "./style";
 import SelectedImage from "../SelectedImage";
 import SeparatedCategory from "../Common/SeparatedCategory";
 import { useRecoilState } from "recoil";
 import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
+import { openSeparatedCategoryAtom } from "@/src/hooks/recoil/useOpenSeparatedCategory";
 
 function InputArea() {
   const [postSaveAccountBook, setPostSaveAccountBook] =
     useRecoilState(saveAccountBookAtom);
-  const [showSeparatedCategory, setShowSeparatedCategory] =
-    useState<boolean>(false);
+  const [isOpenSeparatedCategory, setIsOpenSeparatedCategory] = useRecoilState(
+    openSeparatedCategoryAtom
+  );
 
   /** COMPLETED: recoil saveAccountBookAtom에 값 추가하기 */
   const handleDate = (e: ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +100,7 @@ function InputArea() {
             inputId={"categoryName"}
             value={postSaveAccountBook.categoryName}
             placeholder={"카테고리를 선택해주세요."}
-            onClick={() => setShowSeparatedCategory(!showSeparatedCategory)}
+            onClick={() => setIsOpenSeparatedCategory({ isOpen: true })}
             onChange={handleCategoryName}
             readonly={true}
           />
@@ -108,7 +110,7 @@ function InputArea() {
             inputId={"assetName"}
             value={postSaveAccountBook.assetName}
             placeholder={"결제 수단을 선택해주세요."}
-            onClick={() => setShowSeparatedCategory(!showSeparatedCategory)}
+            onClick={() => setIsOpenSeparatedCategory({ isOpen: true })}
             onChange={handleAssetName}
             readonly={true}
           />
@@ -129,7 +131,7 @@ function InputArea() {
             onChange={handleAddress}
           />
         </div>
-        {showSeparatedCategory && <SeparatedCategory />}
+        {isOpenSeparatedCategory.isOpen && <SeparatedCategory />}
       </InputAreaUI.Wrapper>
       <InputAreaUI.MemoArea>
         <LabelInput

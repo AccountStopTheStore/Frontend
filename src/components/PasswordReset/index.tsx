@@ -1,23 +1,33 @@
+import { memberAPI } from "@/src/core/api/member";
 import Input from "../Common/Input";
 import LongButton from "../Common/LongButton";
 import { PasswordResetUI } from "./style";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PasswordReset() {
-  const exampleFunction = () => {
-    console.log("exampleFunction");
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const handlePasswordReset = () => {
+    memberAPI.sendResetPasswordLink(email).then().catch();
   };
 
   return (
     <PasswordResetUI.SectionContainer>
       <PasswordResetUI.Header>비밀번호 재설정</PasswordResetUI.Header>
-      <form onSubmit={exampleFunction}>
-        <Input placeholder={"이메일"} type={"text"} />
-        <LongButton
-          buttonName={"발송"}
-          onClick={exampleFunction}
-          type={"button"}
+      <div>
+        <Input
+          placeholder={"이메일"}
+          type={"text"}
+          value={email}
+          onChange={e => setEmail(e.target.value)}
         />
-      </form>
+        <LongButton
+          type={"button"}
+          buttonName={"발송"}
+          onClick={handlePasswordReset}
+        />
+      </div>
     </PasswordResetUI.SectionContainer>
   );
 }

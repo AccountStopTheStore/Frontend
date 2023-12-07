@@ -8,7 +8,7 @@ const SectionContainer = styled.section`
   justify-content: center;
   align-items: center;
 
-  > form {
+  > div {
     width: 100%;
     > * {
       display: block;

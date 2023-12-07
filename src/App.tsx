@@ -24,6 +24,7 @@ function App() {
 
   return (
     <Layout>
+      {/* COMPLETED: NavigationItems 컴포넌트 조건에 따라 렌더링 */}
       {useRoutes([
         { path: "/", element: <LoginPage /> },
         { path: "/signUp", element: <SignUpPage /> },
@@ -34,7 +35,6 @@ function App() {
           element: (
             <>
               <Routes>
-                {/* COMPLETED: 로그인하여, Token이 주어졌을 때 */}
                 <Route path="/account" element={<AccountPage />} />
                 <Route
                   path="/recordAccountBook"

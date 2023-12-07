@@ -42,6 +42,7 @@ function SeparatedCategory({ title }: SeparatedCategoryProps) {
       categoryName: item.categoryName,
     }));
   };
+
   return (
     <SeparatedCategoryUI.Container>
       <div>

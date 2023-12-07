@@ -3,7 +3,7 @@ import Input from "../Common/Input";
 import LongButton from "../Common/LongButton";
 import { SignUpUI } from "./style";
 import { memberAPI } from "@/src/core/api/member";
-import { isValidEmail } from "@/src/assets/util";
+import { isEmailValid, isPasswordValid } from "@/src/assets/util";
 import { useNavigate } from "react-router-dom";
 
 interface SignUpObject {
@@ -37,18 +37,18 @@ function SignUp() {
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     const email = e.target.value;
 
-    if (!isValidEmail(email)) {
+    setSignUpObject(prev => ({
+      ...prev,
+      email: email,
+    }));
+
+    if (!isEmailValid(email)) {
       setErrorMessage(
         "유효하지 않은 이메일 형식입니다. 올바른 이메일을 입력하세요."
       );
     } else {
       setErrorMessage("");
     }
-
-    setSignUpObject(prev => ({
-      ...prev,
-      email: email,
-    }));
   };
   const handleChangeCheck = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -59,12 +59,20 @@ function SignUp() {
     }));
   };
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+    const password = e.target.value;
 
     setSignUpObject(prev => ({
       ...prev,
-      password: value,
+      password: password,
     }));
+
+    if (!isPasswordValid(password)) {
+      setErrorMessage(
+        "유효하지 않은 비밀번호 형식입니다. 올바른 이메일을 입력하세요."
+      );
+    } else {
+      setErrorMessage("");
+    }
   };
   const handleChangePasswordCheck = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -144,6 +152,7 @@ function SignUp() {
       !signUpObject.password ||
       !signUpObject.passwordCheck
     ) {
+      console.log("1");
       setErrorMessage("* 빈 곳이 존재합니다. 빈 곳을 채워주세요.");
       return;
     }
@@ -152,6 +161,7 @@ function SignUp() {
       /* COMPLETED: 비밀번호가 같은지 확인 */
       signUpObject.password !== signUpObject.passwordCheck
     ) {
+      console.log("2");
       setErrorMessage("* 비밀번호가 비밀번호 확인과 다릅니다.");
       return;
     }
@@ -164,10 +174,12 @@ function SignUp() {
       );
 
       if ((await response).status === 200) {
+        console.log("3");
         setErrorMessage("");
-        navigate("/login");
+        navigate("/");
       }
     } catch (error) {
+      console.log("4");
       console.log("Submit error: ", error);
       setErrorMessage(
         "회원가입 전송에 실패했습니다. 확인 후 다시 시도해주세요."
@@ -183,7 +195,7 @@ function SignUp() {
           type={"text"}
           value={signUpObject.name}
           placeholder={"이름"}
-          handleChange={handleChangeName}
+          onChange={handleChangeName}
           // handleBlur={handleInputBlur}
         />
         <Input
@@ -193,7 +205,7 @@ function SignUp() {
           content={"인증"}
           isOpenButton={true}
           onClickButton={handleAuthorizationEmail}
-          handleChange={handleChangeEmail}
+          onChange={handleChangeEmail}
           // handleBlur={handleInputBlur}
         />
         {openCheckInput && (
@@ -204,7 +216,7 @@ function SignUp() {
             content={"확인"}
             isOpenButton={true}
             onClickButton={handleCheckEmail}
-            handleChange={handleChangeCheck}
+            onChange={handleChangeCheck}
             // handleBlur={handleInputBlur}
           />
         )}
@@ -212,14 +224,14 @@ function SignUp() {
           type={"password"}
           value={signUpObject.password}
           placeholder={"비밀번호"}
-          handleChange={handleChangePassword}
+          onChange={handleChangePassword}
           // handleBlur={handleInputBlur}
         />
         <Input
           type={"password"}
           value={signUpObject.passwordCheck}
           placeholder={"비밀번호 확인"}
-          handleChange={handleChangePasswordCheck}
+          onChange={handleChangePasswordCheck}
           // handleBlur={handleInputBlur}
         />
         <LongButton type={"submit"} buttonName={"회원가입"} />

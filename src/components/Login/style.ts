@@ -1,5 +1,6 @@
 import { theme } from "@/src/assets/theme";
 import styled from "@emotion/styled";
+import { deleteMarginLength } from "../Common/Input/style";
 
 const deleteMarginWidth = "390px - 64px";
 
@@ -25,6 +26,11 @@ const SectionContainer = styled.section`
 
 const Header = styled.h1`
   margin-bottom: 33px;
+`;
+
+const ErrorContainer = styled.div`
+  width: calc(${deleteMarginLength});
+  margin: 0 32px;
 `;
 
 const OtherPageContainer = styled.div`
@@ -74,6 +80,7 @@ const DivisionLine = styled.div`
 export const LoginUI = {
   SectionContainer,
   Header,
+  ErrorContainer,
   OtherPageContainer,
   DivisionLine,
 };

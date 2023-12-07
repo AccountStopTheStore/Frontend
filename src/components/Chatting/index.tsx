@@ -1,12 +1,10 @@
 import SendPNG from "@/public/icon/Send.png";
 import BarGraphItemDetailsTopContainer from "../BarGraphItemDetailsTopContainer";
 import { ChattingUI } from "./style";
-// import { ChangeTime } from "@/src/assets/util";
 import ChattingContent from "../ChattingContent";
 import { API_WEBSOCKET_URL } from "@/src/core/api/instance";
 import { useEffect, useState } from "react";
 import Stomp from "stompjs";
-import { ChangeTime } from "@/src/assets/util";
 
 export interface Message {
   groupId: number;
@@ -71,7 +69,7 @@ function Chatting() {
 
       console.log("Connected to WebSocket");
       /* COMPLETED: 채팅 메시지를 구독하기 */
-      stomp.subscribe(`/chat/groups/3`, onReceiveMessage);
+      stomp.subscribe(`/chat/groups/4`, onReceiveMessage);
     });
   };
 
@@ -106,7 +104,7 @@ function Chatting() {
         "/app/send",
         {},
         JSON.stringify({
-          groupId: 3,
+          groupId: 4,
           message: message,
           messageType: "TALK",
         })
