@@ -7,12 +7,9 @@ import { useParams } from "react-router-dom";
 
 function ChallengeDetailPage() {
   const params = useParams();
-  console.log("params: ", typeof params.slug);
   const [openEditButton, setOpenEditButton] = useState(false);
 
-  const handleFilterClick = () => {
-    console.log("hello World");
-  };
+  const handleFilterClick = () => {};
   return (
     <>
       <Header

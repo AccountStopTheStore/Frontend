@@ -21,6 +21,8 @@ function App() {
   const isSignUpPage = window.location.pathname === "/signup";
   const isPasswordReset = window.location.pathname === "/passwordreset";
   const isRecordAccountBook = window.location.pathname === "/recordAccountBook";
+  const isCreateChallengeGroups =
+    window.location.pathname === "/challenge/create";
 
   return (
     <Layout>
@@ -30,6 +32,7 @@ function App() {
         { path: "/signUp", element: <SignUpPage /> },
         { path: "/passwordReset", element: <PasswordResetPage /> },
         { path: "/recordAccountBook/recurring", element: <RecurringPage /> },
+        { path: "/challenge/create", element: <CreateChallengeGroupPage /> },
         {
           path: "/*",
           element: (
@@ -49,10 +52,6 @@ function App() {
                   path="/challenge/:slug"
                   element={<ChallengeDetailPage />}
                 />
-                <Route
-                  path="/challenge/create"
-                  element={<CreateChallengeGroupPage />}
-                />
                 <Route path="/statistics" element={<StatisticPage />} />
                 <Route path="/record" element={<RecordPage />} />
                 <Route path="/setting" element={<SettingPage />} />
@@ -61,7 +60,8 @@ function App() {
               {!isLoginPage &&
                 !isSignUpPage &&
                 !isPasswordReset &&
-                !isRecordAccountBook && <NavigationItems />}
+                !isRecordAccountBook &&
+                !isCreateChallengeGroups && <NavigationItems />}
             </>
           ),
         },

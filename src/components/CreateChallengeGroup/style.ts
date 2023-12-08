@@ -21,6 +21,11 @@ const Container = styled.div`
       border-bottom: 1px solid ${theme.font_color.gray2};
     }
   }
+
+  > div:last-of-type {
+    width: 100%;
+    position: relative;
+  }
 `;
 
 export const CreateChallengeGroupUI = {

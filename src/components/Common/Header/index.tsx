@@ -20,7 +20,7 @@ interface HeaderProps {
   onMoreClick?: () => void;
 }
 
-interface RederButtonProps {
+interface RenderButtonProps {
   onClick?: () => void;
   src: string;
   alt: string;
@@ -44,7 +44,7 @@ function Header({
     navigate(-1);
   };
 
-  const renderButton = ({ onClick, src, alt }: RederButtonProps) => (
+  const renderButton = ({ onClick, src, alt }: RenderButtonProps) => (
     <HeaderUI.Button type="button" onClick={onClick}>
       <img src={src} alt={alt} />
     </HeaderUI.Button>
