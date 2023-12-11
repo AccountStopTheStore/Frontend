@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { theme } from "../../../assets/theme";
 import { Button } from "@mui/material";
 
-const deleteMarginLength = "100% - 64px";
+export const deleteMarginLength = "100% - 64px";
 
 const Input = styled.input`
   width: calc(${deleteMarginLength});
