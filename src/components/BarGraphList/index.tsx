@@ -1,92 +1,42 @@
+import { challengeGroupAPI } from "@/src/core/api/challengeGroup";
 import BarGraphItem from "../BarGraphItem";
 import { BarGraphListUI } from "./style";
-
-export interface ChallengeData {
-  groupId: number;
-  groupName: string;
-  targetAmount: number;
-  maxMembers: number;
-  currentMembers: number;
-  startedAt: string;
-  finishedAt: string;
-  createdAt: string;
-  inviteToken: string;
-  groupMembers: [
-    {
-      memberId: number;
-      totalSavingAmount: number;
-    },
-    {
-      memberId: number;
-      totalSavingAmount: number;
-    },
-    {
-      memberId: number;
-      totalSavingAmount: number;
-    }
-  ];
-}
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { getChallengeGroupsAtom } from "@/src/hooks/recoil/useGetChallengeGroups";
 
 function BarGraphList() {
-  const array: ChallengeData[] = [
-    {
-      groupId: 1,
-      groupName: "testGroup",
-      targetAmount: 100000,
-      maxMembers: 5,
-      currentMembers: 3,
-      startedAt: "2023-10-10",
-      finishedAt: "2023-12-25",
-      createdAt: "2023-01-01T12:00:00",
-      inviteToken: "TokenToInvite",
-      groupMembers: [
-        {
-          memberId: 1,
-          totalSavingAmount: 1000000,
-        },
-        {
-          memberId: 2,
-          totalSavingAmount: 50000,
-        },
-        {
-          memberId: 3,
-          totalSavingAmount: 300000,
-        },
-      ],
-    },
-    {
-      groupId: 2,
-      groupName: "testGroup2",
-      targetAmount: 200000,
-      maxMembers: 5,
-      currentMembers: 3,
-      startedAt: "2023-10-16",
-      finishedAt: "2023-12-25",
-      createdAt: "2023-01-01T12:00:00",
-      inviteToken: "TokenToInvite",
-      groupMembers: [
-        {
-          memberId: 1,
-          totalSavingAmount: 1000000,
-        },
-        {
-          memberId: 2,
-          totalSavingAmount: 50000,
-        },
-        {
-          memberId: 3,
-          totalSavingAmount: 300000,
-        },
-      ],
-    },
-  ];
+  const [challengeGroups, setChallengeGroups] = useRecoilState(
+    getChallengeGroupsAtom
+  );
+
+  useEffect(() => {
+    const getChallengeGroups = async () => {
+      try {
+        const response = await challengeGroupAPI.getGroups();
+        setChallengeGroups(response.data);
+      } catch (error) {
+        console.log("error: ", error);
+      }
+    };
+    getChallengeGroups();
+  }, []);
 
   return (
-    <BarGraphListUI.List>
-      {array.map((item) => {
-        return <BarGraphItem item={item} path={`/challenge/${item.groupId}`} />;
-      })}
-    </BarGraphListUI.List>
+    <>
+      <BarGraphListUI.List>
+        {challengeGroups &&
+          challengeGroups.map((item, id) => {
+            return (
+              <BarGraphItem
+                key={id}
+                item={item}
+                path={`/challenge/${item.id}`}
+              />
+            );
+          })}
+      </BarGraphListUI.List>
+    </>
   );
 }
 

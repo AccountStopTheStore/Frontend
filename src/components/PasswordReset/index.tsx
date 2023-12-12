@@ -7,9 +7,13 @@ import { useNavigate } from "react-router-dom";
 
 function PasswordReset() {
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
   const handlePasswordReset = () => {
     memberAPI.sendResetPasswordLink(email).then().catch();
+  };
+
+  const navigate = useNavigate();
+  const handleCancelButton = () => {
+    navigate("/");
   };
 
   return (
@@ -26,6 +30,12 @@ function PasswordReset() {
           type={"button"}
           buttonName={"발송"}
           onClick={handlePasswordReset}
+        />
+        <LongButton
+          type={"button"}
+          cancel
+          buttonName={"취소"}
+          onClick={handleCancelButton}
         />
       </div>
     </PasswordResetUI.SectionContainer>

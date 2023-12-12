@@ -18,6 +18,7 @@ const BudgetAccountBarGraphContainer = styled.div`
   justify-content: space-around;
 
   border-bottom: 1px solid ${theme.font_color.gray2};
+  background-color: ${theme.font_color.white};
 `;
 const TotalBudget = styled.div`
   ${theme.font_style.regular_medium};

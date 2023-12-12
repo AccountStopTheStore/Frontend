@@ -5,8 +5,8 @@ function CreateChallengeGroupPage() {
   return (
     <>
       <Header
-        pageName={""}
-        isBackButton={false}
+        pageName={"저축 챌린지 등록"}
+        isBackButton={true}
         isSearchButton={false}
         isFilterButton={false}
         isAddButton={false}

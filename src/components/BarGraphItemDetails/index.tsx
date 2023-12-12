@@ -1,73 +1,22 @@
 import BudgetAccountBarGraph from "../Common/BudgetAccountBarGraph";
 import { BarGraphItemDetailsUI } from "./style";
 import BarGraphItemDetailsTopContainer from "../BarGraphItemDetailsTopContainer";
-
-interface groupMembersData {
-  memberId: number;
-  totalSavingAmount: number;
-}
-
-export interface array1Data {
-  groupId: number;
-  groupName: string;
-  targetAmount: number;
-  maxMembers: number;
-  currentMembers: number;
-  startedAt: string;
-  finishedAt: string;
-  createdAt: string;
-  inviteToken: string;
-  groupMembers: groupMembersData[];
-}
+import { useRecoilState } from "recoil";
+import { getChallengeGroupAtom } from "@/src/hooks/recoil/useGetChallengeGroup";
 
 function BarGraphItemDetails() {
-  const array1 = {
-    groupId: 2,
-    groupName: "testGroup2",
-    targetAmount: 200000,
-    maxMembers: 5,
-    currentMembers: 3,
-    startedAt: "2023-10-16",
-    finishedAt: "2023-12-25",
-    createdAt: "2023-01-01T12:00:00",
-    inviteToken: "TokenToInvite",
-    groupMembers: [
-      {
-        memberId: 1,
-        totalSavingAmount: 1000000,
-      },
-      {
-        memberId: 2,
-        totalSavingAmount: 50000,
-      },
-      {
-        memberId: 3,
-        totalSavingAmount: 300000,
-      },
-      {
-        memberId: 3,
-        totalSavingAmount: 300000,
-      },
-      {
-        memberId: 3,
-        totalSavingAmount: 300000,
-      },
-      {
-        memberId: 3,
-        totalSavingAmount: 300000,
-      },
-    ],
-  };
+  const [challengeGroup] = useRecoilState(getChallengeGroupAtom);
 
   return (
     <div>
-      <BarGraphItemDetailsTopContainer array1={array1} />
+      <BarGraphItemDetailsTopContainer challengeGroup={challengeGroup} />
       <BarGraphItemDetailsUI.BottomList>
-        {array1.groupMembers.map((member) => {
+        {challengeGroup.groupMembers.map((member, id) => {
           return (
             <BudgetAccountBarGraph
+              key={id}
               name={member.memberId}
-              budget={array1.targetAmount}
+              budget={challengeGroup.targetAmount}
               deposit={member.totalSavingAmount}
             />
           );
