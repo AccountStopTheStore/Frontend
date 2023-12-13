@@ -3,17 +3,20 @@ import FixedCircleButton from "@/src/components/Common/FixedCircleButton";
 import Header from "@/src/components/Common/Header";
 import EditChallengeButton from "@/src/components/EditChallengeButton";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function ChallengeDetailPage() {
   const params = useParams();
+  const navigate = useNavigate();
   const [openEditButton, setOpenEditButton] = useState(false);
 
-  const handleFilterClick = () => {};
+  const handleFilterClick = () => {
+    navigate(`/challenge/update/${params.slug}`);
+  };
   return (
     <>
       <Header
-        pageName={""}
+        pageName={"저축 챌린지"}
         isBackButton={true}
         isSearchButton={false}
         isFilterButton={true}

@@ -2,34 +2,50 @@
  * 코드 작성 시 자주 사용하게 될 함수를 따로 정리한 파일 */
 
 /** COMPLETED: (index.tsx) 회계식으로 숫자 표현하기
- * 세 자리씩 끊어서 쉼표 사용하는 방식
- * 음수까지 표현
- * 소수점 두 번째자리까지 표현
- * index.tsx에 사용하는 경우를 생각하고 제작 */
-export const ChangeNumberForAccounting = (number: number) => {
-  /* 1. 숫자를 문자열로 변환 */
-  const numStr = String(number);
+ * 1. 세 자리씩 끊어서 쉼표 사용하는 방식
+ * 2. 음수까지 표현
+ * 3. 소수점 두 번째자리까지 표현
+ * 4. index.tsx에 사용하는 경우를 생각하고 제작
+ * 5. Input으로 값을 변경해도 표현 가능 */
+export const ChangeNumberForAccounting = (number: number | string) => {
+  // /* 1. 숫자를 문자열로 변환 */
+  // let numStr = "";
+  // if (typeof number === "number") {
+  //   numStr = String(number);
+  // } else if (typeof number === "string") {
+  //   const newNumber = number.split(",").join("");
+  //   numStr = newNumber;
+  // }
+  // /* 2. 소수점 확인 */
+  // const hasDecimal = numStr.includes(".");
 
-  /* 2. 소수점 확인 */
-  const hasDecimal = numStr.includes(".");
+  // /* 3. 소주점 이하 숫자와 소수점 이상 숫자를 분리 */
+  // let integerPart = numStr;
+  // let decimalPart = "";
 
-  /* 3. 소주점 이하 숫자와 소수점 이상 숫자를 분리 */
-  let integerPart = numStr;
-  let decimalPart = "";
+  // if (hasDecimal) {
+  //   [integerPart, decimalPart] = numStr.split(".");
+  // }
 
-  if (hasDecimal) {
-    [integerPart, decimalPart] = numStr.split(".");
+  // /* 4. 정수 부분에 ',' 추가 */
+  // integerPart = integerPart.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+
+  // /* 5. 분리한 숫자값을 재조합 */
+  // if (hasDecimal) {
+  //   return `${integerPart}.${decimalPart}`;
+  // } else if (!hasDecimal) {
+  //   return `${integerPart}`;
+  // }
+
+  let result = Number("");
+  if (typeof number === "number") {
+    result = number;
+  } else if (typeof number === "string") {
+    const newNumber = number.split(",").join("");
+    result = Number(newNumber);
   }
 
-  /* 4. 정수 부분에 ',' 추가 */
-  integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-  /* 5. 분리한 숫자값을 재조합 */
-  if (hasDecimal) {
-    return `${integerPart}.${decimalPart}`;
-  } else if (!hasDecimal) {
-    return `${integerPart}`;
-  }
+  return result.toLocaleString();
 };
 
 /** COMPLETED: (index.tsx) 수입과 지출의 합계 결과 표현하기 */

@@ -15,6 +15,8 @@ import Layout from "./components/Common/Layout";
 import ChattingPage from "./pages/ChattingPage";
 import ChallengeDetailPage from "./pages/ChallengeDetailPage";
 import CreateChallengeGroupPage from "./pages/CreateChallengeGroupPage";
+import UpdateChallengeGroupPage from "./pages/UpdateChallengeGroupPage";
+import SavingPage from "./pages/SavingPage";
 
 function App() {
   const isLoginPage = window.location.pathname === "/";
@@ -34,6 +36,10 @@ function App() {
         { path: "/recordAccountBook/recurring", element: <RecurringPage /> },
         { path: "/challenge/create", element: <CreateChallengeGroupPage /> },
         {
+          path: "/challenge/update/:slug",
+          element: <UpdateChallengeGroupPage />,
+        },
+        {
           path: "/*",
           element: (
             <>
@@ -52,6 +58,7 @@ function App() {
                   path="/challenge/:slug"
                   element={<ChallengeDetailPage />}
                 />
+                <Route path="/saving/:slug" element={<SavingPage />} />
                 <Route path="/statistics" element={<StatisticPage />} />
                 <Route path="/record" element={<RecordPage />} />
                 <Route path="/setting" element={<SettingPage />} />

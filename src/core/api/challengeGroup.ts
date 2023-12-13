@@ -1,4 +1,7 @@
-import { GetChallengeGroups } from "@/src/@types/models/getChallengeGroups";
+import {
+  GetChallengeGroup,
+  GetChallengeGroups,
+} from "@/src/@types/models/getChallengeGroups";
 import { APIInstance } from "./instance";
 import { CreateChallengeGroup } from "@/src/@types/models/createChallengeGroup";
 import { UpdateChallengeGroup } from "@/src/@types/models/updateChallengeGroup";
@@ -16,41 +19,36 @@ export const challengeGroupAPI = {
     return APIInstance.get<GetChallengeGroups>(GROUPS);
   },
   /** COMPLETED: createGroups POST 요청하기 */
-  createGroup: (
-    description: string,
-    endAt: string,
-    maxMembers: number,
-    name: string,
-    startAt: string,
-    targetAmount: number
-  ) => {
+  createGroup: (createGroupObject: {
+    description: string;
+    endAt: string;
+    maxMembers: number;
+    name: string;
+    startAt: string;
+    targetAmount: number;
+  }) => {
     return APIInstance.post<CreateChallengeGroup>(GROUPS, {
-      description: description,
-      endAt: endAt,
-      maxMembers: maxMembers,
-      name: name,
-      startAt: startAt,
-      targetAmount: targetAmount,
+      description: createGroupObject.description,
+      endAt: createGroupObject.endAt,
+      maxMembers: createGroupObject.maxMembers,
+      name: createGroupObject.name,
+      startAt: createGroupObject.startAt,
+      targetAmount: createGroupObject.targetAmount,
     });
   },
   /** COMPLETED: updateGroup PUT 요청하기 */
-  updateGroup: (
-    groupId: number,
-    description: string,
-    endAt: string,
-    maxMembers: number,
-    name: string,
-    startAt: string,
-    targetAmount: number
-  ) => {
-    return APIInstance.put<UpdateChallengeGroup>(GROUPS + `/${groupId}`, {
-      description: description,
-      endAt: endAt,
-      maxMembers: maxMembers,
-      name: name,
-      startAt: startAt,
-      targetAmount: targetAmount,
-    });
+  updateGroup: (challengeGroup: GetChallengeGroup) => {
+    return APIInstance.put<UpdateChallengeGroup>(
+      GROUPS + `/${challengeGroup.id}`,
+      {
+        description: challengeGroup.description,
+        endAt: challengeGroup.endAt,
+        maxMembers: challengeGroup.maxMembers,
+        name: challengeGroup.name,
+        startAt: challengeGroup.startAt,
+        targetAmount: challengeGroup.targetAmount,
+      }
+    );
   },
   /** COMPLETED: deleteGroup DELETE 요청하기 */
   deleteGroup: (groupId: number) => {
@@ -71,10 +69,13 @@ export const challengeGroupAPI = {
     return APIInstance.get<GetMessages>(GROUPS + `/${groupId}/messages`);
   },
   /** COMPLETED: saveMoney POST 요청하기 */
-  saveMoney: (groupId: number, savingAmount: number) => {
-    return APIInstance.post<SaveMoney>(GROUPS + `/${groupId}/saving`, {
-      savingAmount: savingAmount,
-    });
+  saveMoney: (saveMoneyObject: { groupId: number; savingAmount: number }) => {
+    return APIInstance.post<SaveMoney>(
+      GROUPS + `/${saveMoneyObject.groupId}/saving`,
+      {
+        savingAmount: saveMoneyObject.savingAmount,
+      }
+    );
   },
   /** COMPLETED: joinGroup POST 요청하기 */
   joinGroup: (inviteLink: number) => {
