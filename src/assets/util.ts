@@ -161,9 +161,9 @@ export const getAccessToken = () => {
 };
 
 /** COMPLETED: 이메일 유효성 검사하기 */
-export const isValidEmail = (email: string): boolean => {
+export const isEmailValid = (email: string): boolean => {
   /** 이메일 형식을 정의한 정규표현식 */
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const emailRegex = /^\S+@\S+\.\S+$/;
 
   // 정규표현식을 사용하여 이메일 형식을 검증
   return emailRegex.test(email);

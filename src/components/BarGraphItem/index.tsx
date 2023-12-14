@@ -1,10 +1,12 @@
+import { GetChallengeGroup } from "@/src/@types/models/getChallengeGroups";
 import BudgetAccountBarGraph from "../Common/BudgetAccountBarGraph";
-import { ChallengeData } from "../BarGraphList";
 import { BarGraphItemUI } from "./style";
 import { ChangeChallengePeriod } from "@/src/assets/util";
+import { useRecoilState } from "recoil";
+import { getChallengeGroupAtom } from "@/src/hooks/recoil/useGetChallengeGroup";
 
 interface BarGraphItemProps {
-  item: ChallengeData;
+  item: GetChallengeGroup;
   path: string;
 }
 
@@ -14,23 +16,30 @@ function BarGraphItem({ item, path }: BarGraphItemProps) {
     deposit = deposit + item.groupMembers[i].totalSavingAmount;
   }
 
+  const [, setChallengeGroup] = useRecoilState(getChallengeGroupAtom);
+  const handleItemLink = () => {
+    setChallengeGroup(item);
+  };
+
   return (
-    <BarGraphItemUI.ItemLink to={path}>
-      <div>
-        <span>{item.groupName}</span>
-        <BarGraphItemUI.ChallengePeriod>
-          {`${item.currentMembers}명 ${ChangeChallengePeriod(
-            item.startedAt,
-            item.finishedAt
-          )}`}
-        </BarGraphItemUI.ChallengePeriod>
-      </div>
-      <BudgetAccountBarGraph
-        name={"목표 금액"}
-        budget={item.targetAmount}
-        deposit={deposit}
-      />
-    </BarGraphItemUI.ItemLink>
+    <BarGraphItemUI.Item>
+      <BarGraphItemUI.ItemLink to={path} onClick={handleItemLink}>
+        <div>
+          <span>{item.name}</span>
+          <BarGraphItemUI.ChallengePeriod>
+            {`${item.currentMembers}명 ${ChangeChallengePeriod(
+              item.startAt,
+              item.endAt
+            )}`}
+          </BarGraphItemUI.ChallengePeriod>
+        </div>
+        <BudgetAccountBarGraph
+          name={"목표 금액"}
+          budget={item.targetAmount}
+          deposit={deposit}
+        />
+      </BarGraphItemUI.ItemLink>
+    </BarGraphItemUI.Item>
   );
 }
 

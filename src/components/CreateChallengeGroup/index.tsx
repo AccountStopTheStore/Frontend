@@ -1,6 +1,7 @@
 import { CreateChallengeGroupUI } from "./style";
 import LabelInput from "../Common/LabelInput";
 import ShortButton from "../Common/ShortButton";
+import { useNavigate } from "react-router-dom";
 
 function CreateChallengeGroup() {
   const array = [
@@ -45,31 +46,37 @@ function CreateChallengeGroup() {
   const handleSavingButton = () => {
     console.log("saving");
   };
+
+  const navigate = useNavigate();
   const handleCancelButton = () => {
     console.log("cancel");
+
+    navigate("/challenge");
   };
   return (
-    <CreateChallengeGroupUI.Container>
-      <div>
-        {array.map(object => {
-          return (
-            <LabelInput
-              key={object.inputId}
-              type="text"
-              label={object.label}
-              inputId={object.inputId}
-              inputName={object.inputName}
-              placeholder={object.placeholder}
-            />
-          );
-        })}
-      </div>
+    <>
+      <CreateChallengeGroupUI.Container>
+        <div>
+          {array.map(object => {
+            return (
+              <LabelInput
+                key={object.inputId}
+                type="text"
+                label={object.label}
+                value={object.inputName}
+                inputId={object.inputId}
+                placeholder={object.placeholder}
+              />
+            );
+          })}
+        </div>
+      </CreateChallengeGroupUI.Container>
       <ShortButton
         isSaveButton
         onSaveClick={handleSavingButton}
         onCancelClick={handleCancelButton}
       />
-    </CreateChallengeGroupUI.Container>
+    </>
   );
 }
 

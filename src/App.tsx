@@ -21,9 +21,12 @@ function App() {
   const isSignUpPage = window.location.pathname === "/signup";
   const isPasswordReset = window.location.pathname === "/passwordreset";
   const isRecordAccountBook = window.location.pathname === "/recordAccountBook";
+  const isCreateChallengeGroups =
+    window.location.pathname === "/challenge/create";
 
   return (
     <Layout>
+      {/* COMPLETED: NavigationItems 컴포넌트 조건에 따라 렌더링 */}
       {useRoutes([
         { path: "/", element: <LoginPage /> },
         { path: "/signUp", element: <SignUpPage /> },
@@ -33,12 +36,13 @@ function App() {
           element: <RecurringPage />,
           caseSensitive: true,
         },
+        { path: "/challenge/create", element: <CreateChallengeGroupPage /> },
+
         {
           path: "/*",
           element: (
             <>
               <Routes>
-                {/* COMPLETED: 로그인하여, Token이 주어졌을 때 */}
                 <Route path="/account" element={<AccountPage />} />
                 <Route
                   path="/recordAccountBook"
@@ -55,10 +59,6 @@ function App() {
                   path="/challenge/:slug"
                   element={<ChallengeDetailPage />}
                 />
-                <Route
-                  path="/challenge/create"
-                  element={<CreateChallengeGroupPage />}
-                />
                 <Route path="/statistics" element={<StatisticPage />} />
                 <Route path="/record" element={<RecordPage />} />
                 <Route path="/setting" element={<SettingPage />} />
@@ -67,7 +67,8 @@ function App() {
               {!isLoginPage &&
                 !isSignUpPage &&
                 !isPasswordReset &&
-                !isRecordAccountBook && <NavigationItems />}
+                !isRecordAccountBook &&
+                !isCreateChallengeGroups && <NavigationItems />}
             </>
           ),
         },

@@ -1,12 +1,12 @@
 import SendPNG from "@/public/icon/Send.png";
 import BarGraphItemDetailsTopContainer from "../BarGraphItemDetailsTopContainer";
 import { ChattingUI } from "./style";
-// import { ChangeTime } from "@/src/assets/util";
 import ChattingContent from "../ChattingContent";
 import { API_WEBSOCKET_URL } from "@/src/core/api/instance";
 import { useEffect, useState } from "react";
 import Stomp from "stompjs";
-import { ChangeTime } from "@/src/assets/util";
+import { useRecoilState } from "recoil";
+import { getChallengeGroupAtom } from "@/src/hooks/recoil/useGetChallengeGroup";
 
 export interface Message {
   groupId: number;
@@ -19,44 +19,7 @@ function Chatting() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [stompClient, setStompClient] = useState<Stomp.Client>();
-
-  const array1 = {
-    groupId: 2,
-    groupName: "testGroup2",
-    targetAmount: 200000,
-    maxMembers: 5,
-    currentMembers: 3,
-    startedAt: "2023-10-16",
-    finishedAt: "2023-12-25",
-    createdAt: "2023-01-01T12:00:00",
-    inviteToken: "TokenToInvite",
-    groupMembers: [
-      {
-        memberId: 1,
-        totalSavingAmount: 1000000,
-      },
-      {
-        memberId: 2,
-        totalSavingAmount: 50000,
-      },
-      {
-        memberId: 3,
-        totalSavingAmount: 300000,
-      },
-      {
-        memberId: 3,
-        totalSavingAmount: 300000,
-      },
-      {
-        memberId: 3,
-        totalSavingAmount: 300000,
-      },
-      {
-        memberId: 3,
-        totalSavingAmount: 300000,
-      },
-    ],
-  };
+  const [challengeGroup] = useRecoilState(getChallengeGroupAtom);
 
   const connect = async () => {
     const socket = new WebSocket(`${API_WEBSOCKET_URL}/ws`);
@@ -71,7 +34,7 @@ function Chatting() {
 
       console.log("Connected to WebSocket");
       /* COMPLETED: 채팅 메시지를 구독하기 */
-      stomp.subscribe(`/chat/groups/3`, onReceiveMessage);
+      stomp.subscribe(`/chat/groups/${challengeGroup.id}`, onReceiveMessage);
     });
   };
 
@@ -106,7 +69,7 @@ function Chatting() {
         "/app/send",
         {},
         JSON.stringify({
-          groupId: 3,
+          groupId: challengeGroup.id,
           message: message,
           messageType: "TALK",
         })
@@ -118,7 +81,7 @@ function Chatting() {
 
   return (
     <div>
-      <BarGraphItemDetailsTopContainer array1={array1} />
+      <BarGraphItemDetailsTopContainer challengeGroup={challengeGroup} />
       <ChattingUI.BottomContainer>
         <ChattingUI.ChattingList>
           {messages.map((content, index) => {
