@@ -7,7 +7,7 @@ const Container = styled.div`
   position: absolute;
   bottom: 0;
   padding: 0 20px;
-  margin-bottom: 20px;
+  margin: 20px 0;
 `;
 
 const ButtonWrapper = styled.div`

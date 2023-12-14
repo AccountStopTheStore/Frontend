@@ -3,7 +3,7 @@ import { theme } from "@/src/assets/theme";
 
 const Container = styled.div`
   width: 100%;
-  height: 220px;
+  min-height: 220px;
   position: relative;
   border: 1px dashed ${theme.font_color.gray2};
   margin-top: 15px;

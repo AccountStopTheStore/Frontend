@@ -16,8 +16,6 @@ function IncomeExpenseButton() {
       ...prev,
       transactionType: "수입",
     }));
-
-    console.log("수입 버튼");
   };
 
   const handleExpenseClick = () => {
@@ -27,8 +25,6 @@ function IncomeExpenseButton() {
       ...prev,
       transactionType: "지출",
     }));
-
-    console.log("지출 버튼");
   };
 
   const incomeButtonStyle = {

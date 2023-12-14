@@ -32,10 +32,8 @@ function RecurringPage() {
       ...prev,
       recurringType: item,
     }));
-    setBtnLabel("반복");
+    setBtnLabel(item);
     navigate("/recordAccountBook");
-
-    console.log(`${item} 클릭`);
   };
 
   return (

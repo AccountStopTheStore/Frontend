@@ -8,27 +8,29 @@ import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
 import { btnLabelStateAtom } from "@/src/hooks/recoil/btnLabelState";
 
 function InstallmentPage() {
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<number | null>(null);
 
   const [, setPostSaveAccountBook] = useRecoilState(saveAccountBookAtom);
   const [, setBtnLabel] = useRecoilState<string>(btnLabelStateAtom);
 
   const navigate = useNavigate();
 
-  const inputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = event.target.value;
+  const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = parseInt(e.target.value, 10);
 
-    setInputValue(newValue);
+    setInputValue(isNaN(newValue) ? null : newValue);
     console.log(newValue);
   };
 
   const handleSaveButton = () => {
-    setPostSaveAccountBook(prev => ({
-      ...prev,
-      installmentMonth: parseInt(inputValue, 10),
-      isInstallment: true,
-    }));
-    setBtnLabel("할부");
+    if (inputValue !== 0 && inputValue !== null) {
+      setPostSaveAccountBook(prev => ({
+        ...prev,
+        installmentMonth: inputValue,
+        isInstallment: true,
+      }));
+      setBtnLabel(`${inputValue}개월 할부`);
+    }
     navigate("/recordAccountBook");
 
     console.log("저장");
@@ -45,12 +47,15 @@ function InstallmentPage() {
         isAddButton={false}
       />
       <InstallmentPageUI.Container>
-        <div>
-          <InstallmentPageUI.InputWrapper>
-            <InstallmentPageUI.Input type="number" onChange={inputChange} />
-            <span>개월</span>
-          </InstallmentPageUI.InputWrapper>
-        </div>
+        <div>할부 입력 (개월 수)</div>
+        <InstallmentPageUI.InputWrapper>
+          <InstallmentPageUI.Input
+            type="number"
+            value={inputValue === null ? "" : inputValue}
+            onChange={inputChange}
+            autoFocus
+          />
+        </InstallmentPageUI.InputWrapper>
         <LongButton
           type={"button"}
           buttonName="저장"
