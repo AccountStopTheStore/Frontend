@@ -1,4 +1,7 @@
-import { getChallengeGroupAtom } from "@/src/hooks/recoil/useGetChallengeGroup";
+import {
+  getChallengeGroupAtom,
+  getChallengeGroupInitial,
+} from "@/src/hooks/recoil/useGetChallengeGroup";
 import LabelInput from "../Common/LabelInput";
 import { UpdateChallengeGroupUI } from "./style";
 import { useRecoilState } from "recoil";
@@ -9,7 +12,6 @@ import { challengeGroupAPI } from "@/src/core/api/challengeGroup";
 import { LabelInputUI } from "../Common/LabelInput/style";
 import FakeInputButton from "../Common/FakeInputButton";
 import { DateCalendar, LocalizationProvider } from "@mui/x-date-pickers";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function UpdateChallengeGroup() {
@@ -29,6 +31,15 @@ function UpdateChallengeGroup() {
       name: value,
     }));
   };
+  /* 인원 수 선택 창 */
+  const [isOpenMaxMembersModal, setIsOpenMaxMembersModal] = useState(false);
+  const handleMaxMembersModalItem = (members: number) => {
+    setIsOpenMaxMembersModal(false);
+    setChallengeGroup(prev => ({
+      ...prev,
+      maxMembers: members,
+    }));
+  };
   const handleTargetAmount = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
@@ -37,18 +48,50 @@ function UpdateChallengeGroup() {
       targetAmount: Number(value),
     }));
   };
-  const handleStartAt = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+
+  const [isOpenStartAtModal, setIsOpenStartAtModal] = useState(false);
+  const handleStartAtModalItem = (date: unknown) => {
+    if (date === null) return;
+
+    /** 'YYYY-MM-DD' 형태로 startAt 데이터 저장하기 */
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const stringDate = (date as any).$d
+      .toLocaleDateString("ko-KR", options)
+      .replace(/\./g, "")
+      .replace(/ /g, "-");
+
+    setIsOpenStartAtModal(false);
     setChallengeGroup(prev => ({
       ...prev,
-      startAt: value,
+      startAt: stringDate,
     }));
   };
-  const handleEndAt = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+
+  const [isOpenEndAtModal, setIsOpenEndAtModal] = useState(false);
+  const handleEndAtModalItem = (date: unknown) => {
+    if (date === null) return;
+
+    /** 'YYYY-MM-DD' 형태로 endAt 데이터 저장하기 */
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const stringDate = (date as any).$d
+      .toLocaleDateString("ko-KR", options)
+      .replace(/\./g, "")
+      .replace(/ /g, "-");
+
+    setIsOpenEndAtModal(false);
     setChallengeGroup(prev => ({
       ...prev,
-      endAt: value,
+      endAt: stringDate,
+    }));
+  };
+  const handleDescription = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    setChallengeGroup(prev => ({
+      ...prev,
+      description: value,
     }));
   };
 
@@ -79,7 +122,8 @@ function UpdateChallengeGroup() {
     try {
       const response = await challengeGroupAPI.updateGroup(challengeGroup);
       if (response.status === 200) {
-        navigate(`/challenge/${param.slug}`);
+        setChallengeGroup(getChallengeGroupInitial);
+        navigate(-1);
       }
     } catch (error) {
       console.error("error: ", error);
@@ -87,36 +131,8 @@ function UpdateChallengeGroup() {
   };
   // 수정 내용 취소하기
   const handleCancelButton = () => {
-    navigate(`/challenge/${param.slug}`);
+    navigate(-1);
   };
-
-  /* 인원 수 선택 창 */
-  const [isOpenMaxMembersModal, setIsOpenMaxMembersModal] = useState(false);
-  const handleMaxMembersModalItem = (members: number) => {
-    setIsOpenMaxMembersModal(false);
-    setChallengeGroup(prev => ({
-      ...prev,
-      maxMembers: members,
-    }));
-  };
-  const [isOpenStartAtModal, setIsOpenStartAtModal] = useState(false);
-  const handleStartAtModalItem = (date: string) => {
-    setIsOpenStartAtModal(false);
-    setChallengeGroup(prev => ({
-      ...prev,
-      startAt: date,
-    }));
-  };
-  const today = new Date().toDateString();
-
-  // const [isOpenMaxMembersModal, setIsOpenMaxMembersModal] = useState(false);
-  // const handleModalItem = (members: number) => {
-  //   setIsOpenMaxMembersModal(false);
-  //   setChallengeGroup(prev => ({
-  //     ...prev,
-  //     maxMembers: members,
-  //   }));
-  // };
 
   return (
     <>
@@ -150,23 +166,20 @@ function UpdateChallengeGroup() {
               {challengeGroup.startAt}
             </FakeInputButton>
           </LabelInputUI.InputContainer>
+          <LabelInputUI.InputContainer>
+            <LabelInputUI.Label>종료일</LabelInputUI.Label>
+            <FakeInputButton onClick={() => setIsOpenEndAtModal(true)}>
+              {challengeGroup.endAt}
+            </FakeInputButton>
+          </LabelInputUI.InputContainer>
           <LabelInput
             type="text"
-            label="시작일"
-            inputId="startAt"
-            placeholder="시작일 입력"
-            value={challengeGroup.startAt}
-            onChange={handleStartAt}
+            label="메모"
+            inputId="description"
+            placeholder="메모 입력"
+            value={challengeGroup.description}
+            onChange={handleDescription}
           />
-          <LabelInput
-            type="text"
-            label="종료일"
-            inputId="endAt"
-            placeholder="종료일 입력"
-            value={challengeGroup.endAt}
-            onChange={handleEndAt}
-          />
-          {/* 초대링크 Input (ReadOnly) */}
           <LabelInput
             type="text"
             label="초대링크"
@@ -226,14 +239,18 @@ function UpdateChallengeGroup() {
           <UpdateChallengeGroupUI.ModalBackgroundContainer>
             <UpdateChallengeGroupUI.ModalContainer>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DateCalendar", "DateCalendar"]}>
-                  <DemoItem label="Controlled calendar">
-                    <DateCalendar
-                      defaultValue={today}
-                      onChange={() => handleStartAtModalItem(today)}
-                    />
-                  </DemoItem>
-                </DemoContainer>
+                <DateCalendar onChange={date => handleStartAtModalItem(date)} />
+              </LocalizationProvider>
+            </UpdateChallengeGroupUI.ModalContainer>
+          </UpdateChallengeGroupUI.ModalBackgroundContainer>
+        </>
+      )}
+      {isOpenEndAtModal && (
+        <>
+          <UpdateChallengeGroupUI.ModalBackgroundContainer>
+            <UpdateChallengeGroupUI.ModalContainer>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateCalendar onChange={date => handleEndAtModalItem(date)} />
               </LocalizationProvider>
             </UpdateChallengeGroupUI.ModalContainer>
           </UpdateChallengeGroupUI.ModalBackgroundContainer>
