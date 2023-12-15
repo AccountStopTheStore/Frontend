@@ -18,8 +18,14 @@ const Wrapper = styled.div`
     width: calc(${barWidth});
     height: 1px;
     background-color: ${theme.font_color.gray2};
-    top: 53%;
+    top: 54%;
   }
+`;
+
+const AddressArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const MemoArea = styled.div`
@@ -44,6 +50,7 @@ const AddImageButtonLabel = styled.label`
 export const InputAreaUI = {
   Container,
   Wrapper,
+  AddressArea,
   MemoArea,
   MemoInputWrapper,
   AddImageButtonLabel,

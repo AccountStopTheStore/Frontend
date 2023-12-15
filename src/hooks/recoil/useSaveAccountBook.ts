@@ -3,11 +3,13 @@ import { atom } from "recoil";
 export interface SaveAccountBookAtomProps {
   address: string;
   amount: number;
+  assetGroup: string;
+  assetType: string;
   assetName: string;
   categoryName: string;
   imageIds: number[];
   isInstallment: boolean;
-  installmentMonth: number;
+  installmentMonth: number | null;
   memo: string;
   recurringType: string;
   transactedAt: string;
@@ -20,6 +22,8 @@ export const saveAccountBookAtom = atom<SaveAccountBookAtomProps>({
   default: {
     address: "",
     amount: 0,
+    assetGroup: "",
+    assetType: "",
     assetName: "",
     categoryName: "",
     imageIds: [],

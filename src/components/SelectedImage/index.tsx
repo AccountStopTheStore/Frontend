@@ -1,23 +1,26 @@
 import { theme } from "@/src/assets/theme";
-import { useEffect, useState } from "react";
-// import { checkGreenColor } from "../InputArea";
 import RecurringICon from "../RecurringIcon";
 import { SelecteImageUI } from "./style";
 import CloseSVG from "@/public/icon/Close.svg";
 import { imageAPI } from "@/src/core/api/image";
 import { useRecoilState } from "recoil";
 import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
-import { uploadImageFileAtom } from "@/src/hooks/recoil/useUploadImageFile";
+import {
+  isReceiptAtom,
+  uploadImageFileAtom,
+} from "@/src/hooks/recoil/useUploadImageFile";
+import { checkGreenColor } from "../Common/LabelInput";
 
 function SelectedImage() {
-  const [isReceipt, setIsReceipt] = useState<boolean>(false);
+  const [isReceipt, setIsReceipt] = useRecoilState(isReceiptAtom);
+
   const [, setPostSaveAccountBook] = useRecoilState(saveAccountBookAtom);
   const [selectedImageFile, setSelectedImageFile] =
     useRecoilState(uploadImageFileAtom);
 
   const handleIsReceiptButton = () => {
     setIsReceipt(!isReceipt);
-    handleUploadImage();
+    handleSendReceiptImage();
   };
 
   const handleCloseButton = () => {
@@ -26,41 +29,44 @@ function SelectedImage() {
       isUploadImage: false,
       selectedImageFile: null,
     }));
+    setPostSaveAccountBook(prev => ({
+      ...prev,
+      imageIds: [],
+    }));
   };
 
-  /** COMPLETED: 이미지 전송하기 */
-  const handleUploadImage = () => {
+  /** COMPLETED: 이미지 전송후 OCR 결과 보여주기 */
+  const handleSendReceiptImage = () => {
     if (selectedImageFile) {
       const jsonData = JSON.stringify({ isReceipt });
       const imageFile = selectedImageFile.selectedImageFile;
 
-      if (imageFile === null) return;
+      if (imageFile === null) {
+        return;
+      } else {
+        if (isReceipt === true) {
+          imageAPI
+            .imageUpload(jsonData, imageFile)
+            .then(response => {
+              console.log("영수증 이미지 전송 성공: ", response);
 
-      imageAPI
-        .imageUpload(jsonData, imageFile)
-        .then(response => {
-          console.log("imageUpload response: ", response);
-
-          /** COMPLETED: image OCR 결과를 input에 사용되고 있는 recoil state에 값으로 대체하기 */
-          setPostSaveAccountBook(prev => ({
-            ...prev,
-            address: response.data.ocrResult.address,
-            amount: response.data.ocrResult.amount,
-            transactedAt: response.data.ocrResult.date,
-            transactionDetail: response.data.ocrResult.vendor,
-          }));
-        })
-        .catch(error => {
-          console.error("이미지 전송 실패:", error);
-        });
+              /** COMPLETED: image OCR 결과를 input에 사용되고 있는 recoil state에 값으로 대체하기 */
+              setPostSaveAccountBook(prev => ({
+                ...prev,
+                address: response.data.ocrResult.address,
+                amount: response.data.ocrResult.amount,
+                imageIds: [response.data.ocrResult.imageId],
+                transactedAt: response.data.ocrResult.date,
+                transactionDetail: response.data.ocrResult.vendor,
+              }));
+            })
+            .catch(error => {
+              console.error("영수증 이미지 전송 실패:", error);
+            });
+        }
+      }
     }
   };
-
-  useEffect(() => {
-    // isReceipt가 변경될 때마다 handlUploadImage 호출
-    handleUploadImage();
-    console.log("isReceipt: ", isReceipt);
-  }, [isReceipt]);
 
   return (
     <SelecteImageUI.Container>
@@ -71,14 +77,14 @@ function SelectedImage() {
             onClick={handleIsReceiptButton}>
             <div style={{ fontWeight: isReceipt ? "bold" : 300 }}>
               <RecurringICon
-                fill={isReceipt ? "#3cb043" : theme.font_color.gray2}
+                fill={isReceipt ? checkGreenColor : theme.font_color.gray2}
               />
               영수증
             </div>
           </SelecteImageUI.IsReceiptButton>
           <SelecteImageUI.SelectedImageArea
             src={selectedImageFile.selectedImage}
-            alt="영수증"
+            alt={isReceipt ? "영수증" : "이미지"}
             style={{ maxWidth: "100%" }}
           />
           <SelecteImageUI.CloseButton type="button" onClick={handleCloseButton}>

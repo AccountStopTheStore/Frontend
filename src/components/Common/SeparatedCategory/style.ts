@@ -39,6 +39,7 @@ const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   background-color: ${theme.font_color.white};
+  overflow-y: auto;
 `;
 
 export const SeparatedCategoryUI = {
