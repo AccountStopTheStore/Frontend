@@ -1,67 +1,54 @@
-import { CreateChallengeGroupUI } from "./style";
-import LabelInput from "../Common/LabelInput";
-import ShortButton from "../Common/ShortButton";
-import { useNavigate } from "react-router-dom";
-import { challengeGroupAPI } from "@/src/core/api/challengeGroup";
-import { useRecoilState } from "recoil";
 import {
-  createChallengeGroupAtom,
-  createChallengeGroupInitial,
-} from "@/src/hooks/recoil/useCreateChallengeGroup";
-import { ChangeEvent, useState } from "react";
+  getChallengeGroupAtom,
+  getChallengeGroupInitial,
+} from "@/src/hooks/recoil/useGetChallengeGroup";
+import LabelInput from "../Common/LabelInput";
+import { UpdateChallengeGroupUI } from "./style";
+import { useRecoilState } from "recoil";
+import { ChangeEvent, useEffect, useState } from "react";
+import ShortButton from "../Common/ShortButton";
+import { useNavigate, useParams } from "react-router-dom";
+import { challengeGroupAPI } from "@/src/core/api/challengeGroup";
 import { LabelInputUI } from "../Common/LabelInput/style";
 import FakeInputButton from "../Common/FakeInputButton";
-import { UpdateChallengeGroupUI } from "../UpdateChallengeGroup/style";
 import { DateCalendar, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-function CreateChallengeGroup() {
+function UpdateChallengeGroup() {
+  const param = useParams();
   const navigate = useNavigate();
-
-  const [createChallengeGroup, setCreateChallengeGroup] = useRecoilState(
-    createChallengeGroupAtom
+  /* COMPLETED: Recoil(getChallengeGroupAtom) 값 가져오기 */
+  const [challengeGroup, setChallengeGroup] = useRecoilState(
+    getChallengeGroupAtom
   );
-  const handleSavingButton = async () => {
-    try {
-      const response = await challengeGroupAPI.createGroup(
-        createChallengeGroup
-      );
-      if (response.status === 200) {
-        setCreateChallengeGroup(createChallengeGroupInitial);
-        navigate("/challenge");
-      }
-    } catch (error) {
-      console.log("챌린지 생성 error: ", error);
-    }
-  };
-  const handleCancelButton = () => {
-    setCreateChallengeGroup(createChallengeGroupInitial);
-    navigate("/challenge");
-  };
 
+  /* COMPLETED: Recoil(getChallengeGroupAtom) 데이터 수정하기 */
   const handleGroupName = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setCreateChallengeGroup(prev => ({
+
+    setChallengeGroup(prev => ({
       ...prev,
       name: value,
     }));
   };
   /* 인원 수 선택 창 */
-  const [isOpenMaxMembersModal, setIsMaxMembersOpenModal] = useState(false);
-  const handleModalItem = (members: number) => {
-    setIsMaxMembersOpenModal(false);
-    setCreateChallengeGroup(prev => ({
+  const [isOpenMaxMembersModal, setIsOpenMaxMembersModal] = useState(false);
+  const handleMaxMembersModalItem = (members: number) => {
+    setIsOpenMaxMembersModal(false);
+    setChallengeGroup(prev => ({
       ...prev,
       maxMembers: members,
     }));
   };
   const handleTargetAmount = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setCreateChallengeGroup(prev => ({
+
+    setChallengeGroup(prev => ({
       ...prev,
       targetAmount: Number(value),
     }));
   };
+
   const [isOpenStartAtModal, setIsOpenStartAtModal] = useState(false);
   const handleStartAtModalItem = (date: unknown) => {
     if (date === null) return;
@@ -75,11 +62,12 @@ function CreateChallengeGroup() {
       .replace(/ /g, "-");
 
     setIsOpenStartAtModal(false);
-    setCreateChallengeGroup(prev => ({
+    setChallengeGroup(prev => ({
       ...prev,
       startAt: stringDate,
     }));
   };
+
   const [isOpenEndAtModal, setIsOpenEndAtModal] = useState(false);
   const handleEndAtModalItem = (date: unknown) => {
     if (date === null) return;
@@ -93,35 +81,75 @@ function CreateChallengeGroup() {
       .replace(/ /g, "-");
 
     setIsOpenEndAtModal(false);
-    setCreateChallengeGroup(prev => ({
+    setChallengeGroup(prev => ({
       ...prev,
       endAt: stringDate,
     }));
   };
   const handleDescription = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setCreateChallengeGroup(prev => ({
+
+    setChallengeGroup(prev => ({
       ...prev,
       description: value,
     }));
   };
 
+  /* 초대링크 값 가져오기 */
+  useEffect(() => {
+    const fetchInviteLinkData = async () => {
+      try {
+        const response = await challengeGroupAPI.createInviteLink(
+          challengeGroup.id
+        );
+
+        if (response.status === 200) {
+          setChallengeGroup(prev => ({
+            ...prev,
+            inviteLink: response.data.inviteLink,
+          }));
+        }
+      } catch (error) {
+        console.error("InviteLink error: ", error);
+      }
+    };
+    fetchInviteLinkData();
+  }, []);
+
+  /* COMPLETED: Server로 수정한 데이터 변경하기(PUT) */
+  // 수정 내용 저장하기
+  const handleSavingButton = async () => {
+    try {
+      const response = await challengeGroupAPI.updateGroup(challengeGroup);
+      if (response.status === 200) {
+        setChallengeGroup(getChallengeGroupInitial);
+        navigate(-1);
+      }
+    } catch (error) {
+      console.error("error: ", error);
+    }
+  };
+  // 수정 내용 취소하기
+  const handleCancelButton = () => {
+    navigate(-1);
+  };
+
   return (
     <>
-      <CreateChallengeGroupUI.Container>
+      <UpdateChallengeGroupUI.Container>
         <div>
           <LabelInput
             type="text"
             label="그룹명"
             inputId="groupName"
             placeholder="그룹명 입력"
-            value={createChallengeGroup.name}
+            value={challengeGroup.name}
             onChange={handleGroupName}
           />
           <LabelInputUI.InputContainer>
             <LabelInputUI.Label>인원</LabelInputUI.Label>
-            <FakeInputButton onClick={() => setIsMaxMembersOpenModal(true)}>
-              {createChallengeGroup.maxMembers}
+            <FakeInputButton onClick={() => setIsOpenMaxMembersModal(true)}>
+              {challengeGroup.maxMembers}
             </FakeInputButton>
           </LabelInputUI.InputContainer>
           <LabelInput
@@ -129,19 +157,19 @@ function CreateChallengeGroup() {
             label="목표액"
             inputId="totalAmount"
             placeholder="목표액 입력"
-            value={createChallengeGroup.targetAmount}
+            value={challengeGroup.targetAmount}
             onChange={handleTargetAmount}
           />
           <LabelInputUI.InputContainer>
             <LabelInputUI.Label>시작일</LabelInputUI.Label>
             <FakeInputButton onClick={() => setIsOpenStartAtModal(true)}>
-              {createChallengeGroup.startAt}
+              {challengeGroup.startAt}
             </FakeInputButton>
           </LabelInputUI.InputContainer>
           <LabelInputUI.InputContainer>
             <LabelInputUI.Label>종료일</LabelInputUI.Label>
             <FakeInputButton onClick={() => setIsOpenEndAtModal(true)}>
-              {createChallengeGroup.endAt}
+              {challengeGroup.endAt}
             </FakeInputButton>
           </LabelInputUI.InputContainer>
           <LabelInput
@@ -149,11 +177,19 @@ function CreateChallengeGroup() {
             label="메모"
             inputId="description"
             placeholder="메모 입력"
-            value={createChallengeGroup.description}
+            value={challengeGroup.description}
             onChange={handleDescription}
           />
+          <LabelInput
+            type="text"
+            label="초대링크"
+            inputId="inviteLink"
+            placeholder="초대링크 입력"
+            value={challengeGroup.inviteLink}
+            readonly
+          />
         </div>
-      </CreateChallengeGroupUI.Container>
+      </UpdateChallengeGroupUI.Container>
       <ShortButton
         isSaveButton
         onSaveClick={handleSavingButton}
@@ -166,31 +202,31 @@ function CreateChallengeGroup() {
             <ul>
               <li>
                 <UpdateChallengeGroupUI.ModalButton
-                  onClick={() => handleModalItem(1)}>
+                  onClick={() => handleMaxMembersModalItem(1)}>
                   1
                 </UpdateChallengeGroupUI.ModalButton>
               </li>
               <li>
                 <UpdateChallengeGroupUI.ModalButton
-                  onClick={() => handleModalItem(2)}>
+                  onClick={() => handleMaxMembersModalItem(2)}>
                   2
                 </UpdateChallengeGroupUI.ModalButton>
               </li>
               <li>
                 <UpdateChallengeGroupUI.ModalButton
-                  onClick={() => handleModalItem(3)}>
+                  onClick={() => handleMaxMembersModalItem(3)}>
                   3
                 </UpdateChallengeGroupUI.ModalButton>
               </li>
               <li>
                 <UpdateChallengeGroupUI.ModalButton
-                  onClick={() => handleModalItem(4)}>
+                  onClick={() => handleMaxMembersModalItem(4)}>
                   4
                 </UpdateChallengeGroupUI.ModalButton>
               </li>
               <li>
                 <UpdateChallengeGroupUI.ModalButton
-                  onClick={() => handleModalItem(5)}>
+                  onClick={() => handleMaxMembersModalItem(5)}>
                   5
                 </UpdateChallengeGroupUI.ModalButton>
               </li>
@@ -224,4 +260,4 @@ function CreateChallengeGroup() {
   );
 }
 
-export default CreateChallengeGroup;
+export default UpdateChallengeGroup;

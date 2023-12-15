@@ -42,7 +42,7 @@ function RecurringPage() {
     <>
       <Header
         pageName="반복"
-        isBackButton={false}
+        isBackButton={true}
         isSearchButton={false}
         isFilterButton={false}
         isAddButton={false}
