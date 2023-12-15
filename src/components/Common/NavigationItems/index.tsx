@@ -2,7 +2,7 @@ import AccountPNG from "@/public/icon/Account.png";
 import StatsPNG from "@/public/icon/Stats.png";
 import WroteMapPNG from "@/public/icon/WroteMap.png";
 import ChallengePNG from "@/public/icon/Challenge.png";
-import MorePNG from "@/public/icon/More.png";
+import SettingsPNG from "@/public/icon/Settings.png";
 import { NavigationItemsUI } from "./style";
 import { useState } from "react";
 import NavigationItem from "../NavigationItem";
@@ -45,7 +45,7 @@ function NavigationItems() {
       active: false,
     },
     {
-      image: MorePNG,
+      image: SettingsPNG,
       categoryName: "더보기",
       address: "/setting",
       active: false,
@@ -55,7 +55,7 @@ function NavigationItems() {
   const eventHandler = (item: bottomNavigationType) => {
     // console.log("item.name : ", item.categoryName);
     /** bottomNavigation에 활성화 버튼 변경하기 */
-    const updatedNavigation = bottomNavigation.map((navItem) => {
+    const updatedNavigation = bottomNavigation.map(navItem => {
       // 클릭한 항목만 active를 true로, 나머지는 false로 설정
       return {
         ...navItem,
@@ -76,7 +76,7 @@ function NavigationItems() {
   return (
     <>
       <NavigationItemsUI.UnorderedListContainer>
-        {bottomNavigation.map((item) => (
+        {bottomNavigation.map(item => (
           <NavigationItem
             key={item.categoryName}
             onClick={() => eventHandler(item)}

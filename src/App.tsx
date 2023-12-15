@@ -17,6 +17,7 @@ import ChallengeDetailPage from "./pages/ChallengeDetailPage";
 import CreateChallengeGroupPage from "./pages/CreateChallengeGroupPage";
 import UpdateChallengeGroupPage from "./pages/UpdateChallengeGroupPage";
 import SavingPage from "./pages/SavingPage";
+import SettingAssetManagementPage from "./pages/SettingAssetManagementPage";
 
 function App() {
   const isLoginPage = window.location.pathname === "/";
@@ -40,6 +41,10 @@ function App() {
           element: <UpdateChallengeGroupPage />,
         },
         {
+          path: "/setting/createasset",
+          element: <SettingAssetManagementPage />,
+        },
+        {
           path: "/*",
           element: (
             <>
@@ -61,8 +66,8 @@ function App() {
                 <Route path="/saving/:slug" element={<SavingPage />} />
                 <Route path="/statistics" element={<StatisticPage />} />
                 <Route path="/record" element={<RecordPage />} />
-                <Route path="/setting" element={<SettingPage />} />
                 <Route path="/chatting/:slug" element={<ChattingPage />} />
+                <Route path="/setting" element={<SettingPage />} />
               </Routes>
               {!isLoginPage &&
                 !isSignUpPage &&

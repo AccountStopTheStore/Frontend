@@ -1,5 +1,5 @@
-import CancelPNG from "../../../../public/icon/Cancel.png";
-import WritingPNG from "../../../../public/icon/Writing.png";
+import CancelPNG from "@/public/icon/Cancel.png";
+import WhiteWriting from "@/public/icon/WhiteWriting.png";
 import { Button } from "@mui/material";
 import { theme } from "../../../assets/theme";
 import { SeparatedCategoryUI } from "./style";
@@ -53,7 +53,7 @@ function SeparatedCategory({ title }: SeparatedCategoryProps) {
               type="button"
               onClick={handleWritingButton}
               style={{ display: "inline-block", marginRight: "20px" }}>
-              <img src={WritingPNG} alt="WritingPNG" />
+              <img src={WhiteWriting} alt="WritingPNG" />
             </button>
             <button type="button" onClick={handleCancelButton}>
               <img src={CancelPNG} alt="CancelPNG" />

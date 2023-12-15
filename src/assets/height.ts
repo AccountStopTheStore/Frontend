@@ -9,6 +9,9 @@ export const ChallengeTopContainerHeight = 92.75;
 export const BottomDateModalHeight = 470;
 export const ShortButtonHeight = 50;
 
+export const BasicHeight =
+  ApplicationHeight - (HeaderHeight + NavigationItemsHeight);
+
 export const AccountHeight =
   ApplicationHeight -
   (HeaderHeight +
