@@ -86,7 +86,7 @@ function SeparatedCategory({ title }: SeparatedCategoryProps) {
                   type="button"
                   onClick={handleWritingButton}
                   style={{ display: "inline-block", marginRight: "20px" }}>
-                  <img src={WritingPNG} alt="WritingPNG" />
+                  <img src={WhiteWriting} alt="WritingPNG" />
                 </button>
                 <button type="button" onClick={handleCancelButton}>
                   <img src={CancelPNG} alt="CancelPNG" />
@@ -122,9 +122,9 @@ function SeparatedCategory({ title }: SeparatedCategoryProps) {
                 )}
               {title === "결제수단 자산" && (
                 <SeparatedCategoryUI.GridContainer>
-                  {assets.map(item => (
+                  {assets.map((item: GetAsset) => (
                     <Button
-                      key={item.assetId}
+                      key={item.amountId}
                       style={buttonStyles}
                       onClick={() => handleCategoryButton(item)}>
                       {item.assetName}
