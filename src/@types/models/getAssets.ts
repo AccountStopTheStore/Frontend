@@ -6,7 +6,7 @@ import { AssetGroupSymbol, AssetTypeSymbol } from "./assetSymbol";
 export type GetAssets = GetAsset[];
 
 export type GetAsset = {
-  amountId: number;
+  assetId: number;
   assetGroup: AssetGroupSymbol;
   assetType: AssetTypeSymbol;
   assetName: string;

@@ -86,7 +86,7 @@ function SeparatedCategory({ title }: SeparatedCategoryProps) {
                   type="button"
                   onClick={handleWritingButton}
                   style={{ display: "inline-block", marginRight: "20px" }}>
-                  <img src={WritingPNG} alt="WritingPNG" />
+                  <img src={WhiteWriting} alt="WritingPNG" />
                 </button>
                 <button type="button" onClick={handleCancelButton}>
                   <img src={CancelPNG} alt="CancelPNG" />
