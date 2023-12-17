@@ -1,5 +1,5 @@
 import { APIInstance } from "./instance";
-import { GetAssets } from "@/src/@types/models/getAsset";
+import { GetAssets } from "@/src/@types/models/getAssets";
 import { CreateAsset } from "@/src/@types/models/createAsset";
 import { UpdateAsset } from "@/src/@types/models/updateAsset";
 
@@ -38,9 +38,9 @@ export const assetsAPI = {
     assetGroup: string;
     assetType: string;
     assetName: string;
-    dueDay: number;
+    dueDay: number | null;
     memo: string;
-    statementDay: number;
+    statementDay: number | null;
     createdAt: string;
     updatedAt: string;
   }) => {
