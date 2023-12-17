@@ -6,6 +6,9 @@ import SeparatedCategory from "../Common/SeparatedCategory";
 import { useRecoilState } from "recoil";
 import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
 import { openSeparatedCategoryAtom } from "@/src/hooks/recoil/useOpenSeparatedCategory";
+import DaumPost from "../DaumPost";
+import { modalOpenStateAtom } from "@/src/hooks/recoil/calendarModalState";
+import CalendarModal from "../Common/CalendarModal";
 
 function InputArea() {
   const [postSaveAccountBook, setPostSaveAccountBook] =
@@ -14,37 +17,19 @@ function InputArea() {
     openSeparatedCategoryAtom
   );
 
-  /** COMPLETED: recoil saveAccountBookAtom에 값 추가하기 */
-  const handleDate = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+  const [isCalendarModalOpen, setIsCalendarModalOpen] =
+    useRecoilState(modalOpenStateAtom);
 
-    setPostSaveAccountBook(prev => ({
-      ...prev,
-      transactedAt: value,
-    }));
-  };
+  const [serperatedCategoryTitle, setSerperatedCategoryTitle] =
+    useState<string>("");
+
+  /** input value 관리 */
   const handleAmount = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
 
     setPostSaveAccountBook(prev => ({
       ...prev,
       amount: Number(value),
-    }));
-  };
-  const handleCategoryName = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    setPostSaveAccountBook(prev => ({
-      ...prev,
-      categoryName: value,
-    }));
-  };
-  const handleAssetName = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-
-    setPostSaveAccountBook(prev => ({
-      ...prev,
-      assetName: value,
     }));
   };
   const handleTransactionDetail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +57,21 @@ function InputArea() {
     }));
   };
 
+  /** 클릭 이벤트 */
+  const handleDateClick = () => {
+    setIsCalendarModalOpen(true);
+  };
+
+  const handleCategoryClick = () => {
+    setIsOpenSeparatedCategory({ isOpen: true });
+    setSerperatedCategoryTitle("카테고리 분류");
+  };
+
+  const handleAssetClick = () => {
+    setIsOpenSeparatedCategory({ isOpen: true });
+    setSerperatedCategoryTitle("결제수단 자산");
+  };
+
   return (
     <InputAreaUI.Container>
       <InputAreaUI.Wrapper>
@@ -83,7 +83,8 @@ function InputArea() {
             value={postSaveAccountBook.transactedAt}
             placeholder={"날짜를 입력해주세요."}
             addContent={"button"}
-            onChange={handleDate}
+            onClick={handleDateClick}
+            readonly={true}
           />
           <LabelInput
             type={"number"}
@@ -100,8 +101,8 @@ function InputArea() {
             inputId={"categoryName"}
             value={postSaveAccountBook.categoryName}
             placeholder={"카테고리를 선택해주세요."}
-            onClick={() => setIsOpenSeparatedCategory({ isOpen: true })}
-            onChange={handleCategoryName}
+
+            onClick={handleCategoryClick}
             readonly={true}
           />
           <LabelInput
@@ -110,8 +111,7 @@ function InputArea() {
             inputId={"assetName"}
             value={postSaveAccountBook.assetName}
             placeholder={"결제 수단을 선택해주세요."}
-            onClick={() => setIsOpenSeparatedCategory({ isOpen: true })}
-            onChange={handleAssetName}
+            onClick={handleAssetClick}
             readonly={true}
           />
           <LabelInput
@@ -122,17 +122,25 @@ function InputArea() {
             placeholder={"사용처를 입력해주세요."}
             onChange={handleTransactionDetail}
           />
-          <LabelInput
-            type={"text"}
-            label={"주소"}
-            inputId={"address"}
-            value={postSaveAccountBook.address}
-            placeholder={"주소를 입력해주세요."}
-            onChange={handleAddress}
-          />
+          <InputAreaUI.AddressArea>
+            <LabelInput
+              type={"text"}
+              label={"주소"}
+              inputId={"address"}
+              value={postSaveAccountBook.address}
+              placeholder={"주소를 입력해주세요."}
+              onChange={handleAddress}
+              readonly={true}
+            />
+            <DaumPost />
+          </InputAreaUI.AddressArea>
         </div>
-        {isOpenSeparatedCategory.isOpen && <SeparatedCategory />}
+        {isOpenSeparatedCategory.isOpen && (
+          <SeparatedCategory title={serperatedCategoryTitle} />
+        )}
+        {isCalendarModalOpen && <CalendarModal page={"recordAccountBook"} />}
       </InputAreaUI.Wrapper>
+
       <InputAreaUI.MemoArea>
         <LabelInput
           type={"text"}

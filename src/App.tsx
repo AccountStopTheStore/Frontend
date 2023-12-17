@@ -34,8 +34,13 @@ function App() {
         { path: "/", element: <LoginPage /> },
         { path: "/signUp", element: <SignUpPage /> },
         { path: "/passwordReset", element: <PasswordResetPage /> },
-        { path: "/recordAccountBook/recurring", element: <RecurringPage /> },
+        {
+          path: "/recordAccountBook/recurring",
+          element: <RecurringPage />,
+          caseSensitive: true,
+        },
         { path: "/challenge/create", element: <CreateChallengeGroupPage /> },
+
         {
           path: "/challenge/update/:slug",
           element: <UpdateChallengeGroupPage />,
@@ -53,10 +58,12 @@ function App() {
                 <Route
                   path="/recordAccountBook"
                   element={<RecordAccountBookPage />}
+                  caseSensitive={true}
                 />
                 <Route
                   path="/recordAccountBook/installment"
                   element={<InstallmentPage />}
+                  caseSensitive={true}
                 />
                 <Route path="/challenge" element={<ChallengePage />} />
                 <Route

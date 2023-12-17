@@ -29,6 +29,8 @@ export const AccountBookAPI = {
   saveAccountBook: (postAccountBook: {
     address: string;
     amount: number;
+    assetGroup: string;
+    assetType: string;
     assetName: string;
     categoryName: string;
     imageIds: number[];
@@ -42,6 +44,8 @@ export const AccountBookAPI = {
     return APIInstance.post<PostAccount>(ACCOUNTS, {
       address: postAccountBook.address,
       amount: postAccountBook.amount,
+      assetGroup: postAccountBook.assetGroup,
+      assetType: postAccountBook.assetType,
       assetName: postAccountBook.assetName,
       categoryName: postAccountBook.categoryName,
       imageIds: postAccountBook.imageIds,
@@ -58,6 +62,8 @@ export const AccountBookAPI = {
     accountId: number;
     address: string;
     amount: number;
+    assetGroup: string;
+    assetType: string;
     assetName: string;
     categoryName: string;
     imageIds: number[];
@@ -73,6 +79,8 @@ export const AccountBookAPI = {
       {
         address: PutAccountBook.address,
         amount: PutAccountBook.amount,
+        assetGroup: PutAccountBook.assetGroup,
+        assetType: PutAccountBook.assetType,
         assetName: PutAccountBook.assetName,
         categoryName: PutAccountBook.categoryName,
         imageIds: PutAccountBook.imageIds,

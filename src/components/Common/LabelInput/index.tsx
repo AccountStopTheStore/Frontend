@@ -7,7 +7,12 @@ import { useNavigate } from "react-router-dom";
 import { theme } from "@/src/assets/theme";
 import RecurringInstallmentButtons from "../../RecurringInstallmentButtons";
 import ImageUploadSVG from "@/public/icon/ImageUpload.svg";
-import { uploadImageFileAtom } from "@/src/hooks/recoil/useUploadImageFile";
+import {
+  isReceiptAtom,
+  uploadImageFileAtom,
+} from "@/src/hooks/recoil/useUploadImageFile";
+import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
+import { imageAPI } from "@/src/core/api/image";
 
 export interface LabelInputProps {
   type: string;
@@ -35,12 +40,17 @@ function LabelInput({
   readonly = false,
 }: LabelInputProps) {
   const navigate = useNavigate();
+
   const [btnLabel, setBtnLabel] = useRecoilState<string>(btnLabelStateAtom);
-  const fileInputRef = useRef(null);
+
   const recurringInstallmentBtnRef = useRef<HTMLButtonElement | null>(null);
   const [showRecurringInstallmentBtns, setShowRecurringInstallmentBtns] =
     useState<boolean>(false);
+
+  const fileInputRef = useRef(null);
   const [, setSelectedImageFile] = useRecoilState(uploadImageFileAtom);
+  const [isReceipt] = useRecoilState(isReceiptAtom);
+  const [, setPostSaveAccountBook] = useRecoilState(saveAccountBookAtom);
 
   // handleRecurringInstallmentBtn 외부 클릭시 버튼 사라짐
   useEffect(() => {
@@ -70,9 +80,10 @@ function LabelInput({
     navigate("/recordAccountBook/installment");
   };
 
-  // 이미지 표시
+  // 이미지 표시 및 영수증 아닌 이미지 전송
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const FILE = e.target.files?.[0];
+
     if (FILE) {
       const imageUrl = URL.createObjectURL(FILE);
       setSelectedImageFile({
@@ -80,6 +91,23 @@ function LabelInput({
         selectedImage: imageUrl,
         selectedImageFile: FILE,
       });
+
+      if (isReceipt === false) {
+        const jsonData = JSON.stringify({ isReceipt });
+        imageAPI
+          .imageUpload(jsonData, FILE)
+          .then(response => {
+            console.log("이미지 전송 성공: ", response.data.imageId);
+
+            setPostSaveAccountBook(prev => ({
+              ...prev,
+              imageIds: [response.data.imageId],
+            }));
+          })
+          .catch(error => {
+            console.error("이미지 전송 실패:", error);
+          });
+      }
     }
   };
 

@@ -3,7 +3,7 @@ import { theme } from "../../assets/theme";
 
 const Container = styled.div`
   width: 100%;
-  padding: 10px 20px;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;

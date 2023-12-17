@@ -21,8 +21,9 @@ const Input = styled.input`
   padding: 0 0 6px 10px;
   border: none;
   border-bottom: 1px solid ${theme.font_color.gray2};
-  ${theme.font_style.regular_medium}
+  ${theme.font_style.regular_medium};
   width: calc(${inputWidth});
+  text-overflow: ellipsis;
 
   &::placeholder {
     ${theme.font_style.regular_small}

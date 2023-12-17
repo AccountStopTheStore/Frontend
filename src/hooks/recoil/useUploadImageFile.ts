@@ -14,3 +14,8 @@ export const uploadImageFileAtom = atom<UploadImageFileAtomProps>({
     selectedImageFile: null,
   },
 });
+
+export const isReceiptAtom = atom({
+  key: "isReceiptAtom",
+  default: false,
+});

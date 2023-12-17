@@ -16,11 +16,17 @@ function RecordAccountBookPage() {
     navigate("/account");
   };
 
-  /** TODO: recoil에 값 사용하기 */
   const handleSaveButton = () => {
-    AccountBookAPI.saveAccountBook(postSaveAccountBook);
-
-    console.log("저장하고 가계부 페이지로 이동");
+    AccountBookAPI.saveAccountBook(postSaveAccountBook)
+      .then(response => {
+        if (response.status === 200) {
+          console.log("가계부 저장 성공: ", response.data);
+          navigate("/account");
+        }
+      })
+      .catch(error => {
+        console.log("가계부 저장 실패: ", error);
+      });
   };
 
   return (

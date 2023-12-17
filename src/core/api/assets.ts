@@ -1,6 +1,6 @@
-import { CreateAsset } from "@/src/@types/models/createAsset";
 import { APIInstance } from "./instance";
 import { GetAssets } from "@/src/@types/models/getAsset";
+import { CreateAsset } from "@/src/@types/models/createAsset";
 import { UpdateAsset } from "@/src/@types/models/updateAsset";
 
 const ASSETS = "/assets";
@@ -9,6 +9,7 @@ export const assetsAPI = {
   getAssets: () => {
     return APIInstance.get<GetAssets>(ASSETS);
   },
+
   /** COMPLETED: createAssets POST 조회하기 */
   createAssets: (createAssetObject: {
     amount: number;
@@ -29,6 +30,7 @@ export const assetsAPI = {
       statementDay: createAssetObject.statementDay,
     });
   },
+
   /** COMPLETED: updateAssets PUT 조회하기 */
   updateAssets: (updateAssetsObject: {
     assetId: number;
@@ -57,6 +59,7 @@ export const assetsAPI = {
       }
     );
   },
+
   /** COMPLETED: deleteAssets DELETE 조회하기 */
   deleteAssets: (assetId: number) => {
     return APIInstance.delete(ASSETS + `/${assetId}`);

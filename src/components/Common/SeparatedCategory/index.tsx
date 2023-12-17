@@ -9,24 +9,39 @@ import { openSeparatedCategoryAtom } from "@/src/hooks/recoil/useOpenSeparatedCa
 import { getCategoriesAtom } from "@/src/hooks/recoil/useGetCategories";
 import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
 import { GetCategory } from "@/src/@types/models/getCategories";
+import { GetAsset } from "@/src/@types/models/getAssets";
+import { getAssetsAtom } from "@/src/hooks/recoil/useGetAssets";
 
 interface SeparatedCategoryProps {
-  title?: string;
+  title: string;
 }
 
 const buttonStyles = {
   height: "75px",
   border: `1px solid ${theme.font_color.gray2}`,
   borderRadius: "0",
+  fontSize: "13px",
+  textWrap: "balance",
 };
 
 function SeparatedCategory({ title }: SeparatedCategoryProps) {
   const navigate = useNavigate();
-  const [, setIsOpenSeparatedCategory] = useRecoilState(
+
+  const [isOpenSeparatedCategory, setIsOpenSeparatedCategory] = useRecoilState(
     openSeparatedCategoryAtom
   );
+
   const [categories] = useRecoilState(getCategoriesAtom);
-  const [, setPostSaveAccountBook] = useRecoilState(saveAccountBookAtom);
+  const incomeCategories = categories.filter(
+    category => category.categoryType === "수입"
+  );
+  const expenseCategories = categories.filter(
+    category => category.categoryType === "지출"
+  );
+
+  const [assets] = useRecoilState(getAssetsAtom);
+  const [postSaveAccountBook, setPostSaveAccountBook] =
+    useRecoilState(saveAccountBookAtom);
 
   const handleWritingButton = () => {
     navigate("/setting");
@@ -36,42 +51,92 @@ function SeparatedCategory({ title }: SeparatedCategoryProps) {
     setIsOpenSeparatedCategory({ isOpen: false });
   };
 
-  const handleCategoryButton = (item: GetCategory) => {
-    setPostSaveAccountBook(prev => ({
-      ...prev,
-      categoryName: item.categoryName,
-    }));
+  const handleCategoryButton = (item: GetCategory | GetAsset) => {
+    if (
+      postSaveAccountBook.transactionType === "수입" ||
+      postSaveAccountBook.transactionType === "지출"
+    ) {
+      setPostSaveAccountBook(prev => ({
+        ...prev,
+        categoryName: (item as GetCategory).categoryName,
+      }));
+    }
+
+    if (title === "결제수단 자산" && (item as GetAsset).assetName === "") {
+      setPostSaveAccountBook(prev => ({
+        ...prev,
+        assetType: (item as GetAsset).assetType,
+      }));
+    } else {
+      setPostSaveAccountBook(prev => ({
+        ...prev,
+        assetName: (item as GetAsset).assetName,
+      }));
+    }
+
+    setIsOpenSeparatedCategory({ isOpen: false });
   };
 
   return (
-    <SeparatedCategoryUI.Container>
-      <div>
-        <SeparatedCategoryUI.CategoryHeader>
-          <div>{title}</div>
+    <>
+      {isOpenSeparatedCategory.isOpen && (
+        <SeparatedCategoryUI.Container>
           <div>
-            <button
-              type="button"
-              onClick={handleWritingButton}
-              style={{ display: "inline-block", marginRight: "20px" }}>
-              <img src={WhiteWriting} alt="WritingPNG" />
-            </button>
-            <button type="button" onClick={handleCancelButton}>
-              <img src={CancelPNG} alt="CancelPNG" />
-            </button>
+            <SeparatedCategoryUI.CategoryHeader>
+              <div>{title}</div>
+              <div>
+                <button
+                  type="button"
+                  onClick={handleWritingButton}
+                  style={{ display: "inline-block", marginRight: "20px" }}>
+                  <img src={WritingPNG} alt="WritingPNG" />
+                </button>
+                <button type="button" onClick={handleCancelButton}>
+                  <img src={CancelPNG} alt="CancelPNG" />
+                </button>
+              </div>
+            </SeparatedCategoryUI.CategoryHeader>
+            {postSaveAccountBook.transactionType === "수입" && (
+              <SeparatedCategoryUI.GridContainer>
+                {incomeCategories.map(item => (
+                  <Button
+                    key={item.categoryId}
+                    style={buttonStyles}
+                    onClick={() => handleCategoryButton(item)}>
+                    {item.categoryName}
+                  </Button>
+                ))}
+              </SeparatedCategoryUI.GridContainer>
+            )}
+            {postSaveAccountBook.transactionType === "지출" && (
+              <SeparatedCategoryUI.GridContainer>
+                {expenseCategories.map(item => (
+                  <Button
+                    key={item.categoryId}
+                    style={buttonStyles}
+                    onClick={() => handleCategoryButton(item)}>
+                    {item.categoryName}
+                  </Button>
+                ))}
+              </SeparatedCategoryUI.GridContainer>
+            )}
+            {/* TODO: 지출일때 자산 카테고리에 지출 카테고리도 같이 표시되는 문제 해결하기 */}
+            {title === "결제수단 자산" && (
+              <SeparatedCategoryUI.GridContainer>
+                {assets.map(item => (
+                  <Button
+                    key={item.assetId}
+                    style={buttonStyles}
+                    onClick={() => handleCategoryButton(item)}>
+                    {item.assetName === "" ? item.assetType : item.assetName}
+                  </Button>
+                ))}
+              </SeparatedCategoryUI.GridContainer>
+            )}
           </div>
-        </SeparatedCategoryUI.CategoryHeader>
-        <SeparatedCategoryUI.GridContainer>
-          {categories.map(item => (
-            <Button
-              key={item.categoryId}
-              style={buttonStyles}
-              onClick={() => handleCategoryButton(item)}>
-              {item.categoryName}
-            </Button>
-          ))}
-        </SeparatedCategoryUI.GridContainer>
-      </div>
-    </SeparatedCategoryUI.Container>
+        </SeparatedCategoryUI.Container>
+      )}
+    </>
   );
 }
 
