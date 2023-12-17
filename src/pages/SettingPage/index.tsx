@@ -1,4 +1,5 @@
 import Header from "@/src/components/Common/Header";
+import SettingList from "@/src/components/SettingList";
 
 function SettingPage() {
   return (
@@ -11,6 +12,7 @@ function SettingPage() {
         isMoreButton={false}
         isAddButton={false}
       />
+      <SettingList />
     </>
   );
 }

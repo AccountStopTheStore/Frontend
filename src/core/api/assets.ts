@@ -1,7 +1,7 @@
-import { CreateAssets } from "@/src/@types/models/createAssets";
-import { GetAssets } from "@/src/@types/models/getAssets";
 import { APIInstance } from "./instance";
-import { UpdateAssets } from "@/src/@types/models/updateAssets";
+import { GetAssets } from "@/src/@types/models/getAsset";
+import { CreateAsset } from "@/src/@types/models/createAsset";
+import { UpdateAsset } from "@/src/@types/models/updateAsset";
 
 const ASSETS = "/assets";
 export const assetsAPI = {
@@ -11,50 +11,53 @@ export const assetsAPI = {
   },
 
   /** COMPLETED: createAssets POST 조회하기 */
-  createAssets: (
-    amount: number,
-    assetGroup: string,
-    assetName: string,
-    assetType: string,
-    dueDay: number,
-    memo: string,
-    statementDay: number
-  ) => {
-    return APIInstance.post<CreateAssets>(ASSETS, {
-      amount: amount,
-      assetGroup: assetGroup,
-      assetName: assetName,
-      assetType: assetType,
-      dueDay: dueDay,
-      memo: memo,
-      statementDay: statementDay,
+  createAssets: (createAssetObject: {
+    amount: number;
+    assetGroup: string;
+    assetType: string;
+    assetName: string;
+    dueDay: number | null;
+    memo: string;
+    statementDay: number | null;
+  }) => {
+    return APIInstance.post<CreateAsset>(ASSETS, {
+      amount: createAssetObject.amount,
+      assetGroup: createAssetObject.assetGroup,
+      assetName: createAssetObject.assetName,
+      assetType: createAssetObject.assetType,
+      dueDay: createAssetObject.dueDay,
+      memo: createAssetObject.memo,
+      statementDay: createAssetObject.statementDay,
     });
   },
 
   /** COMPLETED: updateAssets PUT 조회하기 */
-  updateAssets: (
-    assetId: number,
-    amount: number,
-    assetGroup: string,
-    assetName: string,
-    assetType: string,
-    createdAt: string,
-    dueDay: number,
-    memo: string,
-    statementDay: number,
-    updatedAt: string
-  ) => {
-    return APIInstance.post<UpdateAssets>(ASSETS + `/${assetId}`, {
-      amount: amount,
-      assetGroup: assetGroup,
-      assetName: assetName,
-      assetType: assetType,
-      createdAt: createdAt,
-      dueDay: dueDay,
-      memo: memo,
-      statementDay: statementDay,
-      updatedAt: updatedAt,
-    });
+  updateAssets: (updateAssetsObject: {
+    assetId: number;
+    amount: number;
+    assetGroup: string;
+    assetType: string;
+    assetName: string;
+    dueDay: number;
+    memo: string;
+    statementDay: number;
+    createdAt: string;
+    updatedAt: string;
+  }) => {
+    return APIInstance.put<UpdateAsset>(
+      ASSETS + `/${updateAssetsObject.assetId}`,
+      {
+        amount: updateAssetsObject.amount,
+        assetGroup: updateAssetsObject.assetGroup,
+        assetType: updateAssetsObject.assetType,
+        assetName: updateAssetsObject.assetName,
+        dueDay: updateAssetsObject.dueDay,
+        memo: updateAssetsObject.memo,
+        statementDay: updateAssetsObject.statementDay,
+        createdAt: updateAssetsObject.createdAt,
+        updatedAt: updateAssetsObject.updatedAt,
+      }
+    );
   },
 
   /** COMPLETED: deleteAssets DELETE 조회하기 */

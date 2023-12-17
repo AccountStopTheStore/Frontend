@@ -1,5 +1,5 @@
-import CancelPNG from "../../../../public/icon/Cancel.png";
-import WritingPNG from "../../../../public/icon/Writing.png";
+import CancelPNG from "@/public/icon/Cancel.png";
+import WhiteWriting from "@/public/icon/WhiteWriting.png";
 import { Button } from "@mui/material";
 import { theme } from "../../../assets/theme";
 import { SeparatedCategoryUI } from "./style";
