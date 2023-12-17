@@ -122,9 +122,9 @@ function SeparatedCategory({ title }: SeparatedCategoryProps) {
                 )}
               {title === "결제수단 자산" && (
                 <SeparatedCategoryUI.GridContainer>
-                  {assets.map((item: GetAsset) => (
+                  {assets.map(item => (
                     <Button
-                      key={item.amountId}
+                      key={item.assetId}
                       style={buttonStyles}
                       onClick={() => handleCategoryButton(item)}>
                       {item.assetName}
