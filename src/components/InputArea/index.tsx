@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import LabelInput from "../Common/LabelInput";
 import { InputAreaUI } from "./style";
 import SelectedImage from "../SelectedImage";
@@ -101,7 +101,6 @@ function InputArea() {
             inputId={"categoryName"}
             value={postSaveAccountBook.categoryName}
             placeholder={"카테고리를 선택해주세요."}
-
             onClick={handleCategoryClick}
             readonly={true}
           />

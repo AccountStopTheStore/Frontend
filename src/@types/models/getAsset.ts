@@ -11,8 +11,8 @@ export type GetAsset = {
   assetName: string;
   assetType: string;
   createdAt: string;
-  dueDay: string;
+  dueDay: string | null;
   memo: string;
-  statementDay: number;
+  statementDay: number | null;
   updatedAt: string;
 };

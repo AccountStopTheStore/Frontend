@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { theme } from "@/src/assets/theme";
 import { recordAccountBookHeight } from "@/src/assets/height";
 
-const Container = styled.div`
+const Background = styled.div`
   width: 100%;
   height: ${recordAccountBookHeight}px;
   background-color: rgba(0, 0, 0, 0.5);
@@ -35,15 +35,21 @@ const CategoryHeader = styled.div`
   align-items: center;
 `;
 
+const GridWrapper = styled.div`
+  height: 400px;
+  overflow: auto;
+`;
+
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   background-color: ${theme.font_color.white};
-  overflow-y: auto;
+  overflow: auto;
 `;
 
 export const SeparatedCategoryUI = {
-  Container,
+  Background,
   CategoryHeader,
+  GridWrapper,
   GridContainer,
 } as const;

@@ -1,7 +1,7 @@
-import { CreateAssets } from "@/src/@types/models/createAssets";
-import { GetAssets } from "@/src/@types/models/getAssets";
+import { CreateAsset } from "@/src/@types/models/createAsset";
+import { GetAssets } from "@/src/@types/models/getAsset";
 import { APIInstance } from "./instance";
-import { UpdateAssets } from "@/src/@types/models/updateAssets";
+import { UpdateAsset } from "@/src/@types/models/updateAsset";
 
 const ASSETS = "/assets";
 export const assetsAPI = {
@@ -16,11 +16,11 @@ export const assetsAPI = {
     assetGroup: string,
     assetName: string,
     assetType: string,
-    dueDay: number,
+    dueDay: number | null,
     memo: string,
-    statementDay: number
+    statementDay: number | null
   ) => {
-    return APIInstance.post<CreateAssets>(ASSETS, {
+    return APIInstance.post<CreateAsset>(ASSETS, {
       amount: amount,
       assetGroup: assetGroup,
       assetName: assetName,
@@ -39,12 +39,12 @@ export const assetsAPI = {
     assetName: string,
     assetType: string,
     createdAt: string,
-    dueDay: number,
+    dueDay: number | null,
     memo: string,
-    statementDay: number,
+    statementDay: number | null,
     updatedAt: string
   ) => {
-    return APIInstance.post<UpdateAssets>(ASSETS + `/${assetId}`, {
+    return APIInstance.post<UpdateAsset>(ASSETS + `/${assetId}`, {
       amount: amount,
       assetGroup: assetGroup,
       assetName: assetName,

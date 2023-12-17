@@ -2,12 +2,12 @@
  * 자산 추가 Response Interface
  */
 
-export type CreateAssets = {
+export type CreateAsset = {
   amount: number;
   assetGroup: string;
   assetName: string;
   assetType: string;
-  dueDay: number;
+  dueDay: number | null;
   memo: string;
-  statementDay: number;
+  statementDay: number | null;
 };

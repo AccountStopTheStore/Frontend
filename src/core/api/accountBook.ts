@@ -3,6 +3,7 @@ import { APIInstance } from "./instance";
 import { PostAccount } from "@/src/@types/models/postAccount";
 import { PutAccount } from "@/src/@types/models/putAccount";
 import { DeleteAccount } from "@/src/@types/models/deleteAccount";
+import { CategoryTypeSymbol } from "@/src/@types/models/categoryTypeSymbol";
 
 const ACCOUNTS = "/accounts";
 export const AccountBookAPI = {
@@ -12,7 +13,7 @@ export const AccountBookAPI = {
     limit: number,
     page: number,
     startDate: string,
-    transactionType: string
+    transactionType: CategoryTypeSymbol
   ) => {
     return APIInstance.get<GetAccounts[]>(
       ACCOUNTS +
@@ -29,23 +30,19 @@ export const AccountBookAPI = {
   saveAccountBook: (postAccountBook: {
     address: string;
     amount: number;
-    assetGroup: string;
-    assetType: string;
     assetName: string;
     categoryName: string;
     imageIds: number[];
     isInstallment: boolean;
     memo: string;
-    recurringType: string;
+    recurringType: string | null;
     transactedAt: string;
     transactionDetail: string;
-    transactionType: string;
+    transactionType: CategoryTypeSymbol;
   }) => {
     return APIInstance.post<PostAccount>(ACCOUNTS, {
       address: postAccountBook.address,
       amount: postAccountBook.amount,
-      assetGroup: postAccountBook.assetGroup,
-      assetType: postAccountBook.assetType,
       assetName: postAccountBook.assetName,
       categoryName: postAccountBook.categoryName,
       imageIds: postAccountBook.imageIds,
@@ -72,7 +69,7 @@ export const AccountBookAPI = {
     recurringType: string;
     transactedAt: string;
     transactionDetail: string;
-    transactionType: string;
+    transactionType: CategoryTypeSymbol;
   }) => {
     return APIInstance.put<PutAccount>(
       ACCOUNTS + `/${PutAccountBook.accountId}`,
@@ -132,7 +129,7 @@ export const AccountBookAPI = {
   getTransactionStatistics: (
     endDate: string,
     startDate: string,
-    transactionType: string
+    transactionType: CategoryTypeSymbol
   ) => {
     return APIInstance.get(
       ACCOUNTS +
