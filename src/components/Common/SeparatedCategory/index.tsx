@@ -9,7 +9,7 @@ import { openSeparatedCategoryAtom } from "@/src/hooks/recoil/useOpenSeparatedCa
 import { getCategoriesAtom } from "@/src/hooks/recoil/useGetCategories";
 import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
 import { GetCategory } from "@/src/@types/models/getCategories";
-import { GetAsset } from "@/src/@types/models/getAsset";
+import { GetAsset } from "@/src/@types/models/getAssets";
 import { getAssetsAtom } from "@/src/hooks/recoil/useGetAssets";
 
 interface SeparatedCategoryProps {

@@ -1,5 +1,5 @@
 import { CreateAsset } from "@/src/@types/models/createAsset";
-import { GetAssets } from "@/src/@types/models/getAsset";
+import { GetAssets } from "@/src/@types/models/getAssets";
 import { APIInstance } from "./instance";
 import { UpdateAsset } from "@/src/@types/models/updateAsset";
 

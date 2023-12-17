@@ -1,4 +1,4 @@
-import { GetAssets } from "@/src/@types/models/getAsset";
+import { GetAssets } from "@/src/@types/models/getAssets";
 import { assetsAPI } from "@/src/core/api/assets";
 import { atom } from "recoil";
 
