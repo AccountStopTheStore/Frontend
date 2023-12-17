@@ -4,7 +4,10 @@ import LabelInput from "../Common/LabelInput";
 import { LabelInputUI } from "../Common/LabelInput/style";
 import { UpdateChallengeGroupUI } from "../UpdateChallengeGroup/style";
 import { useRecoilState } from "recoil";
-import { createAssetAtom } from "@/src/hooks/recoil/useCreateAsset";
+import {
+  createAssetAtom,
+  createAssetInitial,
+} from "@/src/hooks/recoil/useCreateAsset";
 import {
   AssetGroupSymbol,
   AssetTypeSymbol,
@@ -25,6 +28,18 @@ function CreateSettingAssetManagement() {
       ...prev,
       assetGroup: assetGroup,
     }));
+    if (assetGroup === "은행") {
+      setCreateAsset(prev => ({
+        ...prev,
+        assetType: "신한은행",
+      }));
+    }
+    if (assetGroup === "카드") {
+      setCreateAsset(prev => ({
+        ...prev,
+        assetType: "KB국민카드",
+      }));
+    }
     setIsOpenAssetGroupModal(false);
   };
   /* COMPLETED: assetType 데이터 추가 */
@@ -88,6 +103,7 @@ function CreateSettingAssetManagement() {
   };
 
   const handleCancelButton = () => {
+    setCreateAsset(createAssetInitial);
     navigate(-1);
   };
 
@@ -129,20 +145,6 @@ function CreateSettingAssetManagement() {
                   {createAsset.dueDay}
                 </FakeInputButton>
               </LabelInputUI.InputContainer>
-              {/* <LabelInput
-                type={"text"}
-                label={"정산일"}
-                inputId={"statementDay"}
-                value={createAsset.statementDay}
-                placeholder={"정산일 입력"}
-              /> */}
-              {/* <LabelInput
-                type={"text"}
-                label={"결제일"}
-                inputId={"dueDay"}
-                value={createAsset.dueDay}
-                placeholder={"결제일 입력"}
-              /> */}
             </>
           )}
           <LabelInput
