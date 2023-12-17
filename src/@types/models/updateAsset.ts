@@ -1,15 +1,16 @@
-/**
- * 자산 수정 Response Interface
- */
+import { AssetGroupSymbol, AssetTypeSymbol } from "./assetSymbol";
 
+/**
+ *  자산 수정 Response Interface
+ */
 export type UpdateAsset = {
-  amount: number;
-  assetGroup: string;
+  assetGroup: AssetGroupSymbol;
+  assetType: AssetTypeSymbol;
   assetName: string;
-  assetType: string;
-  createdAt: string;
+  amount: number;
+  statementDay: number | null;
   dueDay: number | null;
   memo: string;
-  statementDay: number | null;
+  createdAt: string;
   updatedAt: string;
 };
