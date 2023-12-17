@@ -1,18 +1,19 @@
-/**
- *  자산 목록 조회 Response Interface
- */
+import { AssetGroupSymbol, AssetTypeSymbol } from "./assetSymbol";
 
+/**
+ * 자산 조회 Response Interface
+ */
 export type GetAssets = GetAsset[];
 
 export type GetAsset = {
-  amount: number;
-  assetGroup: string;
-  assetId: number;
+  amountId: number;
+  assetGroup: AssetGroupSymbol;
+  assetType: AssetTypeSymbol;
   assetName: string;
-  assetType: string;
-  createdAt: string;
-  dueDay: string | null;
+  amount: number;
+  statementDay: number | null; // 정산일. '카드'에만 사용합니다.
+  dueDay: number | null; // 결제일. '카드'에만 사용합니다.
   memo: string;
-  statementDay: number | null;
+  createAt: string;
   updatedAt: string;
 };
