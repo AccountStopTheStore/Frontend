@@ -1,12 +1,7 @@
 import Header from "@/src/components/Common/Header";
-import SettingAssetManagement from "@/src/components/SettingList/SettingAssetManagement";
-import { useNavigate } from "react-router-dom";
+import CreateSettingAssetManagement from "@/src/components/CreateSettingAssetManagement";
 
 function SettingAssetManagementPage() {
-  const navigate = useNavigate();
-  const handleAddClick = () => {
-    navigate("/setting/asset/create");
-  };
   return (
     <>
       <Header
@@ -14,11 +9,10 @@ function SettingAssetManagementPage() {
         isBackButton={true}
         isSearchButton={false}
         isFilterButton={false}
+        isAddButton={false}
         isMoreButton={false}
-        isAddButton={true}
-        onAddClick={handleAddClick}
       />
-      <SettingAssetManagement />
+      <CreateSettingAssetManagement />
     </>
   );
 }

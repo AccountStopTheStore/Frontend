@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   z-index: 1;
 `;
 
-const EditButton = styled(Button)`
+const AbsoluteButton = styled(Button)`
   width: inherit;
   height: 37px;
   background-color: ${theme.font_color.white};
@@ -23,7 +23,7 @@ const EditButton = styled(Button)`
   border-bottom: 1px solid ${theme.font_color.gray2};
 `;
 
-export const EditChallengeButtonUI = {
+export const AbsoluteButtonUI = {
   Wrapper,
-  EditButton,
+  AbsoluteButton,
 };

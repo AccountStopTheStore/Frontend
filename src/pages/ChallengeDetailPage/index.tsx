@@ -1,7 +1,7 @@
 import BarGraphItemDetails from "@/src/components/BarGraphItemDetails";
 import FixedCircleButton from "@/src/components/Common/FixedCircleButton";
 import Header from "@/src/components/Common/Header";
-import EditChallengeButton from "@/src/components/EditChallengeButton";
+import AbsoluteButton from "@/src/components/AbsoluteButton";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -25,7 +25,7 @@ function ChallengeDetailPage() {
         onFilterClick={() => setOpenEditButton(!openEditButton)}
       />
       {openEditButton && (
-        <EditChallengeButton onEditButton={handleFilterClick} />
+        <AbsoluteButton content={"수정"} handleButton={handleFilterClick} />
       )}
       <BarGraphItemDetails />
       <FixedCircleButton buttonType={"채팅"} params={params} />

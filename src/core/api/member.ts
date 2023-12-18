@@ -1,4 +1,4 @@
-import { APIInstance, AuthAPIInstance } from "./instance";
+import { APIInstance } from "./instance";
 
 const AUTH = "/auth";
 /** member-controller */
@@ -28,9 +28,7 @@ export const memberAPI = {
       email: email,
     });
   },
-  /** COMPLETED: resetPassword POST 요청하기
-   * token은 어떻게 가져오지? util 함수인 isHaveToken 함수 사용하기(document.cookie 사용)
-   */
+  /** COMPLETED: resetPassword POST 요청하기 */
   resetPassword: (memberId: number, password: string, token: string) => {
     return APIInstance.post(AUTH + `/reset-password/${memberId}/t/${token}`, {
       password: password,
@@ -51,14 +49,12 @@ export const memberAPI = {
       password: password,
     });
   },
-  /** COMPLETED: signOut DELETE 요청하기 */
+  /** COMPLETED: signOut POST 요청하기 */
   signOut: () => {
-    return APIInstance.delete(AUTH + "/withdrawal");
+    return APIInstance.post(AUTH + "/sign-out");
   },
-  /** COMPLETED: OAuth로 로그인 POST 요청하기 */
-  signInWithOAuth: (name: string) => {
-    return AuthAPIInstance.post("", {
-      name: name,
-    });
+  /** COMPLETED: withdrawal DELETE 요청하기 */
+  withdrawal: () => {
+    return APIInstance.delete(AUTH + "/withdrawal");
   },
 };

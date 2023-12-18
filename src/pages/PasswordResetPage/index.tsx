@@ -1,13 +1,13 @@
 import Logo from "@/src/components/Common/Logo";
-import PasswordReset from "@/src/components/PasswordReset";
+import ResetPassword from "@/src/components/PasswordReset";
 
-function PasswordResetPage() {
+function ResetPasswordPage() {
   return (
     <>
       <Logo />
-      <PasswordReset />
+      <ResetPassword />
     </>
   );
 }
 
-export default PasswordResetPage;
+export default ResetPasswordPage;

@@ -23,7 +23,7 @@ const Header = styled.h1`
   margin-bottom: 33px;
 `;
 
-export const PasswordResetUI = {
+export const ResetPasswordUI = {
   SectionContainer,
   Header,
 };
