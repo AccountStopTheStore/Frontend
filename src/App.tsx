@@ -1,12 +1,11 @@
 import { Routes, Route, useRoutes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
-import PasswordResetPage from "./pages/PasswordResetPage";
+import ResetPasswordPage from "./pages/PasswordResetPage";
 import RecordAccountBookPage from "./pages/RecordAccountBookPage";
 import RecurringPage from "./pages/RecurringPage";
 import InstallmentPage from "./pages/InstallmentPage";
 import RecordPage from "./pages/RecordPage";
-import SettingPage from "./pages/SettingPage";
 import ChallengePage from "./pages/ChallengePage";
 import AccountPage from "./pages/AccountPage";
 import StatisticPage from "./pages/StatisticPage";
@@ -18,6 +17,10 @@ import CreateChallengeGroupPage from "./pages/CreateChallengeGroupPage";
 import UpdateChallengeGroupPage from "./pages/UpdateChallengeGroupPage";
 import SavingPage from "./pages/SavingPage";
 import SettingAssetManagementPage from "./pages/SettingAssetManagementPage";
+import SettingMainPage from "./pages/SettingMainPage";
+import SettingIncomeManagementPage from "./pages/SettingIncomeManagementPage";
+import SettingExpenseManagementPage from "./pages/SettingExpenseManagementPage";
+import CreateAssetManagementPage from "./pages/CreateAssetManagementPage";
 
 function App() {
   const isLoginPage = window.location.pathname === "/";
@@ -33,7 +36,7 @@ function App() {
       {useRoutes([
         { path: "/", element: <LoginPage /> },
         { path: "/signUp", element: <SignUpPage /> },
-        { path: "/passwordReset", element: <PasswordResetPage /> },
+        { path: "/resetpassword", element: <ResetPasswordPage /> },
         {
           path: "/recordAccountBook/recurring",
           element: <RecurringPage />,
@@ -46,8 +49,8 @@ function App() {
           element: <UpdateChallengeGroupPage />,
         },
         {
-          path: "/setting/createasset",
-          element: <SettingAssetManagementPage />,
+          path: "/setting/asset/create",
+          element: <CreateAssetManagementPage />,
         },
         {
           path: "/*",
@@ -74,7 +77,19 @@ function App() {
                 <Route path="/statistics" element={<StatisticPage />} />
                 <Route path="/record" element={<RecordPage />} />
                 <Route path="/chatting/:slug" element={<ChattingPage />} />
-                <Route path="/setting" element={<SettingPage />} />
+                <Route path="/setting" element={<SettingMainPage />} />
+                <Route
+                  path="/setting/income"
+                  element={<SettingIncomeManagementPage />}
+                />
+                <Route
+                  path="/setting/expense"
+                  element={<SettingExpenseManagementPage />}
+                />
+                <Route
+                  path="/setting/asset"
+                  element={<SettingAssetManagementPage />}
+                />
               </Routes>
               {!isLoginPage &&
                 !isSignUpPage &&

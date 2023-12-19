@@ -1,4 +1,4 @@
-import CancelPNG from "@/public/icon/Cancel.png";
+import CancelPNG from "@/public/icon/WhiteCancel.png";
 import WhiteWriting from "@/public/icon/WhiteWriting.png";
 import { Button } from "@mui/material";
 import { theme } from "../../../assets/theme";

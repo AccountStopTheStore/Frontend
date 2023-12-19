@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import FakeInputButton from "../Common/FakeInputButton";
 import LabelInput from "../Common/LabelInput";
 import { LabelInputUI } from "../Common/LabelInput/style";
@@ -67,7 +67,7 @@ function CreateSettingAssetManagement() {
     setIsOpenStatementDayModal(false);
     setCreateAsset(prev => ({
       ...prev,
-      statementDay: stringDate,
+      statementDay: stringDate.split("-")[2],
     }));
   };
   /* COMPLETED: dueDay 데이터 추가 */
@@ -86,7 +86,21 @@ function CreateSettingAssetManagement() {
     setIsOpenDueDayModal(false);
     setCreateAsset(prev => ({
       ...prev,
-      dueDay: stringDate,
+      dueDay: stringDate.split("-")[2],
+    }));
+  };
+  const handleAssetName = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setCreateAsset(prev => ({
+      ...prev,
+      assetName: value,
+    }));
+  };
+  const handleMemo = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setCreateAsset(prev => ({
+      ...prev,
+      memo: value,
     }));
   };
 
@@ -94,7 +108,7 @@ function CreateSettingAssetManagement() {
   const handleSavingButton = async () => {
     try {
       const response = await assetsAPI.createAssets(createAsset);
-      if (response.status === 200) {
+      if (response.status === 201) {
         navigate(-1);
       }
     } catch (error) {
@@ -129,6 +143,7 @@ function CreateSettingAssetManagement() {
             inputId={"assetName"}
             value={createAsset.assetName}
             placeholder={"자산이름 입력"}
+            onChange={handleAssetName}
           />
           {createAsset.assetGroup === "카드" && (
             <>
@@ -153,6 +168,7 @@ function CreateSettingAssetManagement() {
             inputId={"memo"}
             value={createAsset.memo}
             placeholder={"메모 입력"}
+            onChange={handleMemo}
           />
         </div>
       </CreateSettingAssetManagementUI.Container>

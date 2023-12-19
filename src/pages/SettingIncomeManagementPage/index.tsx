@@ -1,20 +1,19 @@
 import Header from "@/src/components/Common/Header";
-import SettingList from "@/src/components/SettingList";
 
-function SettingPage() {
+function SettingIncomeManagementPage() {
   return (
     <>
       <Header
-        pageName={"설정"}
+        pageName={"수입 카테고리 관리"}
         isBackButton={true}
         isSearchButton={false}
         isFilterButton={false}
         isMoreButton={false}
-        isAddButton={false}
+        isAddButton={true}
       />
-      <SettingList />
+      {/* <SettingIncomeManagement /> */}
     </>
   );
 }
 
-export default SettingPage;
+export default SettingIncomeManagementPage;
