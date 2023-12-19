@@ -5,10 +5,12 @@ export interface currentLocationDataProps {
   lng: number;
 }
 
-export const currentLocationAtom = atom<currentLocationDataProps>({
+const initialLocation = { lat: 33.450701, lng: 126.570667 };
+// const testCenterlocation = { lat: 37.591936689, lng: 126.91352099232 };
+
+const currentLocationAtom = atom<currentLocationDataProps>({
   key: "currentLocationAtom",
-  default: {
-    lat: 33.450701,
-    lng: 126.570667,
-  },
+  default: initialLocation,
 });
+
+export { initialLocation, currentLocationAtom };
