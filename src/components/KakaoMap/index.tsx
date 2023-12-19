@@ -8,6 +8,7 @@ import { clickedMarkerDataAtom } from "@/src/hooks/recoil/clickedMarkerData";
 import {
   currentLocationAtom,
   currentLocationDataProps,
+  initialLocation,
 } from "@/src/hooks/recoil/useCurrentLocation";
 
 declare global {
@@ -26,6 +27,7 @@ function KakaoMap({
   toggleRecordInfosVisibility,
 }: onLocationChangeCallBack) {
   const { kakao } = window;
+
   const mapRef = useRef<HTMLDivElement>(null);
 
   const [map, setMap] = useState<any>(null);
@@ -35,11 +37,10 @@ function KakaoMap({
   useEffect(() => {
     setDatas(data);
   }, []);
-
   const [message, setMessage] = useState<HTMLDivElement | string>("");
 
   const [, setClickedMarkerData] = useRecoilState(clickedMarkerDataAtom);
-  const [currentLatLng, setCurrentLatLng] =
+  const [, setCurrentLatLng] =
     useRecoilState<currentLocationDataProps>(currentLocationAtom);
 
   // 마커 클릭 이벤트
@@ -86,7 +87,10 @@ function KakaoMap({
       });
     } else {
       // HTML5의 GeoLocation을 사용할 수 없을 때 마커 표시 위치와 인포윈도우 내용 설정
-      const locPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+      const locPosition = new kakao.maps.LatLng(
+        initialLocation.lat,
+        initialLocation.lng
+      );
       const errorMessage = "geolocation을 사용할 수 없습니다.";
 
       setCurrentLocation(locPosition);
