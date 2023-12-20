@@ -40,16 +40,6 @@ function App() {
           {/* NavigateItems바가 있는 컴포넌트 */}
           <Route element={<NavigationItems />}>
             <Route path="/account" element={<AccountPage />} />
-            <Route
-              path="/recordAccountBook"
-              element={<RecordAccountBookPage />}
-              caseSensitive={true}
-            />
-            <Route
-              path="/recordAccountBook/installment"
-              element={<InstallmentPage />}
-              caseSensitive={true}
-            />
             <Route path="/challenge" element={<ChallengePage />} />
             <Route path="/challenge/:slug" element={<ChallengeDetailPage />} />
             <Route path="/saving/:slug" element={<SavingPage />} />
@@ -71,6 +61,16 @@ function App() {
             />
           </Route>
           {/* NavigateItems바가 없는 컴포넌트 */}
+          <Route
+            path="/recordAccountBook"
+            element={<RecordAccountBookPage />}
+            caseSensitive={true}
+          />
+          <Route
+            path="/recordAccountBook/installment"
+            element={<InstallmentPage />}
+            caseSensitive={true}
+          />
           <Route
             path="/recordAccountBook/recurring"
             element={<RecurringPage />}
