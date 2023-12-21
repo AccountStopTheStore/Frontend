@@ -21,6 +21,7 @@ import SettingMainPage from "./pages/SettingMainPage";
 import SettingIncomeManagementPage from "./pages/SettingIncomeManagementPage";
 import SettingExpenseManagementPage from "./pages/SettingExpenseManagementPage";
 import CreateAssetManagementPage from "./pages/CreateAssetManagementPage";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
   const isLoginPage = window.location.pathname === "/";
@@ -90,6 +91,7 @@ function App() {
                   path="/setting/asset"
                   element={<SettingAssetManagementPage />}
                 />
+                <Route path="/search" element={<SearchPage />} />
               </Routes>
               {!isLoginPage &&
                 !isSignUpPage &&
