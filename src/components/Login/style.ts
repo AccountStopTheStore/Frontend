@@ -12,7 +12,7 @@ const SectionContainer = styled.section`
   justify-content: center;
   align-items: center;
 
-  >div: first-of-type {
+  >form: first-of-type {
     width: 100%;
     > * {
       display: block;

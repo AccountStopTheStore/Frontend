@@ -14,7 +14,6 @@ interface HeaderProps {
   isAddButton: boolean;
   isMoreButton: boolean;
   onSearchClick?: () => void;
-  onBackClick?: () => void;
   onFilterClick?: () => void;
   onAddClick?: () => void;
   onMoreClick?: () => void;

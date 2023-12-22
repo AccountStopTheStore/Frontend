@@ -1,7 +1,7 @@
 import { Routes, Route, useRoutes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
-import ResetPasswordPage from "./pages/PasswordResetPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import RecordAccountBookPage from "./pages/RecordAccountBookPage";
 import RecurringPage from "./pages/RecurringPage";
 import InstallmentPage from "./pages/InstallmentPage";
@@ -21,6 +21,9 @@ import SettingMainPage from "./pages/SettingMainPage";
 import SettingIncomeManagementPage from "./pages/SettingIncomeManagementPage";
 import SettingExpenseManagementPage from "./pages/SettingExpenseManagementPage";
 import CreateAssetManagementPage from "./pages/CreateAssetManagementPage";
+import { ProtectedRoute } from "./hooks/Routes/ProtectedRoute";
+import UpdatePasswordLogoutPage from "./pages/UpdatePasswordLogoutPage";
+import UpdatePasswordLoginPage from "./pages/UpdatePasswordLoginPage";
 
 function App() {
   const isLoginPage = window.location.pathname === "/";
@@ -32,42 +35,23 @@ function App() {
 
   return (
     <Layout>
-      {/* COMPLETED: NavigationItems 컴포넌트 조건에 따라 렌더링 */}
+      {/* COMPLETED: NavigationItems 컴포넌트를 UI에 따라 렌더링 */}
       {useRoutes([
+        // 사용자 전용 페이지가 아닌 페이지 컴포넌트
         { path: "/", element: <LoginPage /> },
-        { path: "/signUp", element: <SignUpPage /> },
-        { path: "/resetpassword", element: <ResetPasswordPage /> },
+        { path: "/signup", element: <SignUpPage /> },
+        { path: "/resetpassword", element: <LoginPage /> },
         {
-          path: "/recordAccountBook/recurring",
-          element: <RecurringPage />,
-          caseSensitive: true,
-        },
-        { path: "/challenge/create", element: <CreateChallengeGroupPage /> },
-
-        {
-          path: "/challenge/update/:slug",
-          element: <UpdateChallengeGroupPage />,
-        },
-        {
-          path: "/setting/asset/create",
-          element: <CreateAssetManagementPage />,
+          path: "/auth/reset-password/:slug/t/:slug",
+          element: <UpdatePasswordLogoutPage />,
         },
         {
           path: "/*",
           element: (
-            <>
-              <Routes>
+            <Routes>
+              <Route element={<ProtectedRoute />}>
+                {/* NavigationItems가 있는 컴포넌트 페이지 */}
                 <Route path="/account" element={<AccountPage />} />
-                <Route
-                  path="/recordAccountBook"
-                  element={<RecordAccountBookPage />}
-                  caseSensitive={true}
-                />
-                <Route
-                  path="/recordAccountBook/installment"
-                  element={<InstallmentPage />}
-                  caseSensitive={true}
-                />
                 <Route path="/challenge" element={<ChallengePage />} />
                 <Route
                   path="/challenge/:slug"
@@ -86,20 +70,52 @@ function App() {
                   path="/setting/expense"
                   element={<SettingExpenseManagementPage />}
                 />
+                {/* NavigationItems가 없는 컴포넌트 페이지 */}
                 <Route
                   path="/setting/asset"
                   element={<SettingAssetManagementPage />}
                 />
-              </Routes>
-              {!isLoginPage &&
-                !isSignUpPage &&
-                !isPasswordReset &&
-                !isRecordAccountBook &&
-                !isCreateChallengeGroups && <NavigationItems />}
-            </>
+                <Route
+                  path="/recordAccountBook"
+                  element={<RecordAccountBookPage />}
+                  caseSensitive={true}
+                />
+                <Route
+                  path="/recordAccountBook/installment"
+                  element={<InstallmentPage />}
+                  caseSensitive={true}
+                />
+                <Route
+                  path="/recordAccountBook/recurring"
+                  element={<RecurringPage />}
+                  caseSensitive
+                />
+                <Route
+                  path="/challenge/create"
+                  element={<CreateChallengeGroupPage />}
+                />
+                <Route
+                  path="/challenge/update/:slug"
+                  element={<UpdateChallengeGroupPage />}
+                />
+                <Route
+                  path="/setting/asset/create"
+                  element={<CreateAssetManagementPage />}
+                />
+                <Route
+                  path="/updatepassword"
+                  element={<UpdatePasswordLoginPage />}
+                />
+              </Route>
+            </Routes>
           ),
         },
       ])}
+      {!isLoginPage &&
+        !isSignUpPage &&
+        !isPasswordReset &&
+        !isRecordAccountBook &&
+        !isCreateChallengeGroups && <NavigationItems />}
     </Layout>
   );
 }
