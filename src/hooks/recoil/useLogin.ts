@@ -1,7 +1,7 @@
 import { atom, selector } from "recoil";
 
 export const TokenAtom = atom({
-  key: "isLoginSelector",
+  key: "TokenAtom",
   default: "",
 });
 

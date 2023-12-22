@@ -8,6 +8,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { isPasswordValid, isEmailValid } from "@/src/assets/util";
 import { useSetRecoilState } from "recoil";
 import { TokenAtom } from "@/src/hooks/recoil/useLogin";
+import { GetUserInfo } from "@/src/@types/models/getUserInfo";
 
 function Login() {
   const navigate = useNavigate();
@@ -21,18 +22,21 @@ function Login() {
   const location = useLocation();
   const from = location?.state?.redirectedFrom?.pathname || "/account";
 
-  const decodeSetCookieHeader = (setCookieHeader: string[] | undefined) => {
+  const decodeSetCookieHeader = (setCookieHeader: string) => {
     console.log("setCookieHeader: ", setCookieHeader);
-    /* 쿠키값이 없을 경우, 반환하기 */
-    if (!setCookieHeader) return;
 
-    /* Set-cookie Header에서 쿠키값 추출하기 */
-    const cookieValue = setCookieHeader[2].split(";")[0];
+    /** 쿠키값 Decoding
+     * 변환 과정에서 한글일 때, 값이 깨져서 변환되어 UTF-8 디코딩 처리가 필요하다.
+     */
+    /* Base64 디코딩 후 UTF-8 디코딩하는 방법 */
+    const decodedBase64Value = atob(setCookieHeader);
+    const utf8DecodedValue = new TextDecoder("utf-8").decode(
+      new Uint8Array(
+        decodedBase64Value.split("").map(char => char.charCodeAt(0))
+      )
+    );
 
-    /* 쿠키값 Decoding */
-    const decodedValue = decodeURIComponent(cookieValue);
-
-    return decodedValue;
+    return JSON.parse(utf8DecodedValue) as GetUserInfo;
   };
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
@@ -44,21 +48,12 @@ function Login() {
     );
 
     if (response.status === 200) {
-      const userInfo = document.cookie;
-      // .split("; ")
-      // .find(row => row.startsWith("userInfo="))
-      // .split("=")[1];
-      console.log("userInfo: ", userInfo);
       const decodedCookieValue = decodeSetCookieHeader(
-        response.headers["set-cookie"]
+        response.headers["user-info"]
       );
-      console.log("decoded cookie value: ", decodedCookieValue);
-
-      if (decodedCookieValue) {
-        setAccessToken(() => decodedCookieValue);
-        /** COMPLETED: 2. 메인 페이지(가계부)로 이동하기 */
-        navigate(from);
-      }
+      setAccessToken(decodedCookieValue.email);
+      /** COMPLETED: 2. 메인 페이지(가계부)로 이동하기 */
+      navigate(from);
     } else if (response.status === 400) {
       navigate("/signup");
     }
