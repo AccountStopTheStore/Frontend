@@ -105,6 +105,7 @@ function Login() {
           placeholder={"이메일"}
           value={login.email}
           onChange={handleEmailInput}
+          autoComplete="username"
         />
         {emailError && (
           <LoginUI.ErrorContainer style={{ color: "red" }}>
@@ -116,6 +117,7 @@ function Login() {
           placeholder={"비밀번호"}
           value={login.password}
           onChange={handlePasswordInput}
+          autoComplete="current-password"
         />
         {passwordError && (
           <LoginUI.ErrorContainer style={{ color: "red" }}>

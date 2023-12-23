@@ -4,7 +4,6 @@ import { isLoginSelector } from "../recoil/useLogin";
 
 export const ProtectedRoute = () => {
   const isLogin = useRecoilValue(isLoginSelector);
-  console.log("isLogin: ", isLogin);
   const currentLocation = useLocation();
   return isLogin ? (
     <Outlet />

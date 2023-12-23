@@ -191,6 +191,7 @@ function SignUp() {
           isOpenButton={true}
           onClickButton={handleAuthorizationEmail}
           onChange={handleChangeEmail}
+          autoComplete="username"
           // handleBlur={handleInputBlur}
         />
         {openCheckInput && (
@@ -210,6 +211,7 @@ function SignUp() {
           value={signUpObject.password}
           placeholder={"비밀번호"}
           onChange={handleChangePassword}
+          autoComplete="new-Password"
           // handleBlur={handleInputBlur}
         />
         <Input
@@ -217,6 +219,7 @@ function SignUp() {
           value={signUpObject.passwordCheck}
           placeholder={"비밀번호 확인"}
           onChange={handleChangePasswordCheck}
+          autoComplete="new-Password"
           // handleBlur={handleInputBlur}
         />
         <LongButton type={"submit"} buttonName={"회원가입"} />

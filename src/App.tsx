@@ -1,4 +1,4 @@
-import { Routes, Route, useRoutes } from "react-router-dom";
+import { Routes, Route, useRoutes, useLocation } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
@@ -26,12 +26,15 @@ import UpdatePasswordLogoutPage from "./pages/UpdatePasswordLogoutPage";
 import UpdatePasswordLoginPage from "./pages/UpdatePasswordLoginPage";
 
 function App() {
-  const isLoginPage = window.location.pathname === "/";
-  const isSignUpPage = window.location.pathname === "/signup";
-  const isPasswordReset = window.location.pathname === "/passwordreset";
-  const isRecordAccountBook = window.location.pathname === "/recordAccountBook";
-  const isCreateChallengeGroups =
-    window.location.pathname === "/challenge/create";
+  const location = useLocation();
+  const isLoginPage = location.pathname === "/";
+  const isSignUpPage = location.pathname === "/signup";
+  const isResetPassword = location.pathname === "/resetpassword";
+  const isRecordAccountBook = location.pathname === "/recordAccountBook";
+  const isCreateChallengeGroups = location.pathname === "/challenge/create";
+  const isUpdatePasswordLogout = location.pathname.includes(
+    "/auth/reset-password"
+  );
 
   return (
     <Layout>
@@ -40,7 +43,7 @@ function App() {
         // 사용자 전용 페이지가 아닌 페이지 컴포넌트
         { path: "/", element: <LoginPage /> },
         { path: "/signup", element: <SignUpPage /> },
-        { path: "/resetpassword", element: <LoginPage /> },
+        { path: "/resetpassword", element: <ResetPasswordPage /> },
         {
           path: "/auth/reset-password/:slug/t/:slug",
           element: <UpdatePasswordLogoutPage />,
@@ -113,9 +116,10 @@ function App() {
       ])}
       {!isLoginPage &&
         !isSignUpPage &&
-        !isPasswordReset &&
+        !isResetPassword &&
         !isRecordAccountBook &&
-        !isCreateChallengeGroups && <NavigationItems />}
+        !isCreateChallengeGroups &&
+        !isUpdatePasswordLogout && <NavigationItems />}
     </Layout>
   );
 }
