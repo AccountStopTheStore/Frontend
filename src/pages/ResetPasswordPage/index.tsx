@@ -1,5 +1,5 @@
 import Logo from "@/src/components/Common/Logo";
-import ResetPassword from "@/src/components/PasswordReset";
+import ResetPassword from "@/src/components/ResetPassword";
 
 function ResetPasswordPage() {
   return (

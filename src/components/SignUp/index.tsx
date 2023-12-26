@@ -92,21 +92,6 @@ function SignUp() {
   };
 
   const [errorMessage, setErrorMessage] = useState("");
-  // const handleInputBlur = () => {
-  //   if (
-  //     /* COMPLETED: 아무런 값이 없을 때 */
-  //     !signUpObject.name ||
-  //     !signUpObject.email ||
-  //     !signUpObject.authorizationNumber ||
-  //     !signUpObject.password ||
-  //     !signUpObject.passwordCheck
-  //   ) {
-  //     setErrorMessage("* 빈 곳이 존재합니다. 빈 곳을 채워주세요.");
-  //   } else {
-  //     /* COMPLETED: 값을 제대로 입력했을 때, Error 문구 초기화 */
-  //     setErrorMessage("");
-  //   }
-  // };
 
   const handleAuthorizationEmail = async () => {
     try {
@@ -206,6 +191,7 @@ function SignUp() {
           isOpenButton={true}
           onClickButton={handleAuthorizationEmail}
           onChange={handleChangeEmail}
+          autoComplete="username"
           // handleBlur={handleInputBlur}
         />
         {openCheckInput && (
@@ -225,6 +211,7 @@ function SignUp() {
           value={signUpObject.password}
           placeholder={"비밀번호"}
           onChange={handleChangePassword}
+          autoComplete="new-Password"
           // handleBlur={handleInputBlur}
         />
         <Input
@@ -232,6 +219,7 @@ function SignUp() {
           value={signUpObject.passwordCheck}
           placeholder={"비밀번호 확인"}
           onChange={handleChangePasswordCheck}
+          autoComplete="new-Password"
           // handleBlur={handleInputBlur}
         />
         <LongButton type={"submit"} buttonName={"회원가입"} />
