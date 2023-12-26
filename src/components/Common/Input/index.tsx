@@ -7,6 +7,7 @@ export interface InputProps {
   placeholder: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: () => void;
+  autoComplete?: string | undefined;
   content?: string;
   isOpenButton?: boolean;
   onClickButton?: () => void;
@@ -18,6 +19,7 @@ function Input({
   placeholder,
   onChange,
   handleBlur,
+  autoComplete,
   content,
   isOpenButton,
   onClickButton,
@@ -31,6 +33,7 @@ function Input({
         onChange={onChange}
         onBlur={handleBlur}
         size={100}
+        autoComplete={autoComplete}
       />
       {isOpenButton && (
         <InputUI.InputButton onClick={onClickButton}>
