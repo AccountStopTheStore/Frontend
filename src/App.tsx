@@ -21,6 +21,7 @@ import SettingMainPage from "./pages/SettingMainPage";
 import SettingIncomeManagementPage from "./pages/SettingIncomeManagementPage";
 import SettingExpenseManagementPage from "./pages/SettingExpenseManagementPage";
 import CreateAssetManagementPage from "./pages/CreateAssetManagementPage";
+import SearchPage from "./pages/SearchPage";
 import { ProtectedRoute } from "./hooks/Routes/ProtectedRoute";
 import UpdatePasswordLogoutPage from "./pages/UpdatePasswordLogoutPage";
 import UpdatePasswordLoginPage from "./pages/UpdatePasswordLoginPage";
@@ -91,7 +92,7 @@ function App() {
                 <Route
                   path="/recordAccountBook/recurring"
                   element={<RecurringPage />}
-                  caseSensitive
+                  caseSensitive={true}
                 />
                 <Route
                   path="/challenge/create"
@@ -108,6 +109,10 @@ function App() {
                 <Route
                   path="/updatepassword"
                   element={<UpdatePasswordLoginPage />}
+                />
+                <Route
+                  path="/search" 
+                  element={<SearchPage />} 
                 />
               </Route>
             </Routes>

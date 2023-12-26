@@ -18,7 +18,7 @@ export interface LabelInputProps {
   type: string;
   label: string;
   inputId: string;
-  value: string | number | null;
+  value: string | number;
   placeholder: string;
   addContent?: "button" | "won" | "imageUpload";
   onClick?: () => void;
