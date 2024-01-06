@@ -1,12 +1,7 @@
 import { GetAssets } from "@/src/@types/models/getAssets";
-import { assetsAPI } from "@/src/core/api/assets";
 import { atom } from "recoil";
 
-const fetchResult = assetsAPI.getAssets();
-
-export const getAssetsAtom = atom<GetAssets>({
+export const getAssetsAtom = atom({
   key: "getAssetsAtom",
-  default: fetchResult.then(response => {
-    return response.data;
-  }),
+  default: [] as GetAssets,
 });

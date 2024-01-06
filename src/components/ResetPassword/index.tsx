@@ -6,12 +6,20 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ResetPassword() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  const handleResetPassword = () => {
-    memberAPI.sendResetPasswordLink(email).then().catch();
+  const handleResetPassword = async () => {
+    try {
+      const response = await memberAPI.sendResetPasswordLink(email);
+
+      if (response.status === 200) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("passwordReset error: ", error);
+    }
   };
 
-  const navigate = useNavigate();
   const handleCancelButton = () => {
     navigate("/");
   };

@@ -3,6 +3,7 @@ import { SettingListUI } from "./style";
 import { useState } from "react";
 import ShortButton from "../../Common/ShortButton";
 import HighImportance from "@/public/icon/HighImportance.png";
+import { memberAPI } from "@/src/core/api/member";
 
 function SettingMain() {
   const navigate = useNavigate();
@@ -32,7 +33,16 @@ function SettingMain() {
   };
 
   /* COMPLETED: 로그아웃하기 */
-  const handleLogoutButton = () => {};
+  const handleLogoutButton = async () => {
+    try {
+      const response = await memberAPI.signOut();
+      if (response.status === 200) {
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("로그아웃 error: ", error);
+    }
+  };
   /* COMPLETED: 회원탈퇴하기 */
   const [isOpenWithdrawModal, setIsOpenWithdrawModal] = useState(false);
   const handleWithdrawButton = async () => {

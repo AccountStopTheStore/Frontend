@@ -11,6 +11,9 @@ import { saveAccountBookAtom } from "@/src/hooks/recoil/useSaveAccountBook";
 import { GetCategory } from "@/src/@types/models/getCategories";
 import { GetAsset } from "@/src/@types/models/getAssets";
 import { getAssetsAtom } from "@/src/hooks/recoil/useGetAssets";
+import { useEffect } from "react";
+import { categoryAPI } from "@/src/core/api/category";
+import { assetsAPI } from "@/src/core/api/assets";
 
 interface SeparatedCategoryProps {
   title: string;
@@ -26,12 +29,41 @@ const buttonStyles = {
 
 function SeparatedCategory({ title }: SeparatedCategoryProps) {
   const navigate = useNavigate();
-
+  const [categories, setCategories] = useRecoilState(getCategoriesAtom);
   const [isOpenSeparatedCategory, setIsOpenSeparatedCategory] = useRecoilState(
     openSeparatedCategoryAtom
   );
+  const [assets, setAssets] = useRecoilState(getAssetsAtom);
 
-  const [categories] = useRecoilState(getCategoriesAtom);
+  useEffect(() => {
+    const getCategoriesData = async () => {
+      try {
+        const response = await categoryAPI.getCategory();
+
+        console.log("response: ", response);
+        if (response.status === 200) {
+          setCategories(response.data);
+        }
+      } catch (error) {
+        console.error("SeparatedCategory CategoriesData Error: ", error);
+      }
+    };
+    getCategoriesData();
+
+    const getAssetsData = async () => {
+      try {
+        const response = await assetsAPI.getAssets();
+
+        if (response.status === 200) {
+          setAssets(response.data);
+        }
+      } catch (error) {
+        console.error("SeparatedCategory AssetsData Error: ", error);
+      }
+    };
+    getAssetsData();
+  }, []);
+
   const incomeCategories = categories.filter(
     category => category.categoryType === "수입"
   );
@@ -39,7 +71,6 @@ function SeparatedCategory({ title }: SeparatedCategoryProps) {
     category => category.categoryType === "지출"
   );
 
-  const [assets] = useRecoilState(getAssetsAtom);
   const [postSaveAccountBook, setPostSaveAccountBook] =
     useRecoilState(saveAccountBookAtom);
 
