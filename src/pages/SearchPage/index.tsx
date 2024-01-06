@@ -1,6 +1,6 @@
 import Header from "@/src/components/Common/Header";
 import SearchInput from "@/src/components/SearchInput";
-import SearchLists from "@/src/components/SearchLists";
+import SearchKeywordResults from "@/src/components/SearchKeywordResults";
 import SearchResults from "@/src/components/SearchResults";
 
 function SearchPage() {
@@ -15,7 +15,7 @@ function SearchPage() {
         isMoreButton={false}
       />
       <SearchInput />
-      <SearchLists />
+      <SearchKeywordResults />
       <SearchResults />
     </>
   );

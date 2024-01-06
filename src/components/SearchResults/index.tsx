@@ -1,10 +1,11 @@
 import DayIncomeExpenseInfos from "../Common/DayIncomeExpenseInfos";
+import { SearchResultsUI } from "./style";
 
 function SearchResults() {
   return (
-    <div>
+    <SearchResultsUI.Container>
       <DayIncomeExpenseInfos />
-    </div>
+    </SearchResultsUI.Container>
   );
 }
 

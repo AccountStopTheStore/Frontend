@@ -1,11 +1,12 @@
+import { GetSearchItem } from "@/src/@types/models/getSearch";
 import { theme } from "../../../assets/theme";
 import { AccountsData } from "../DayIncomeExpenseInfos";
 import { DayIncomeExpenseInfoUI } from "./style";
 import { ChangeNumberForAccounting, ChangeTime } from "@/src/assets/util";
 
 interface DayIncomeExpenseInfoProps {
-  onClick: (item: AccountsData) => void;
-  item: AccountsData;
+  onClick: (item: AccountsData | GetSearchItem) => void;
+  item: AccountsData | GetSearchItem;
 }
 
 function DayIncomeExpenseInfo({ onClick, item }: DayIncomeExpenseInfoProps) {
