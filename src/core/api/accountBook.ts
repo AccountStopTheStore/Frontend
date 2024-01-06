@@ -112,19 +112,38 @@ export const AccountBookAPI = {
   /** COMPLETED: getSearch GET 요청하기 */
   getSearch: (
     categoryName: string,
-    endDate: string,
-    keyword: string,
-    limit: number,
-    maxPrice: number,
-    minPrice: number,
-    page: number,
-    startDate: string
+    endDate?: string,
+    keyword?: string,
+    maxPrice?: number,
+    minPrice?: number,
+    startDate?: string,
+    page?: number | undefined,
+    limit?: number | undefined
   ) => {
-    return APIInstance.get(
-      ACCOUNTS +
-        `/search?categoryName=${categoryName}&endDate=${endDate}&keyword=${keyword}&limit=${limit}&maxPrice=${maxPrice}&minPrice=${minPrice}&page=${page}&startDate=${startDate}`
-    );
+    // 쿼리 스트링을 담을 객체
+    const queryParams: Record<string, string | number> = {
+      categoryName,
+    };
+
+    // 파라미터가 존재하면 값 추가
+    if (page !== undefined) {
+      queryParams.page = page.toString();
+    }
+    if (limit !== undefined) {
+      queryParams.limit = limit.toString();
+    }
+
+    // 객체를 쿼리 스트링으로 변환
+    const queryString = Object.entries(queryParams)
+      .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+      .join("&");
+
+    // 최종 URL 생성
+    const url = `${ACCOUNTS}/search?${queryString}`;
+
+    return APIInstance.get(url);
   },
+
   /** COMPLETED: getTransactionStatistics GET 요청하기 */
   getTransactionStatistics: (
     endDate: string,

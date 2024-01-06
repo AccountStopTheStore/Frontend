@@ -1,4 +1,9 @@
+import { useRecoilState } from "recoil";
 import DayIncomeExpenseInfo from "../DayIncomeExpenseInfo";
+import { searchResultDataAtom } from "@/src/hooks/recoil/searchResultData";
+import { searchKeywordClickedState } from "@/src/hooks/recoil/searchKeywordClickedState";
+import { GetSearchItem } from "@/src/@types/models/getSearch";
+import { DayIncomeExpenseInfosUI } from "./style";
 
 export interface AccountsData {
   accountId: number;
@@ -56,14 +61,29 @@ function DayIncomeExpenseInfos() {
     },
   ];
 
-  const eventHandler = (item: AccountsData) => {
+  const [searchResultData] = useRecoilState(searchResultDataAtom);
+  const [searchKeywordClicked] = useRecoilState(searchKeywordClickedState);
+
+  const eventHandler = (item: AccountsData | GetSearchItem) => {
     console.log("item: ", item);
   };
 
   return (
-    <ul>
-      {exampleAccounts === undefined ? (
-        <div>Nothing!</div>
+    <DayIncomeExpenseInfosUI.ContainerUl>
+      {searchKeywordClicked && searchResultData.length > 0 ? (
+        searchResultData.map(item => (
+          <DayIncomeExpenseInfo
+            key={item.accountId}
+            onClick={() => eventHandler(item)}
+            item={item}
+          />
+        ))
+      ) : searchKeywordClicked && searchResultData.length === 0 ? (
+        <DayIncomeExpenseInfosUI.Nothing>
+          가계부 기록이 없습니다.
+        </DayIncomeExpenseInfosUI.Nothing>
+      ) : exampleAccounts === undefined ? (
+        <div>가계부 기록이 없습니다.!</div>
       ) : (
         exampleAccounts.map(item => (
           <DayIncomeExpenseInfo
@@ -73,7 +93,7 @@ function DayIncomeExpenseInfos() {
           />
         ))
       )}
-    </ul>
+    </DayIncomeExpenseInfosUI.ContainerUl>
   );
 }
 
